@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Radar de chollos</title>
+<meta name="theme-color" content="#14110f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icono.svg">
+<style>
+  :root{
+    --fondo:#14110f; --panel:#1d1916; --borde:#2e2823; --texto:#f1ebe4; --suave:#a89d92;
+    --fuego:#ff6a2b; --fuego2:#ffb347; --frio:#5fb3d9; --ok:#7fd18b; --aviso:#ffb347;
+    --radio:14px;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --fondo:#faf7f3; --panel:#ffffff; --borde:#e9e1d8; --texto:#221c17; --suave:#7a6e63; --aviso:#b45309; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--fondo);color:var(--texto);
+       font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+       padding-bottom:env(safe-area-inset-bottom)}
+  header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--fondo) 92%,transparent);
+         backdrop-filter:blur(10px);border-bottom:1px solid var(--borde);padding:14px 16px 10px}
+  .fila{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  h1{font-size:20px;margin:0;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+  h1 .punto{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 25%,transparent)}
+  h1 .punto.viejo{background:var(--fuego2)}
+  .estado{color:var(--suave);font-size:13px;margin-left:auto}
+  .pestanas{display:flex;gap:6px;margin-top:12px}
+  .pestana{flex:1;border:1px solid var(--borde);background:var(--panel);color:var(--texto);
+           padding:9px 10px;border-radius:999px;font-weight:600;cursor:pointer;font-size:14px}
+  .pestana[aria-selected=true]{background:var(--texto);color:var(--fondo);border-color:var(--texto)}
+  .pestana small{font-weight:500;opacity:.7}
+  .filtros{margin-top:10px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .filtros::-webkit-scrollbar{display:none}
+  .chip{white-space:nowrap;border:1px solid var(--borde);background:transparent;color:var(--texto);
+        padding:6px 11px;border-radius:999px;cursor:pointer;font-size:13px}
+  .chip[aria-pressed=true]{border-color:var(--fuego);background:color-mix(in srgb,var(--fuego) 16%,transparent)}
+  .busca{display:flex;gap:8px;margin-top:10px}
+  .busca input,.busca select{flex:1;min-width:0;background:var(--panel);color:var(--texto);
+        border:1px solid var(--borde);border-radius:10px;padding:9px 11px;font:inherit}
+  .busca select{flex:0 0 auto;max-width:42%}
+  main{max-width:860px;margin:0 auto;padding:14px 12px 40px;display:grid;gap:10px}
+  .tarjeta{display:grid;grid-template-columns:76px 1fr;gap:12px;background:var(--panel);
+           border:1px solid var(--borde);border-radius:var(--radio);padding:11px;color:inherit;
+           transition:border-color .12s ease}
+  .tarjeta:hover{border-color:color-mix(in srgb,var(--fuego) 45%,var(--borde))}
+  .foto{position:relative;width:76px;height:76px;border-radius:10px;background:var(--borde);overflow:hidden;
+        display:grid;place-items:center;font-size:28px}
+  .foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
+  .titulo{font-weight:600;margin:2px 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--suave)}
+  .grados{font-weight:800;color:#fff;padding:2px 8px;border-radius:999px;font-size:13px;
+          background:linear-gradient(135deg,var(--fuego),var(--fuego2))}
+  .grados.frio{background:linear-gradient(135deg,#3d7ea6,var(--frio))}
+  .precio{font-weight:700;color:var(--texto);font-size:15px}
+  .aviso{margin-top:6px;font-size:12.5px;color:var(--aviso)}
+  .tarjeta{cursor:default}
+  .titulo a{color:inherit;text-decoration:none}
+  .titulo a:hover{text-decoration:underline}
+  .antes{text-decoration:line-through;color:var(--suave);font-size:13px}
+  .keepa{margin-top:6px;font-size:12.5px}
+  .keepa.verde{color:var(--ok)} .keepa.amarillo{color:var(--aviso)} .keepa.rojo{color:#e5484d} .keepa.gris{color:var(--suave)}
+  @media (prefers-color-scheme: light){ .keepa.verde{color:#1a7f37} }
+  .codigo{font-family:ui-monospace,monospace;background:var(--borde);padding:1px 6px;border-radius:6px;color:var(--texto)}
+  .acciones{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .boton{font-size:12.5px;text-decoration:none;color:var(--texto);border:1px solid var(--borde);
+         padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .boton:hover{border-color:var(--fuego)}
+  .vacio{color:var(--suave);text-align:center;padding:50px 16px}
+  footer{color:var(--suave);font-size:12px;text-align:center;padding:0 16px 30px}
+</style>
+</head>
+<body>
+<header>
+  <div class="fila">
+    <h1><span class="punto" id="punto"></span>Radar de chollos</h1>
+    <span class="estado" id="estado">Cargando…</span>
+  </div>
+  <div class="pestanas" role="tablist">
+    <button class="pestana" role="tab" data-vista="destacadas" aria-selected="true">🔥 Destacadas <small id="n-dest"></small></button>
+    <button class="pestana" role="tab" data-vista="calentando" aria-selected="false">🌡️ Calentándose <small id="n-cal"></small></button>
+  </div>
+  <div class="filtros" id="chips"></div>
+  <div class="busca">
+    <input id="q" type="search" placeholder="Buscar (ej. dualsense, 2TB…)" autocomplete="off">
+    <select id="tienda"><option value="">Todas las tiendas</option></select>
+  </div>
+</header>
+
+<main id="lista"></main>
+<footer id="pie"></footer>
+
+<script>
+const estado = { datos: null, vista: "destacadas", cat: "", tienda: "", q: "" };
+const $ = s => document.querySelector(s);
+const norm = t => (t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const esc = t => String(t ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function precio(n){
+  if (n === null || n === undefined) return "";
+  if (n === 0) return "GRATIS";
+  return n.toLocaleString("es-ES", {minimumFractionDigits: Number.isInteger(n) ? 0 : 2, maximumFractionDigits: 2}) + " €";
+}
+function hace(ts){
+  if (!ts) return "";
+  const s = Date.now()/1000 - ts;
+  if (s < 90) return "ahora";
+  if (s < 3600) return `hace ${Math.round(s/60)} min`;
+  if (s < 86400) return `hace ${Math.round(s/3600)} h`;
+  return `hace ${Math.round(s/86400)} d`;
+}
+
+async function cargar(){
+  try{
+    const r = await fetch("ofertas.json?t=" + Date.now(), {cache: "no-store"});
+    if (!r.ok) throw new Error(r.status);
+    estado.datos = await r.json();
+  }catch(e){
+    $("#estado").textContent = "Aún no hay datos";
+    $("#lista").innerHTML = `<p class="vacio">El radar todavía no ha hecho su primera ronda.<br>Vuelve en unos minutos.</p>`;
+    return;
+  }
+  const d = estado.datos;
+  const viejo = Date.now()/1000 - d.generado > 3600;
+  $("#punto").classList.toggle("viejo", viejo);
+  $("#estado").textContent = "Actualizado " + hace(d.generado);
+  $("#n-dest").textContent = d.destacadas.length;
+  $("#n-cal").textContent = d.calentando.length;
+  $("#pie").textContent = `Ofertas de Chollometro votadas por la comunidad (mínimo general ${d.grados_minimos}°) · se actualiza cada ~10 min`;
+
+  const chips = [{id:"", nombre:"Todo", emoji:"✨"}, ...d.categorias];
+  $("#chips").innerHTML = chips.map(c =>
+    `<button class="chip" data-cat="${esc(c.id)}" aria-pressed="${c.id===estado.cat}">${c.emoji} ${esc(c.nombre)}</button>`).join("");
+
+  const tiendas = [...new Set([...d.destacadas, ...d.calentando].map(o => o.tienda).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+  $("#tienda").innerHTML = `<option value="">Todas las tiendas</option>` +
+    tiendas.map(t => `<option ${t===estado.tienda?"selected":""}>${esc(t)}</option>`).join("");
+  pintar();
+}
+
+function pintar(){
+  const d = estado.datos; if (!d) return;
+  const emojis = Object.fromEntries(d.categorias.map(c => [c.id, c.emoji]));
+  const q = norm(estado.q);
+  const lista = (d[estado.vista] || []).filter(o =>
+    (!estado.cat || (o.categorias||[]).includes(estado.cat)) &&
+    (!estado.tienda || o.tienda === estado.tienda) &&
+    (!q || norm(o.titulo).includes(q)));
+
+  if (!lista.length){
+    $("#lista").innerHTML = `<p class="vacio">${estado.vista === "destacadas"
+      ? "Nada por aquí todavía. Cuando una oferta de tus categorías pase de " + d.grados_minimos + "°, aparecerá aquí y te llegará al grupo."
+      : "No hay ofertas en seguimiento con esos filtros."}</p>`;
+    return;
+  }
+  $("#lista").innerHTML = lista.map(o => {
+    const caliente = estado.vista === "destacadas" || (o.grados||0) >= d.grados_minimos;
+    const icono = (o.categorias||[]).map(c => emojis[c]).filter(Boolean)[0] || "🛒";
+    const k = o.keepa_veredicto;
+    const tienda = o.destino && !o.destino.includes("chollometro.com") ? o.destino : "";
+    return `<article class="tarjeta">
+      <div class="foto">${icono}${o.imagen ? `<img src="${esc(o.imagen)}" alt="" loading="lazy" onerror="this.remove()">` : ""}</div>
+      <div>
+        <div class="titulo"><a href="${esc(o.enlace)}" target="_blank" rel="noopener">${esc(o.titulo)}</a></div>
+        <div class="meta">
+          ${o.grados != null ? `<span class="grados ${caliente?"":"frio"}">${Math.round(o.grados)}°</span>` : ""}
+          ${o.precio != null ? `<span class="precio">${precio(o.precio)}</span>` : ""}
+          ${o.precio_antes ? `<span class="antes">${precio(o.precio_antes)}</span>` : ""}
+          ${o.tienda ? `<span>🏪 ${esc(o.tienda)}</span>` : ""}
+          <span>${(o.categorias||[]).map(c => emojis[c]||"").join(" ")}</span>
+          <span>${hace(o.avisado || o.detectado)}</span>
+        </div>
+        ${o.codigo ? `<div class="meta" style="margin-top:6px">🏷️ Código: <span class="codigo">${esc(o.codigo)}</span></div>` : ""}
+        ${k ? `<div class="keepa ${esc(k.nivel)}">${esc(k.texto)}</div>` : ""}
+        ${(o.advertencias||[]).map(a => `<div class="aviso">${esc(a)}</div>`).join("")}
+        <div class="acciones">
+          <a class="boton" href="${esc(o.enlace)}" target="_blank" rel="noopener">🔥 Chollometro</a>
+          ${tienda ? `<a class="boton" href="${esc(tienda)}" target="_blank" rel="noopener">🛒 ${esc(o.tienda || "Tienda")}</a>` : ""}
+          ${o.keepa ? `<a class="boton" href="${esc(o.keepa)}" target="_blank" rel="noopener">📈 Keepa</a>` : ""}
+        </div>
+      </div></article>`;
+  }).join("");
+}
+
+document.addEventListener("click", ev => {
+  const p = ev.target.closest(".pestana");
+  if (p){ estado.vista = p.dataset.vista;
+    document.querySelectorAll(".pestana").forEach(b => b.setAttribute("aria-selected", b === p)); pintar(); }
+  const c = ev.target.closest(".chip");
+  if (c){ estado.cat = c.dataset.cat;
+    document.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", b === c)); pintar(); }
+});
+$("#q").addEventListener("input", e => { estado.q = e.target.value; pintar(); });
+$("#tienda").addEventListener("change", e => { estado.tienda = e.target.value; pintar(); });
+document.addEventListener("visibilitychange", () => { if (!document.hidden) cargar(); });
+setInterval(cargar, 5 * 60 * 1000);
+cargar();
+</script>
+</body>
+</html>

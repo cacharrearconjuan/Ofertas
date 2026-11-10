@@ -1,0 +1,4 @@
+datos/*.json
+__pycache__/
+.env
+radar.log

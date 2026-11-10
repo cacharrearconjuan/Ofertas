@@ -1,0 +1,70 @@
+name: Radar de chollos
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # cada 10 min (GitHub puede retrasarlo un poco)
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "Qué hacer"
+        type: choice
+        default: ronda
+        options:
+          - ronda
+          - prueba
+          - diagnostico
+          - palabras
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar
+  cancel-in-progress: false
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Recuperar estado anterior (rama gh-pages)
+        run: |
+          mkdir -p datos
+          if git fetch --depth=1 origin gh-pages 2>/dev/null; then
+            git show FETCH_HEAD:estado.json  > datos/estado.json  2>/dev/null || rm -f datos/estado.json
+            git show FETCH_HEAD:ofertas.json > datos/ofertas.json 2>/dev/null || rm -f datos/ofertas.json
+          fi
+
+      - name: Buscar chollos
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_THREAD_ID: ${{ secrets.TELEGRAM_THREAD_ID }}
+          KEEPA_API_KEY: ${{ secrets.KEEPA_API_KEY }}
+          MODO: ${{ inputs.modo || 'ronda' }}
+        run: |
+          case "$MODO" in
+            prueba)      python3 radar.py --prueba ;;
+            diagnostico) python3 radar.py --diagnostico ;;
+            palabras)    python3 radar.py --palabras ;;
+            *)           python3 radar.py ;;
+          esac
+
+      - name: Publicar web y estado
+        if: ${{ (inputs.modo || 'ronda') == 'ronda' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p _site
+          cp web/* _site/
+          cp datos/estado.json datos/ofertas.json _site/ 2>/dev/null || true
+          touch _site/.nojekyll
+          cd _site
+          git init -q -b gh-pages
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -qm "Ronda $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages

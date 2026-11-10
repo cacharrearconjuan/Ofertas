@@ -1,0 +1,32 @@
+{
+  "_ayuda": "Ajustes generales del radar. Las palabras y categorías están en palabras.txt.",
+  "grados_minimos": 200,
+  "solo_ofertas": true,
+  "buscar_en_descripcion": false,
+  "horas_seguimiento": 72,
+  "recomprobar_cada_min": 30,
+  "max_consultas_por_ronda": 40,
+  "pausa_entre_consultas_seg": 1.0,
+  "max_avisos_por_ronda": 10,
+  "max_antiguedad_horas": 96,
+  "feeds_rss": [
+    "https://www.chollometro.com/rss/todas"
+  ],
+  "paginas_listado": [
+    "https://www.chollometro.com/",
+    "https://www.chollometro.com/nuevos"
+  ],
+  "tiendas_permitidas": [],
+  "silencio": {
+    "activo": true,
+    "desde": "00:30",
+    "hasta": "08:00",
+    "zona": "Europe/Madrid"
+  },
+  "keepa": {
+    "_ayuda": "Sin clave: enlace y gráfica de Keepa en las ofertas de Amazon. Con la clave de la API (secreto KEEPA_API_KEY, de pago): veredicto automático.",
+    "grafica": true,
+    "descartar_falsas": false,
+    "rebaja_minima_pct": 10
+  }
+}

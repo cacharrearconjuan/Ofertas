@@ -1,0 +1,139 @@
+# ════════════════════════════════════════════════════════════════════
+#  PALABRAS DEL RADAR DE CHOLLOS
+#  Edita este archivo para decidir qué ofertas te llegan al grupo.
+#  En GitHub: abre el archivo → icono del lápiz → cambia → "Commit changes".
+#  El cambio se aplica en la siguiente ronda (≈10 min).
+# ════════════════════════════════════════════════════════════════════
+#
+#  CÓMO SE ESCRIBE
+#   [🎮 Nombre]       → empieza una categoría (el emoji es opcional)
+#   palabra           → la oferta ENTRA si el título la contiene
+#   -palabra          → la oferta NO entra si el título la contiene
+#   +palabra          → la oferta entra SIEMPRE, aunque tenga una palabra con -
+#   a, b, c           → puedes poner varias en una línea separadas por comas
+#   apagada           → desactiva la categoría sin borrarla
+#
+#  OPCIONES DE CADA CATEGORÍA (todas opcionales)
+#   grados: 150       → mínimo de grados solo para esta categoría
+#   precio max: 300   → solo ofertas hasta ese precio
+#   precio min: 20    → solo ofertas desde ese precio
+#   tema: 12          → manda los avisos a ese tema del grupo de Telegram
+#   aviso: x, y => ⚠️ texto  → añade una nota al aviso si el título contiene x o y
+#
+#  TRUCOS
+#   · Da igual mayúsculas y tildes: "portátil" = "PORTATIL".
+#   · Busca palabras completas: "mando" no salta con "comando".
+#   · Una línea que empieza por # es un comentario y se ignora.
+#   · Avanzado: "re:" delante para una expresión regular (re:\brtx\s?50\d0\b).
+#     Una expresión regular va SOLA en su línea (sin comas).
+# ════════════════════════════════════════════════════════════════════
+
+
+[⛔ Excluir siempre]
+# Lo que pongas aquí descarta la oferta en TODAS las categorías.
+# Ejemplos (quita la # para activarlos):
+# reacondicionado
+# segunda mano
+
+
+[🎮 PS5]
+ps5, ps5 pro, ps5 slim, playstation 5, playstation portal
+ps vr2, psvr2, ps plus, playstation plus
+
+
+[🕹️ Mandos]
+mando, mandos, dualsense, dualsense edge, dualshock, gamepad, controller
+joy-con, joycon, pro controller, 8bitdo, gamesir, scuf, xbox elite
+-mando a distancia, -mando de garaje, -mando garaje, -mando universal
+-mando para tv, -mando tv, -mando de la tele, -mando aire acondicionado, -mando de aire
+
+
+[💾 SSD y discos]
+# Todos los SSD: M.2 NVMe, M.2 SATA, 2,5", externos, portátiles, mSATA
+ssd, ssds, nvme, m.2, m2, msata, estado solido, unidad de estado solido
+disco duro, discos duros, hdd, disco externo, ssd externo
+microsd, micro sd, tarjeta sd, tarjeta de memoria, pendrive, memoria usb
+samsung t7, samsung t9, sandisk extreme, crucial x9, crucial x10, wd black
+# Los SSD portátiles/externos entran aunque digan "portátil"
++ssd portatil, +disco duro portatil, +disco portatil, +ssd externo, +disco externo
+# Que no salten los portátiles y ordenadores que traen SSD
+# (se reconocen porque el título empieza por "Portátil", "Ordenador"... o porque lleva la RAM)
+-re:^(portatil|ordenador|laptop|mini ?pc|pc gaming|sobremesa|torre)
+-re:\d+\s*gb\s*(de\s*)?(ram|ddr\d)
+-macbook, -chromebook, -tablet, -ipad, -all in one
+# Que "M2" no salte con el chip de Apple ni con metros cuadrados
+-apple m2, -chip m2, -re:\d\s*m2\b, -m2 de
+aviso: sata => ℹ️ SSD SATA: perfecto para PC, portátil o como disco externo; en la ranura M.2 de la PS5 no vale (pide NVMe PCIe 4.0).
+aviso: ps5 => ℹ️ Para la ranura de la PS5: NVMe PCIe 4.0, 5.500 MB/s o más y con disipador.
+
+
+[💻 Portátiles y PC]
+portatil, portatiles, laptop, ultrabook, ordenador, ordenadores, sobremesa
+mini pc, minipc, macbook, chromebook, pc gaming, torre gaming, all in one
+# Modelos que a veces no llevan la palabra "portátil" en el título
+ideapad, thinkpad, thinkbook, lenovo legion, lenovo loq, lenovo yoga, vivobook, zenbook
+rog zephyrus, hp victus, hp omen, hp pavilion, hp envy, elitebook
+acer aspire, acer nitro, acer predator, acer swift, msi katana, msi cyborg, msi thin
+dell inspiron, dell xps, galaxy book, surface laptop, matebook, magicbook
+re:(tuf gaming|tuf) [af]\d\d
+re:rog strix (g|scar)\s?\d*
+-legion go, -rog ally
+# Accesorios "para portátil"
+-para portatil, -para portatiles, -para ordenador, -para pc
+# "portátil" también es adjetivo: que no salten otros aparatos portátiles
+-ssd portatil, -ssd externo, -disco duro portatil, -disco portatil, -hdd
+-mochila, -funda, -maletin, -soporte, -alfombrilla, -base refrigeradora
+-cargador, -pegatina, -mesa para, -bandeja, -candado
+-altavoz portatil, -bateria portatil, -power bank, -aire acondicionado
+-nevera portatil, -proyector portatil, -impresora portatil, -ventilador portatil
+-consola portatil, -monitor portatil, -radio portatil, -barbacoa
+
+
+[📺 Fire TV]
+fire tv, firetv, fire stick, firestick, fire tv stick, fire tv cube
+-funda
+aviso: select, stick hd => ⚠️ Ojo: los modelos nuevos con Vega OS (4K Select, Stick HD nuevo) no instalan APKs.
+
+
+[🍄 Nintendo]
+nintendo switch, switch 2, switch oled, nintendo, joy-con, amiibo
+-mando a distancia
+
+
+[🟢 Xbox]
+xbox, xbox series, game pass, gamepass
+
+
+[🎒 Consolas portátiles]
+steam deck, rog ally, legion go, msi claw, consola portatil, retroid
+anbernic, ayaneo, miyoo
+
+
+[💳 Saldo y suscripciones]
+tarjeta playstation, saldo psn, psn, tarjeta regalo playstation
+tarjeta xbox, tarjeta nintendo, eshop, tarjeta steam, saldo steam
+
+
+[🖥️ Monitores]
+monitor, monitores, monitor gaming
+-monitor de bebe, -vigilabebes, -monitor cardiaco, -monitor de actividad
+-monitor de presion, -tensiometro
+
+
+[🧩 Tarjetas gráficas]
+rtx, radeon, tarjeta grafica, geforce, re:\brtx\s?50\d0\b
+-portatil, -laptop, -pc gaming, -torre, -sobremesa, -mini pc
+-re:\d+\s*gb\s*(de\s*)?(ram|ddr\d)
+-re:(tuf gaming|tuf) [af]\d\d
+-re:rog strix (g|scar)\s?\d*
+-victus, -omen, -lenovo legion, -loq, -acer nitro, -acer predator, -katana, -cyborg
+
+
+[🎧 Auriculares]
+auriculares, auricular, headset, cascos gaming, pulse 3d, pulse elite, pulse explore
+airpods, galaxy buds, sony wh, sony wf
+
+
+[📡 Redes y wifi]
+router, mesh, wifi 6, wifi 7, repetidor wifi, switch de red, switch ethernet
+nas, synology, tp-link deco, punto de acceso, plc
