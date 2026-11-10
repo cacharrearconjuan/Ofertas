@@ -983,7 +983,27 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             log(f"      {o.get('enlace')}  →  tienda: {o.get('destino')}")
         muestra = next((o for o in ofertas.values() if "amazon" in normalizar(o.get("tienda"))), None) \
             or next(iter(ofertas.values()), None)
+        try:
+            pag = descargar(cfg["paginas_listado"][0]).decode("utf-8", "replace")
+            for m in RE_VUE.finditer(pag):
+                hecho = False
+                for d in _recorrer(json.loads(html.unescape(m.group(2)))):
+                    if d.get("threadId") and "temperature" in d:
+                        log("  Campos en el listado: " + " | ".join(
+                            f"{k}={str(v)[:80]!r}" for k, v in sorted(d.items()))[:4000])
+                        hecho = True
+                        break
+                if hecho:
+                    break
+        except Exception as ex:  # noqa: BLE001
+            log(f"  error listado: {ex}")
         if muestra and muestra.get("enlace"):
+            try:
+                with urllib.request.urlopen(urllib.request.Request(muestra["enlace"], headers={"User-Agent": UA}), timeout=20) as r:
+                    cuerpo = r.read()
+                    log(f"  share-deal → {r.status} {r.geturl()} · {len(cuerpo)} bytes · data-vue3: {cuerpo.count(b'data-vue3')}")
+            except Exception as ex:  # noqa: BLE001
+                log(f"  share-deal → error {ex}")
             log(f"\nPágina de muestra: {muestra['enlace']}")
             try:
                 texto = descargar(muestra["enlace"]).decode("utf-8", "replace")
