@@ -328,7 +328,9 @@ def seguir_redirecciones(url: str, saltos: int = 5) -> str:
         req = urllib.request.Request(url, headers={"User-Agent": UA}, method="GET")
         try:
             with _abridor_sin_redireccion.open(req, timeout=15) as r:
-                return r.geturl()
+                cuerpo = r.read(400_000).decode("utf-8", "replace")
+                m = re.search(r'https?:(?:\\?/){2}(?:www\.)?(?:amazon\.[a-z.]+|amzn\.(?:to|eu))(?:\\?/)[^"\'\s<>]+', cuerpo)
+                return html.unescape(m.group(0).replace("\\/", "/")) if m else r.geturl()
         except urllib.error.HTTPError as ex:
             destino = ex.headers.get("Location") if ex.code in (301, 302, 303, 307, 308) else None
             if not destino:
@@ -399,7 +401,10 @@ def leer_rss(datos: bytes):
 # data-vue3 / bloques <script type="application/json">. Se busca de forma
 # tolerante cualquier objeto que tenga id de hilo y temperatura.
 # --------------------------------------------------------------------------
+WEB = "https://www.chollometro.com"
+STATIC = "https://static.chollometro.com"
 RE_VUE = re.compile(r'data-vue3=(["\'])(.*?)\1', re.S)
+RE_THREAD_ID = re.compile(r'"threadId"\s*:\s*"?(\d+)"?')
 RE_SCRIPT_JSON = re.compile(r'<script[^>]*type=["\']application/(?:ld\+)?json["\'][^>]*>(.*?)</script>', re.S | re.I)
 
 
@@ -432,6 +437,12 @@ def _hilo_desde_json(d: dict) -> dict | None:
     precio = a_numero(d.get("price"))
     antes = a_numero(d.get("nextBestPrice") or d.get("previousPrice") or d.get("originalPrice"))
     imagen = d.get("imageUrl") or d.get("image")
+    img = d.get("mainImage")
+    if isinstance(img, dict) and img.get("path") and img.get("name"):
+        imagen = f"{STATIC}/{img['path']}/{img['name']}/re/768x768/qt/60/{img['name']}.jpg"
+    enlace = (f"{WEB}/ofertas/{d['titleSlug']}-{hid}" if d.get("titleSlug") else None)
+    visita = d.get("linkCloakedItemMainButton") or (f"{WEB}/visit/threadmain/{hid}"
+                                                    if d.get("linkHost") or d.get("titleSlug") else None)
     return {
         "id": str(hid),
         "titulo": d.get("title") or "",
@@ -441,8 +452,8 @@ def _hilo_desde_json(d: dict) -> dict | None:
         "codigo": d.get("voucherCode") or None,
         "tienda": tienda,
         # Página del chollo en Chollometro y enlace real de la tienda
-        "enlace": _url(d.get("shareableLink")) or _url(d.get("url")),
-        "destino": _url(d.get("link")) or _url(d.get("dealUrl")) or _url(d.get("merchantUrl")),
+        "enlace": enlace or _url(d.get("url")) or _url(d.get("shareableLink")),
+        "destino": _url(d.get("link")) or _url(visita),
         "imagen": _url(imagen),
         "caducada": bool(d.get("isExpired") or d.get("expired")),
         "tipo": str(tipo).lower() if tipo else None,
@@ -450,16 +461,42 @@ def _hilo_desde_json(d: dict) -> dict | None:
     }
 
 
+_DECODER = json.JSONDecoder()
+
+
+def _objetos_sueltos(texto: str):
+    """Saca los objetos JSON que contienen "threadId" aunque estén dentro de un <script> cualquiera."""
+    vistos = set()
+    for m in RE_THREAD_ID.finditer(texto):
+        inicio, intentos = m.start(), 0
+        while intentos < 60:
+            inicio = texto.rfind("{", 0, inicio)
+            if inicio < 0:
+                break
+            intentos += 1
+            try:
+                obj, fin = _DECODER.raw_decode(texto, inicio)
+            except ValueError:
+                continue
+            if fin > m.start() and isinstance(obj, dict) and "threadId" in obj:
+                if inicio not in vistos:
+                    vistos.add(inicio)
+                    yield obj
+                break
+
+
 def hilos_en_html(texto: str) -> dict:
     encontrados: dict[str, dict] = {}
-    bloques = [html.unescape(m.group(2)) for m in RE_VUE.finditer(texto)]
-    bloques += [m.group(1) for m in RE_SCRIPT_JSON.finditer(texto)]
-    for b in bloques:
+    datos = []
+    for b in [html.unescape(m.group(2)) for m in RE_VUE.finditer(texto)] + \
+             [m.group(1) for m in RE_SCRIPT_JSON.finditer(texto)]:
         try:
-            datos = json.loads(b)
+            datos.append(json.loads(b))
         except (ValueError, TypeError):
             continue
-        for d in _recorrer(datos):
+    datos += list(_objetos_sueltos(texto))
+    for bloque in datos:
+        for d in _recorrer(bloque):
             h = _hilo_desde_json(d)
             if h:
                 previo = encontrados.get(h["id"], {})
@@ -475,7 +512,7 @@ def datos_de_pagina(url: str, hid: str) -> dict | None:
     """Abre la página de la oferta y devuelve sus datos (grados, caducada, enlace a tienda...)."""
     texto = descargar(url).decode("utf-8", "replace")
     hilos = hilos_en_html(texto)
-    d = hilos.get(hid) or (next(iter(hilos.values())) if len(hilos) == 1 else None)
+    d = hilos.get(hid)
     if d is None:
         m = re.search(rf'"threadId"\s*:\s*"?{re.escape(hid)}"?[^{{}}]*?"temperature"\s*:\s*(-?\d+(?:\.\d+)?)', texto)
         if not m:
@@ -590,7 +627,12 @@ def keepa_veredicto(asin: str, precio_oferta: float | None, cfg_keepa: dict) -> 
 
 def completar_destino(s: dict):
     """Si no sabemos el enlace de la tienda, lo busca en la página de la oferta (una consulta por aviso)."""
-    if s.get("destino") or not (s.get("enlace") or "").startswith(("http", "file:")):
+    if s.get("destino"):
+        return
+    if str(s.get("id", "")).isdigit() and (s.get("enlace") or "").startswith(WEB):
+        s["destino"] = f"{WEB}/visit/threadmain/{s['id']}"
+        return
+    if not (s.get("enlace") or "").startswith(("http", "file:")):
         return
     try:
         d = datos_de_pagina(s["enlace"], s["id"]) or {}
@@ -797,7 +839,7 @@ def botones(o: dict) -> list:
     fila = []
     if (o.get("enlace") or "").startswith("http"):
         fila.append({"text": "🔥 Chollometro", "url": o["enlace"]})
-    if (o.get("destino") or "").startswith("http") and "chollometro.com" not in o["destino"]:
+    if (o.get("destino") or "").startswith("http"):
         fila.append({"text": f"🛒 {o.get('tienda') or 'Tienda'}"[:30], "url": o["destino"]})
     filas = [fila] if fila else []
     if o.get("keepa"):
@@ -983,50 +1025,15 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             log(f"      {o.get('enlace')}  →  tienda: {o.get('destino')}")
         muestra = next((o for o in ofertas.values() if "amazon" in normalizar(o.get("tienda"))), None) \
             or next(iter(ofertas.values()), None)
-        try:
-            pag = descargar(cfg["paginas_listado"][0]).decode("utf-8", "replace")
-            for m in RE_VUE.finditer(pag):
-                hecho = False
-                for d in _recorrer(json.loads(html.unescape(m.group(2)))):
-                    if d.get("threadId") and "temperature" in d:
-                        log("  Campos en el listado: " + " | ".join(
-                            f"{k}={str(v)[:80]!r}" for k, v in sorted(d.items()))[:4000])
-                        hecho = True
-                        break
-                if hecho:
-                    break
-        except Exception as ex:  # noqa: BLE001
-            log(f"  error listado: {ex}")
         if muestra and muestra.get("enlace"):
+            log(f"\nOferta de muestra: {muestra.get('titulo', '')[:60]}\n  {muestra['enlace']}")
             try:
-                with urllib.request.urlopen(urllib.request.Request(muestra["enlace"], headers={"User-Agent": UA}), timeout=20) as r:
-                    cuerpo = r.read()
-                    log(f"  share-deal → {r.status} {r.geturl()} · {len(cuerpo)} bytes · data-vue3: {cuerpo.count(b'data-vue3')}")
-                    t = cuerpo.decode("utf-8", "replace")
-                    for clave in ("temperature", "visit", "threads/raw", muestra["id"]):
-                        pos = [m.start() for m in re.finditer(re.escape(clave), t)][:4]
-                        log(f"  «{clave}» x{t.count(clave)}: " + " ¦ ".join(
-                            repr(t[max(0, p - 90):p + 110]) for p in pos)[:1800])
-                    log("  scripts: " + ", ".join(sorted(set(re.findall(r'<script[^>]*(?:type|id)=["\']([^"\']+)', t))))[:500])
-            except Exception as ex:  # noqa: BLE001
-                log(f"  share-deal → error {ex}")
-            log(f"\nPágina de muestra: {muestra['enlace']}")
-            try:
-                texto = descargar(muestra["enlace"]).decode("utf-8", "replace")
-                claves = set()
-                for m in RE_VUE.finditer(texto):
-                    try:
-                        for d in _recorrer(json.loads(html.unescape(m.group(2)))):
-                            if str(d.get("threadId")) == muestra["id"]:
-                                claves |= {f"{k}={str(v)[:70]!r}" for k, v in d.items()
-                                           if not isinstance(v, (dict, list))}
-                    except ValueError:
-                        pass
-                log("  Campos del hilo: " + " | ".join(sorted(claves))[:3000])
-                urls = sorted(set(re.findall(r'https?://[^"\'\s<>\\]+', html.unescape(texto))))
-                log("  Enlaces visit/tienda: " + " ".join(u for u in urls if re.search(
-                    r"visit|amazon|amzn|aliexpress|mediamarkt|pccomponentes|goto|redirect", u))[:1500])
-                log(f"  datos_de_pagina → {datos_de_pagina(muestra['enlace'], muestra['id'])}")
+                d = datos_de_pagina(muestra["enlace"], muestra["id"]) or {}
+                log(f"  Página de la oferta → grados: {d.get('grados')} · tienda: {d.get('tienda')} · "
+                    f"caducada: {d.get('caducada')} · enlace tienda: {d.get('destino')}")
+                if "amazon" in normalizar(muestra.get("tienda")):
+                    prueba = {**muestra, **{k: v for k, v in d.items() if v}}
+                    log(f"  ASIN: {buscar_asin(prueba)} · destino final: {str(prueba.get('destino'))[:120]}")
             except Exception as ex:  # noqa: BLE001
                 log(f"  error: {ex}")
         log(f"Pasarían el mínimo: {len(listas)}")
