@@ -1002,6 +1002,12 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
                 with urllib.request.urlopen(urllib.request.Request(muestra["enlace"], headers={"User-Agent": UA}), timeout=20) as r:
                     cuerpo = r.read()
                     log(f"  share-deal → {r.status} {r.geturl()} · {len(cuerpo)} bytes · data-vue3: {cuerpo.count(b'data-vue3')}")
+                    t = cuerpo.decode("utf-8", "replace")
+                    for clave in ("temperature", "visit", "threads/raw", muestra["id"]):
+                        pos = [m.start() for m in re.finditer(re.escape(clave), t)][:4]
+                        log(f"  «{clave}» x{t.count(clave)}: " + " ¦ ".join(
+                            repr(t[max(0, p - 90):p + 110]) for p in pos)[:1800])
+                    log("  scripts: " + ", ".join(sorted(set(re.findall(r'<script[^>]*(?:type|id)=["\']([^"\']+)', t))))[:500])
             except Exception as ex:  # noqa: BLE001
                 log(f"  share-deal → error {ex}")
             log(f"\nPágina de muestra: {muestra['enlace']}")
