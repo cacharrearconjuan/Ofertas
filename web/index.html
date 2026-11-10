@@ -169,7 +169,8 @@ function pintar(){
           ${o.grados != null ? `<span class="grados ${caliente?"":"frio"}">${Math.round(o.grados)}°</span>` : ""}
           ${o.precio != null ? `<span class="precio">${precio(o.precio)}</span>` : ""}
           ${o.precio_antes ? `<span class="antes">${precio(o.precio_antes)}</span>` : ""}
-          ${o.tienda ? `<span>🏪 ${esc(o.tienda)}</span>` : ""}
+          ${o.tipo_hilo === "cupon" ? `<span>🎟️ Cupón</span>` : ""}
+          ${o.tienda ? `<span>${/amazon/i.test(o.tienda) ? "🟠" : /aliexpress/i.test(o.tienda) ? "🔴" : "🏪"} ${esc(o.tienda)}</span>` : ""}
           <span>${(o.categorias||[]).map(c => emojis[c]||"").join(" ")}</span>
           <span>${hace(o.avisado || o.detectado)}</span>
         </div>

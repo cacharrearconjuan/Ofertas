@@ -1,7 +1,7 @@
 {
   "_ayuda": "Ajustes generales del radar. Las palabras y categorías están en palabras.txt.",
   "grados_minimos": 200,
-  "solo_ofertas": true,
+  "incluir_cupones": true,
   "buscar_en_descripcion": false,
   "horas_seguimiento": 72,
   "recomprobar_cada_min": 30,
@@ -16,6 +16,9 @@
     "https://www.chollometro.com/nuevos?page=2"
   ],
   "tiendas_permitidas": [],
+  "temas_por_tienda": {
+    "_ejemplo": "pon aquí la tienda y el número de tema, p. ej. \"Amazon\": 12, \"AliExpress\": 13"
+  },
   "silencio": {
     "activo": true,
     "desde": "00:30",

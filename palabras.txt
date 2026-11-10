@@ -48,7 +48,7 @@ joy-con, joycon, pro controller, 8bitdo, gamesir, scuf, xbox elite
 -mando para tv, -mando tv, -mando de la tele, -mando aire acondicionado, -mando de aire
 
 
-[💾 SSD y discos]
+[💾 SSD, M.2 y discos]
 # Todos los SSD: M.2 NVMe, M.2 SATA, 2,5", externos, portátiles, mSATA
 ssd, ssds, nvme, m.2, m2, msata, estado solido, unidad de estado solido
 disco duro, discos duros, hdd, disco externo, ssd externo

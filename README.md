@@ -1,6 +1,6 @@
 # 🔥 Radar de chollos
 
-Vigila **Chollometro** y avisa en un **grupo de Telegram** de las **ofertas** de tecnología y gaming que la comunidad ha votado por encima de **200°**: PS5, mandos, SSD y M.2 de todo tipo, discos, portátiles y PC, Fire TV, Nintendo, Xbox, consolas portátiles, saldo, monitores, gráficas, auriculares y redes.
+Vigila **Chollometro** y avisa en un **grupo de Telegram** de las **ofertas y cupones** de tecnología y gaming que la comunidad ha votado por encima de **200°**: PS5, mandos, SSD y M.2 de todo tipo, discos, portátiles y PC, Fire TV, Nintendo, Xbox, consolas portátiles, saldo, monitores, gráficas, auriculares y redes.
 
 - **Palabras en un fichero:** `palabras.txt` se edita desde la web de GitHub, también desde el móvil.
 - **Keepa en las ofertas de Amazon:** gráfica del historial de precios y botón a Keepa. Con la clave de la API de Keepa, además, un veredicto automático: 🟢 rebaja real, 🟡 poca rebaja o 🔴 no es rebaja.
@@ -8,7 +8,9 @@ Vigila **Chollometro** y avisa en un **grupo de Telegram** de las **ofertas** de
 - **Web** con las destacadas y las que se están calentando. Se puede añadir a la pantalla de inicio del móvil.
 - **Gratis:** GitHub Actions en un repositorio público, cada ~10 min.
 
-Una oferta nace a 0° y va subiendo. El radar sigue las que encajan con tus palabras durante 72 h y avisa **una sola vez**, cuando pasan del mínimo. Descarta cupones, hilos de discusión y ofertas caducadas.
+Una oferta nace a 0° y va subiendo. El radar sigue las que encajan con tus palabras durante 72 h y avisa **una sola vez**, cuando pasan del mínimo. Descarta hilos de discusión y ofertas caducadas. Los cupones salen marcados con 🎟️ (se pueden quitar con `incluir_cupones: false`).
+
+**¿Amazon u otra tienda?** Chollometro dice en cada oferta de qué tienda es, y el aviso lo pone en la primera línea: 🟠 **AMAZON**, 🔴 **ALIEXPRESS**, 🏪 el resto.
 
 ---
 
@@ -115,9 +117,36 @@ Al guardar se ejecuta **Comprobar palabras**. Si sale en **verde**, el fichero s
 |---|---|
 | `grados_minimos` | mínimo general de grados (200) |
 | `tiendas_permitidas` | vacío = todas; p. ej. `["Amazon", "AliExpress"]` |
+| `temas_por_tienda` | manda cada tienda a su tema del grupo, p. ej. `{"Amazon": 12, "AliExpress": 13}` (gana al tema de la categoría) |
+| `incluir_cupones` | `true` = también cupones; `false` = solo ofertas |
 | `silencio` | de 00:30 a 08:00 los avisos llegan sin sonido |
 | `horas_seguimiento` | cuánto se espera a que una oferta se caliente (72 h) |
 | `max_avisos_por_ronda` | tope de avisos cada 10 min (10); el resto sale en la siguiente ronda |
+
+---
+
+## Que se ejecute solo de verdad (cron-job.org)
+
+La programación de GitHub (`schedule`) a veces tarda horas en arrancar en repositorios nuevos, y en horas punta se salta ejecuciones. Para que vaya como un reloj, lánzalo cada 10 minutos desde **cron-job.org**:
+
+1. **Token de GitHub:** avatar → **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**.
+   - Nombre: `radar-chollos` · Caducidad: la que quieras (p. ej. 1 año).
+   - **Repository access → Only select repositories → `Ofertas`**.
+   - **Permissions → Repository permissions → Actions: Read and write**. Nada más.
+   - **Generate token** y cópialo (`github_pat_…`).
+2. **cron-job.org → Create cronjob:**
+   - URL: `https://api.github.com/repos/cacharrearconjuan/Ofertas/actions/workflows/radar.yml/dispatches`
+   - Horario: **cada 10 minutos**.
+   - Pestaña **Advanced**:
+     - Request method: **POST**
+     - Headers:
+       - `Authorization` → `Bearer github_pat_…`
+       - `Accept` → `application/vnd.github+json`
+       - `X-GitHub-Api-Version` → `2022-11-28`
+     - Request body: `{"ref":"main","inputs":{"modo":"ronda"}}`
+   - Guarda y pulsa **Test run**: la respuesta correcta es **204** y en GitHub → Actions aparece una ejecución nueva.
+
+Si además GitHub se pone a lanzarlo por su cuenta, no pasa nada: las ejecuciones van una detrás de otra y nunca avisan dos veces de la misma oferta.
 
 ---
 

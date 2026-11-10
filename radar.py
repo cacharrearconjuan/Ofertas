@@ -663,14 +663,22 @@ def enriquecer_amazon(s: dict, cfg: dict):
 # --------------------------------------------------------------------------
 # Clasificación
 # --------------------------------------------------------------------------
-def no_es_oferta(o: dict) -> bool:
+def tipo_hilo(o: dict) -> str:
+    """'oferta', 'cupon' o 'discusion'."""
     enlace = (o.get("enlace") or "").lower()
-    if "/cupones/" in enlace or "/discusiones/" in enlace or "/codigos-descuento" in enlace:
-        return True
     tipo = (o.get("tipo") or "").lower()
-    if tipo and any(t in tipo for t in ("voucher", "discussion", "cupon", "discusion")):
-        return True
-    return bool(o.get("es_cupon"))
+    if "/discusiones/" in enlace or any(t in tipo for t in ("discussion", "discusion")):
+        return "discusion"
+    if "/cupones/" in enlace or "/codigos-descuento" in enlace or any(t in tipo for t in ("voucher", "cupon")) \
+            or o.get("es_cupon"):
+        return "cupon"
+    return "oferta"
+
+
+def no_es_oferta(o: dict, cfg: dict | None = None) -> bool:
+    """True si el hilo no interesa: discusiones siempre; cupones solo si están desactivados."""
+    t = tipo_hilo(o)
+    return t == "discusion" or (t == "cupon" and not (cfg or {}).get("incluir_cupones", True))
 
 
 def clasificar(o: dict, cats, cfg, excluir_global) -> list[str]:
@@ -814,24 +822,36 @@ def e(texto) -> str:
     return html.escape(str(texto or ""), quote=False)
 
 
+EMOJI_TIENDA = {"amazon": "🟠", "aliexpress": "🔴"}
+
+
+def cabecera_tienda(o: dict) -> str:
+    tienda = o.get("tienda") or "Tienda sin identificar"
+    emoji = next((v for k, v in EMOJI_TIENDA.items() if k in normalizar(tienda)), "🏪")
+    cupon = "🎟️ <b>CUPÓN</b> · " if tipo_hilo(o) == "cupon" else ""
+    return f"{cupon}{emoji} <b>{e(tienda.upper())}</b>"
+
+
 def mensaje(o: dict, cats_por_id: dict) -> str:
     etiquetas = " · ".join(f"{cats_por_id[c]['emoji']} {cats_por_id[c]['nombre']}"
                            for c in o.get("categorias", []) if c in cats_por_id)
-    lineas = [f"🔥 <b>{int(o['grados'])}°</b>  {e(etiquetas)}", f"<b>{e(o['titulo'])}</b>"]
+    lineas = [f"{cabecera_tienda(o)}  ·  🔥 <b>{int(o['grados'])}°</b>",
+              f"<b>{e(o['titulo'])}</b>"]
     precio = ""
     if o.get("precio") is not None:
         precio = f"💶 <b>{formatear_precio(o['precio'])}</b>"
         if o.get("precio_antes"):
             pct = round((1 - o["precio"] / o["precio_antes"]) * 100)
             precio += f" <s>{formatear_precio(o['precio_antes'])}</s> (−{pct}%)"
-    detalle = " · ".join(x for x in [precio, f"🏪 {e(o.get('tienda'))}" if o.get("tienda") else ""] if x)
-    if detalle:
-        lineas.append(detalle)
+    if precio:
+        lineas.append(precio)
     if o.get("codigo"):
         lineas.append(f"🏷️ Código: <code>{e(o['codigo'])}</code>")
     if o.get("keepa_veredicto"):
         lineas.append(e(o["keepa_veredicto"]["texto"]))
     lineas += [e(a) for a in o.get("advertencias", [])]
+    if etiquetas:
+        lineas.append(f"<i>{e(etiquetas)}</i>")
     return "\n".join(lineas)
 
 
@@ -847,7 +867,12 @@ def botones(o: dict) -> list:
     return filas
 
 
-def tema_de(o: dict, cats_por_id: dict) -> int | None:
+def tema_de(o: dict, cats_por_id: dict, cfg: dict | None = None) -> int | None:
+    for tienda, tema in ((cfg or {}).get("temas_por_tienda") or {}).items():
+        if tienda.startswith("_") or not str(tema).isdigit():
+            continue
+        if normalizar(tienda) in normalizar(o.get("tienda")):
+            return int(tema)
     for c in o.get("categorias", []):
         if c in cats_por_id and cats_por_id[c].get("tema"):
             return cats_por_id[c]["tema"]
@@ -871,12 +896,13 @@ def guardar_json(ruta: Path, datos):
     tmp.replace(ruta)
 
 
-CAMPOS_WEB = ("id", "titulo", "enlace", "destino", "tienda", "precio", "precio_antes", "codigo",
+CAMPOS_WEB = ("id", "tipo_hilo", "titulo", "enlace", "destino", "tienda", "precio", "precio_antes", "codigo",
               "grados", "categorias", "imagen", "fecha", "detectado", "avisado", "advertencias",
               "asin", "keepa", "keepa_veredicto")
 
 
 def para_web(o: dict) -> dict:
+    o = {**o, "tipo_hilo": tipo_hilo(o)}
     return {k: o.get(k) for k in CAMPOS_WEB if o.get(k) not in (None, "", [])}
 
 
@@ -954,7 +980,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
     for hid, o in ofertas.items():
         if hid in avisados:
             continue
-        if cfg.get("solo_ofertas", True) and no_es_oferta(o):
+        if no_es_oferta(o, cfg):
             continue
         max_h = cfg.get("max_antiguedad_horas")
         if max_h and o.get("fecha") and ahora - o["fecha"] > max_h * 3600:
@@ -968,7 +994,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             nuevas += 1
             s = {"detectado": ahora, "comprobado": 0}
         for k in ("titulo", "enlace", "tienda", "precio", "precio_antes", "codigo", "imagen",
-                  "fecha", "caducada", "destino"):
+                  "fecha", "caducada", "destino", "tipo", "es_cupon"):
             if o.get(k) not in (None, ""):
                 s[k] = o[k]
         s["id"], s["categorias"] = hid, elegidas
@@ -1001,7 +1027,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             for k in ("precio", "imagen"):
                 if s.get(k) in (None, "") and d.get(k) not in (None, ""):
                     s[k] = d[k]
-            if no_es_oferta({**s, **d}):
+            if no_es_oferta({**s, **d}, cfg):
                 s["descartar"] = True
         if diagnostico:
             log(f"  {s['id']} → {d}")
@@ -1076,7 +1102,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
                 if grafica:
                     fotos.insert(0, grafica)
             if telegram(mensaje(s, cats_por_id), silencioso, foto=fotos, botones=botones(s),
-                        tema=tema_de(s, cats_por_id)) or sin_telegram:
+                        tema=tema_de(s, cats_por_id, cfg)) or sin_telegram:
                 enviados += 1
                 s["avisado"] = ahora
                 avisados[s["id"]] = ahora
