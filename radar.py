@@ -558,6 +558,12 @@ def keepa_grafica(asin: str) -> str:
     return f"https://graph.keepa.com/pricehistory.png?asin={asin}&domain=es&range=90"
 
 
+def camel_grafica(asin: str) -> str:
+    """Gráfica pública de CamelCamelCamel (sin cuenta)."""
+    return (f"https://charts.camelcamelcamel.com/es/{asin}/amazon-new.png"
+            "?force=1&zero=0&w=800&h=450&desired=false&legend=1&ilt=1&tp=3m&fo=0&lang=es_ES")
+
+
 def keepa_grafica_bytes(asin: str) -> bytes | None:
     """Descarga la gráfica para subirla a Telegram. Con clave usa la oficial (1 token) y la clave no se expone."""
     clave = os.environ.get("KEEPA_API_KEY")
@@ -1059,7 +1065,15 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
                     f"caducada: {d.get('caducada')} · enlace tienda: {d.get('destino')}")
                 if "amazon" in normalizar(muestra.get("tienda")):
                     prueba = {**muestra, **{k: v for k, v in d.items() if v}}
-                    log(f"  ASIN: {buscar_asin(prueba)} · destino final: {str(prueba.get('destino'))[:120]}")
+                    asin = buscar_asin(prueba)
+                    log(f"  ASIN: {asin} · destino final: {str(prueba.get('destino'))[:120]}")
+                    if asin:
+                        for nombre, url in (("Keepa", keepa_grafica(asin)), ("Camel", camel_grafica(asin))):
+                            try:
+                                b = descargar(url, intentos=0)
+                                log(f"  Gráfica {nombre}: {len(b)} bytes · cabecera {b[:8]!r} · {url}")
+                            except Exception as ex:  # noqa: BLE001
+                                log(f"  Gráfica {nombre}: ERROR {ex} · {url}")
             except Exception as ex:  # noqa: BLE001
                 log(f"  error: {ex}")
         log(f"Pasarían el mínimo: {len(listas)}")
