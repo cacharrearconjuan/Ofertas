@@ -82,16 +82,19 @@ Al minuto estará en **https://cacharrearconjuan.github.io/Ofertas/**. En el mó
 
 Abre **`palabras.txt`** en GitHub → **lápiz** → cambia → **Commit changes**. Se aplica en la siguiente ronda.
 
+Así es una categoría. Las líneas marcadas como «opcional» **no están puestas** en tu fichero: ahora mismo todas las categorías usan el mínimo general de **200°** y **no tienen límite de precio**.
+
 ```
-[💾 SSD y discos]          ← categoría
+[💾 SSD, M.2 y discos]     ← categoría
 ssd, nvme, m.2             ← entra si el título lo contiene
 -macbook                   ← fuera si lo contiene
 +ssd portatil              ← entra siempre, aunque haya una palabra con -
-grados: 150                ← mínimo propio de esta categoría
-precio max: 200            ← solo hasta 200 €
-tema: 77                   ← a este tema del grupo
 aviso: sata => ℹ️ texto    ← nota en el aviso si el título dice "sata"
-apagada                    ← desactiva la categoría
+
+grados: N                  ← opcional: otro mínimo de grados para esta categoría
+precio max: N              ← opcional: solo hasta N €
+tema: N                    ← opcional: a ese tema del grupo
+apagada                    ← opcional: desactiva la categoría
 ```
 
 Al guardar se ejecuta **Comprobar palabras**. Si sale en **verde**, el fichero se entiende bien. Si sale en **rojo**, abre la ejecución y te dice qué línea falla. También puedes lanzar el modo **palabras** a mano para ver cómo lo entiende.
@@ -99,7 +102,8 @@ Al guardar se ejecuta **Comprobar palabras**. Si sale en **verde**, el fichero s
 ---
 
 ## Keepa: ¿es una rebaja de verdad?
-- **Sin clave** (gratis): las ofertas de Amazon llevan el botón **📈 Keepa** al historial de precios y, si Keepa la sirve, la gráfica de 90 días como foto.
+- Keepa **solo existe para Amazon**: en las ofertas de otras tiendas (AliExpress, MediaMarkt…) no sale.
+- **Sin cuenta ni clave** (gratis): las ofertas de Amazon llevan como foto la gráfica de precios de 90 días de Keepa y el botón **📈 Keepa**. Comprobado: la gráfica se descarga bien desde GitHub. Para verlo, lanza el modo **prueba**: además del mensaje de prueba, manda un ejemplo con una oferta real de Amazon.
 - **Con clave** (`KEEPA_API_KEY`, plan de pago de la API de Keepa): además sale un veredicto:
   - 🟢 mínimo de 90 días, o rebaja de al menos un 10 % sobre la media de 90 días
   - 🟡 algo de rebaja, pero menos de lo que pides

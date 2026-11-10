@@ -13,11 +13,14 @@
 #   a, b, c           → puedes poner varias en una línea separadas por comas
 #   apagada           → desactiva la categoría sin borrarla
 #
-#  OPCIONES DE CADA CATEGORÍA (todas opcionales)
-#   grados: 150       → mínimo de grados solo para esta categoría
-#   precio max: 300   → solo ofertas hasta ese precio
-#   precio min: 20    → solo ofertas desde ese precio
-#   tema: 12          → manda los avisos a ese tema del grupo de Telegram
+#  OPCIONES DE CADA CATEGORÍA (opcionales; AHORA MISMO NO HAY NINGUNA PUESTA)
+#   Sin opciones, todas las categorías usan el mínimo general de 200°
+#   (config.json → grados_minimos) y no tienen límite de precio.
+#   Si quieres alguna, escríbela debajo del [nombre] de la categoría, sin #:
+#   grados: N         → mínimo de grados distinto para esa categoría
+#   precio max: N     → solo ofertas hasta N €
+#   precio min: N     → solo ofertas desde N €
+#   tema: N           → manda los avisos a ese tema del grupo de Telegram
 #   aviso: x, y => ⚠️ texto  → añade una nota al aviso si el título contiene x o y
 #
 #  TRUCOS

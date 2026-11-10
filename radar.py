@@ -558,12 +558,6 @@ def keepa_grafica(asin: str) -> str:
     return f"https://graph.keepa.com/pricehistory.png?asin={asin}&domain=es&range=90"
 
 
-def camel_grafica(asin: str) -> str:
-    """Gráfica pública de CamelCamelCamel (sin cuenta)."""
-    return (f"https://charts.camelcamelcamel.com/es/{asin}/amazon-new.png"
-            "?force=1&zero=0&w=800&h=450&desired=false&legend=1&ilt=1&tp=3m&fo=0&lang=es_ES")
-
-
 def keepa_grafica_bytes(asin: str) -> bytes | None:
     """Descarga la gráfica para subirla a Telegram. Con clave usa la oficial (1 token) y la clave no se expone."""
     clave = os.environ.get("KEEPA_API_KEY")
@@ -1068,7 +1062,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
                     asin = buscar_asin(prueba)
                     log(f"  ASIN: {asin} · destino final: {str(prueba.get('destino'))[:120]}")
                     if asin:
-                        for nombre, url in (("Keepa", keepa_grafica(asin)), ("Camel", camel_grafica(asin))):
+                        for nombre, url in (("Keepa", keepa_grafica(asin)),):
                             try:
                                 b = descargar(url, intentos=0)
                                 log(f"  Gráfica {nombre}: {len(b)} bytes · cabecera {b[:8]!r} · {url}")
@@ -1161,6 +1155,33 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
     return 0
 
 
+def ejemplo_amazon(cfg, cats):
+    """Manda al grupo un aviso de ejemplo con una oferta real de Amazon, para ver Keepa funcionando."""
+    try:
+        ofertas, *_ = descubrir(cfg)
+    except Exception as ex:  # noqa: BLE001
+        log(f"No se pudo leer Chollometro para el ejemplo: {ex}")
+        return
+    amazon = sorted((o for o in ofertas.values() if "amazon" in normalizar(o.get("tienda"))
+                     and o.get("grados") is not None and tipo_hilo(o) == "oferta"),
+                    key=lambda o: -o["grados"])
+    if not amazon:
+        log("Ahora mismo no hay ofertas de Amazon en portada para el ejemplo.")
+        return
+    s = dict(amazon[0])
+    s["categorias"] = clasificar(s, cats, cfg, None)
+    completar_destino(s)
+    enriquecer_amazon(s, cfg)
+    fotos = [s.get("imagen")]
+    if s.get("asin"):
+        grafica = keepa_grafica_bytes(s["asin"])
+        if grafica:
+            fotos.insert(0, grafica)
+    texto = "🧪 <b>EJEMPLO</b> (no es un aviso real)\n" + mensaje(s, {c["id"]: c for c in cats})
+    ok = telegram(texto, foto=fotos, botones=botones(s))
+    log(f"Ejemplo de Amazon con Keepa ({s.get('asin')}): {'enviado' if ok else 'no enviado'}")
+
+
 def revisar_palabras(cats_txt, globales, problemas):
     log(f"palabras.txt → {len(cats_txt)} categorías")
     for c in cats_txt:
@@ -1208,6 +1229,8 @@ def main() -> int:
         ok = telegram("🧪 <b>Prueba del radar de chollos</b>\nSi lees esto, el bot puede escribir en este grupo.",
                       botones=[[{"text": "📈 Así se verán los botones", "url": "https://keepa.com"}]])
         log("Mensaje de prueba enviado." if ok else "No se pudo enviar el mensaje de prueba.")
+        if ok:
+            ejemplo_amazon(cfg, compilar_categorias(cats_txt))
         return 0 if ok else 1
     return ronda(cfg, compilar_categorias(cats_txt), compilar_lista(globales), diagnostico=args.diagnostico)
 
