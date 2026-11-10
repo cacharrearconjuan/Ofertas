@@ -588,6 +588,19 @@ def keepa_veredicto(asin: str, precio_oferta: float | None, cfg_keepa: dict) -> 
     return {"texto": texto, "nivel": nivel, "media90": media, "minimo90": minimo, "rebaja": rebaja}
 
 
+def completar_destino(s: dict):
+    """Si no sabemos el enlace de la tienda, lo busca en la página de la oferta (una consulta por aviso)."""
+    if s.get("destino") or not (s.get("enlace") or "").startswith(("http", "file:")):
+        return
+    try:
+        d = datos_de_pagina(s["enlace"], s["id"]) or {}
+    except Exception:  # noqa: BLE001
+        return
+    for k in ("destino", "codigo", "precio_antes"):
+        if d.get(k) and not s.get(k):
+            s[k] = d[k]
+
+
 def enriquecer_amazon(s: dict, cfg: dict):
     """Añade ASIN, enlaces y veredicto de Keepa a una oferta de Amazon."""
     if not es_amazon(s):
@@ -968,8 +981,31 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             log(f"  [{o['id']}] {o.get('grados')}° · {formatear_precio(o.get('precio'))} · "
                 f"{o.get('tienda')} · {o.get('titulo', '')[:70]}")
             log(f"      {o.get('enlace')}  →  tienda: {o.get('destino')}")
+        muestra = next((o for o in ofertas.values() if "amazon" in normalizar(o.get("tienda"))), None) \
+            or next(iter(ofertas.values()), None)
+        if muestra and muestra.get("enlace"):
+            log(f"\nPágina de muestra: {muestra['enlace']}")
+            try:
+                texto = descargar(muestra["enlace"]).decode("utf-8", "replace")
+                claves = set()
+                for m in RE_VUE.finditer(texto):
+                    try:
+                        for d in _recorrer(json.loads(html.unescape(m.group(2)))):
+                            if str(d.get("threadId")) == muestra["id"]:
+                                claves |= {f"{k}={str(v)[:70]!r}" for k, v in d.items()
+                                           if not isinstance(v, (dict, list))}
+                    except ValueError:
+                        pass
+                log("  Campos del hilo: " + " | ".join(sorted(claves))[:3000])
+                urls = sorted(set(re.findall(r'https?://[^"\'\s<>\\]+', html.unescape(texto))))
+                log("  Enlaces visit/tienda: " + " ".join(u for u in urls if re.search(
+                    r"visit|amazon|amzn|aliexpress|mediamarkt|pccomponentes|goto|redirect", u))[:1500])
+                log(f"  datos_de_pagina → {datos_de_pagina(muestra['enlace'], muestra['id'])}")
+            except Exception as ex:  # noqa: BLE001
+                log(f"  error: {ex}")
         log(f"Pasarían el mínimo: {len(listas)}")
         for s in listas[:3]:
+            completar_destino(s)
             enriquecer_amazon(s, cfg)
             log("\n" + mensaje({**s, "advertencias": advertencias(s, cats)}, cats_por_id))
             log(f"  botones: {botones(s)}")
@@ -993,6 +1029,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
         sin_telegram = not os.environ.get("TELEGRAM_TOKEN")
         for s in listas[: cfg.get("max_avisos_por_ronda", 10)]:
             s["advertencias"] = advertencias(s, cats)
+            completar_destino(s)
             enriquecer_amazon(s, cfg)
             veredicto = (s.get("keepa_veredicto") or {}).get("nivel")
             if cfg_keepa.get("descartar_falsas") and veredicto == "rojo":

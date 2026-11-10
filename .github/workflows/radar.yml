@@ -2,7 +2,7 @@ name: Radar de chollos
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # cada 10 min (GitHub puede retrasarlo un poco)
+    - cron: "4,14,24,34,44,54 * * * *"   # cada 10 min, lejos de las horas en punto (GitHub va más saturado)
   workflow_dispatch:
     inputs:
       modo:
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Recuperar estado anterior (rama gh-pages)
         run: |

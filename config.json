@@ -9,12 +9,11 @@
   "pausa_entre_consultas_seg": 1.0,
   "max_avisos_por_ronda": 10,
   "max_antiguedad_horas": 96,
-  "feeds_rss": [
-    "https://www.chollometro.com/rss/todas"
-  ],
+  "feeds_rss": [],
   "paginas_listado": [
     "https://www.chollometro.com/",
-    "https://www.chollometro.com/nuevos"
+    "https://www.chollometro.com/nuevos",
+    "https://www.chollometro.com/nuevos?page=2"
   ],
   "tiendas_permitidas": [],
   "silencio": {
