@@ -1089,6 +1089,11 @@ def main() -> int:
         return revisar_palabras(cats_txt, globales, problemas)
     for p in problemas:
         log(f"⚠️ palabras.txt: {p}")
+    sin_telegram = not os.environ.get("TELEGRAM_TOKEN") or not os.environ.get("TELEGRAM_CHAT_ID")
+    if sin_telegram and not args.diagnostico and os.environ.get("GITHUB_ACTIONS"):
+        log("⏸️ Falta configurar TELEGRAM_TOKEN y TELEGRAM_CHAT_ID en Settings → Secrets and variables → "
+            "Actions. El radar no hace nada hasta entonces.")
+        return 0
     if args.prueba:
         ok = telegram("🧪 <b>Prueba del radar de chollos</b>\nSi lees esto, el bot puede escribir en este grupo.",
                       botones=[[{"text": "📈 Así se verán los botones", "url": "https://keepa.com"}]])
