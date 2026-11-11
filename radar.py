@@ -1206,6 +1206,12 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
         intentadas += 1
         try:
             d = datos_de_pagina(s["enlace"], s["id"])
+        except urllib.error.HTTPError as ex:
+            if ex.code in (404, 410):   # Chollometro la ha borrado
+                s["descartar"] = True
+            else:
+                log(f"  {s['id']}: error al abrir la oferta ({ex})")
+            d = None
         except Exception as ex:  # noqa: BLE001
             log(f"  {s['id']}: error al abrir la oferta ({ex})")
             d = None
