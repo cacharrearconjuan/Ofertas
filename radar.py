@@ -115,7 +115,7 @@ def slug(texto: str) -> str:
 # --------------------------------------------------------------------------
 # palabras.txt
 # --------------------------------------------------------------------------
-RE_OPCION = re.compile(r"^(grados|precio\s*m[aá]x(?:imo)?|precio\s*m[ií]n(?:imo)?|tema|aviso)\s*:\s*(.+)$", re.I)
+RE_OPCION = re.compile(r"^(grados|precio\s*m[aá]x(?:imo)?|precio\s*m[ií]n(?:imo)?|tema|aviso|necesita)\s*:\s*(.+)$", re.I)
 
 
 def _partir(linea: str) -> list[str]:
@@ -149,7 +149,7 @@ def leer_palabras(ruta: Path = RUTA_PALABRAS) -> tuple[list[dict], list[str], li
             while cid in ids:
                 cid += "_2"
             actual = {"id": cid, "nombre": nombre, "emoji": emoji, "activo": True,
-                      "incluir": [], "excluir": [], "forzar": [], "avisos": [],
+                      "incluir": [], "excluir": [], "forzar": [], "avisos": [], "necesita": [],
                       "grados": None, "precio_max": None, "precio_min": None, "tema": None}
             cats.append(actual)
             continue
@@ -165,6 +165,9 @@ def leer_palabras(ruta: Path = RUTA_PALABRAS) -> tuple[list[dict], list[str], li
         op = RE_OPCION.match(linea)
         if op:
             clave, valor = normalizar(op.group(1)).replace(" ", ""), op.group(2).strip()
+            if clave == "necesita":
+                actual["necesita"] += [p for p in _partir(valor)]
+                continue
             if clave == "aviso":
                 if "=>" not in valor:
                     problemas.append(f"línea {n}: el aviso necesita «palabras => texto»")
@@ -204,6 +207,7 @@ def compilar_categorias(cats_txt: list[dict]) -> list[dict]:
                 "re_incluir": compilar_lista(c["incluir"]),
                 "re_excluir": compilar_lista(c["excluir"]),
                 "re_forzar": compilar_lista(c["forzar"]),
+                "re_necesita": compilar_lista(c.get("necesita")),
                 "re_avisos": [(compilar_lista(a["si"]), a["texto"]) for a in c["avisos"]],
             })
         except re.error as ex:
@@ -643,6 +647,54 @@ def completar_destino(s: dict):
             s[k] = d[k]
 
 
+def unir_imagenes(arriba: bytes, abajo: bytes, ancho: int = 800) -> bytes | None:
+    """Pone la foto del artículo encima de la gráfica de Keepa en una sola imagen (necesita Pillow)."""
+    try:
+        from io import BytesIO
+        from PIL import Image
+    except ImportError:
+        return None
+    try:
+        def abrir(b):
+            im = Image.open(BytesIO(b))
+            if im.mode in ("RGBA", "LA", "P"):
+                im = im.convert("RGBA")
+                fondo = Image.new("RGB", im.size, "white")
+                fondo.paste(im, mask=im.split()[-1])
+                return fondo
+            return im.convert("RGB")
+        foto, graf = abrir(arriba), abrir(abajo)
+        foto.thumbnail((ancho, 520))
+        graf = graf.resize((ancho, max(1, round(graf.height * ancho / graf.width))))
+        hueco = 12
+        lienzo = Image.new("RGB", (ancho, foto.height + hueco + graf.height), "white")
+        lienzo.paste(foto, ((ancho - foto.width) // 2, 0))
+        lienzo.paste(graf, (0, foto.height + hueco))
+        salida = BytesIO()
+        lienzo.save(salida, "PNG", optimize=True)
+        return salida.getvalue()
+    except Exception as ex:  # noqa: BLE001
+        log(f"  No se pudieron unir las imágenes ({ex})")
+        return None
+
+
+def fotos_para(s: dict, cfg: dict) -> list:
+    """Fotos a probar, por orden: artículo + gráfica de Keepa juntas, solo gráfica, solo artículo."""
+    fotos = [s.get("imagen")]
+    if s.get("asin") and (cfg.get("keepa") or {}).get("grafica", True):
+        grafica = keepa_grafica_bytes(s["asin"])
+        if grafica:
+            fotos.insert(0, grafica)
+            if s.get("imagen"):
+                try:
+                    unida = unir_imagenes(descargar(s["imagen"], intentos=1), grafica)
+                except Exception:  # noqa: BLE001
+                    unida = None
+                if unida:
+                    fotos.insert(0, unida)
+    return fotos
+
+
 def enriquecer_amazon(s: dict, cfg: dict):
     """Añade ASIN, enlaces y veredicto de Keepa a una oferta de Amazon."""
     if not es_amazon(s):
@@ -699,6 +751,8 @@ def clasificar(o: dict, cats, cfg, excluir_global) -> list[str]:
             if not c["re_incluir"] or not c["re_incluir"].search(texto):
                 continue
             if c["re_excluir"] and c["re_excluir"].search(texto):
+                continue
+            if c["re_necesita"] and not c["re_necesita"].search(texto):
                 continue
         if precio is not None and c["precio_max"] is not None and precio > c["precio_max"]:
             continue
@@ -773,7 +827,7 @@ def _telegram_subir_foto(datos: dict, imagen: bytes) -> tuple[bool, str]:
     for k, v in datos.items():
         v = json.dumps(v) if isinstance(v, (dict, list, bool)) else str(v)
         partes.append(f'--{limite}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'.encode())
-    partes.append(f'--{limite}\r\nContent-Disposition: form-data; name="photo"; filename="keepa.png"\r\n'
+    partes.append(f'--{limite}\r\nContent-Disposition: form-data; name="photo"; filename="oferta.png"\r\n'
                   f"Content-Type: image/png\r\n\r\n".encode() + imagen + b"\r\n")
     partes.append(f"--{limite}--\r\n".encode())
     req = urllib.request.Request(f"{base}/bot{token}/sendPhoto", data=b"".join(partes),
@@ -1104,11 +1158,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
                 avisados[s["id"]] = ahora
                 seguimiento.pop(s["id"], None)
                 continue
-            fotos = [s.get("imagen")]
-            if s.get("asin") and cfg_keepa.get("grafica", True):
-                grafica = keepa_grafica_bytes(s["asin"])  # gráfica de Keepa y, si no hay, la foto
-                if grafica:
-                    fotos.insert(0, grafica)
+            fotos = fotos_para(s, cfg)
             if telegram(mensaje(s, cats_por_id), silencioso, foto=fotos, botones=botones(s),
                         tema=tema_de(s, cats_por_id, cfg)) or sin_telegram:
                 enviados += 1
@@ -1172,11 +1222,7 @@ def ejemplo_amazon(cfg, cats):
     s["categorias"] = clasificar(s, cats, cfg, None)
     completar_destino(s)
     enriquecer_amazon(s, cfg)
-    fotos = [s.get("imagen")]
-    if s.get("asin"):
-        grafica = keepa_grafica_bytes(s["asin"])
-        if grafica:
-            fotos.insert(0, grafica)
+    fotos = fotos_para(s, cfg)
     texto = "🧪 <b>EJEMPLO</b> (no es un aviso real)\n" + mensaje(s, {c["id"]: c for c in cats})
     ok = telegram(texto, foto=fotos, botones=botones(s))
     log(f"Ejemplo de Amazon con Keepa ({s.get('asin')}): {'enviado' if ok else 'no enviado'}")
@@ -1197,6 +1243,8 @@ def revisar_palabras(cats_txt, globales, problemas):
             log(f"   siempre: {', '.join(c['forzar'])}")
         if c["excluir"]:
             log(f"   fuera:   {', '.join(c['excluir'])}")
+        if c.get("necesita"):
+            log(f"   necesita alguna de: {', '.join(c['necesita'])}")
         for a in c["avisos"]:
             log(f"   aviso si {', '.join(a['si'])} → {a['texto']}")
     if globales:

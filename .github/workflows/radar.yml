@@ -29,6 +29,10 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Pillow (para unir foto y gráfica de Keepa)
+        run: |
+          python3 -m pip install --quiet --break-system-packages pillow || python3 -m pip install --quiet pillow || echo "Sin Pillow, se mandará solo la gráfica"
+
       - name: Recuperar estado anterior (rama gh-pages)
         run: |
           mkdir -p datos

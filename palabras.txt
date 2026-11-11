@@ -21,6 +21,7 @@
 #   precio max: N     → solo ofertas hasta N €
 #   precio min: N     → solo ofertas desde N €
 #   tema: N           → manda los avisos a ese tema del grupo de Telegram
+#   necesita: x, y    → además, el título tiene que llevar alguna de estas (sirve para dejar fuera juegos)
 #   aviso: x, y => ⚠️ texto  → añade una nota al aviso si el título contiene x o y
 #
 #  TRUCOS
@@ -39,9 +40,14 @@
 # segunda mano
 
 
-[🎮 PS5]
-ps5, ps5 pro, ps5 slim, playstation 5, playstation portal
+[🎮 PS5 y PS4]
+# Consolas, PS Portal, PS VR2 y PS Plus. Los JUEGOS no avisan: el título tiene que
+# llevar además una palabra de consola o accesorio (línea "necesita").
+ps5, ps4, playstation 5, playstation 4, playstation portal, ps portal
 ps vr2, psvr2, ps plus, playstation plus
+necesita: consola, consolas, slim, ps5 pro, ps4 pro, ps5 digital, edicion digital, digital edition, portal, vr2, psvr2
+necesita: ps plus, playstation plus, suscripcion, lector, unidad de disco, 1tb, 2tb, 825gb
+necesita: base de carga, estacion de carga, cargador, volante, camara, pack consola, bundle
 
 
 [🕹️ Mandos]
