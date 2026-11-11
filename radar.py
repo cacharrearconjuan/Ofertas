@@ -1097,9 +1097,16 @@ def destino_desde_pagina(o: dict):
         texto = descargar(o["enlace"], intentos=0).decode("utf-8", "replace")
     except Exception:  # noqa: BLE001
         return
-    m = RE_ENLACE_OTRAS.search(texto)
-    if m:
-        o["destino"] = html.unescape(m.group(1))
+    # En la página hay muchos enlaces (anuncios de Prime, otras ofertas...): solo vale el del producto.
+    # Amazon: el primero que lleve ASIN (/dp/...) o un enlace corto amzn.to; otras tiendas: el primero de producto.
+    enlaces = [html.unescape(m.group(1)) for m in RE_ENLACE_OTRAS.finditer(texto)]
+    amazon = [u for u in enlaces if "amazon." in u or "amzn." in u or "a.co/" in u]
+    elegido = next((u for u in amazon if extraer_asin(u)), None) \
+        or next((u for u in amazon if re.search(r"//(amzn\.(to|eu)|a\.co)/", u)), None)
+    if not elegido and not amazon:
+        elegido = next((u for u in enlaces if re.search(r"/item/\d+|s\.click\.aliexpress|\.html|/p/|/producto", u)), None)
+    if elegido:
+        o["destino"] = elegido
     if not o.get("imagen"):
         m = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', texto)
         if m:

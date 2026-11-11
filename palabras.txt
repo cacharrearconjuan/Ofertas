@@ -98,6 +98,17 @@ dell inspiron, dell xps, galaxy book, surface laptop, matebook, magicbook
 re:(tuf gaming|tuf) [af]\d\d
 re:rog strix (g|scar)\s?\d*
 -legion go, -rog ally
+# "portátil" también es adjetivo (irrigador portátil, altavoz portátil...): además de la palabra,
+# el título tiene que parecer un ordenador (empezar por Portátil/Ordenador o llevar RAM, procesador, pulgadas...)
+necesita: re:^(portatil|ordenador|laptop|mini ?pc|pc gaming|sobremesa|torre|all in one)
+necesita: ram, ddr4, ddr5, ssd, intel, ryzen, core i3, core i5, core i7, core i9, core ultra, celeron
+necesita: snapdragon, pulgadas, rtx, geforce, radeon, windows, chromebook, macbook, ultrabook
+necesita: ideapad, thinkpad, thinkbook, lenovo legion, lenovo loq, lenovo yoga, vivobook, zenbook, rog zephyrus
+necesita: hp victus, hp omen, hp pavilion, hp envy, elitebook, acer aspire, acer nitro, acer predator, acer swift
+necesita: msi katana, msi cyborg, msi thin, dell inspiron, dell xps, galaxy book, surface laptop, matebook, magicbook
+necesita: re:(tuf gaming|tuf) [af]\d\d
+necesita: re:rog strix (g|scar)\s?\d*
+necesita: re:\d{1,2}([.,]\d)?\s*("|”|pulg)
 # Accesorios "para portátil"
 -para portatil, -para portatiles, -para ordenador, -para pc
 # "portátil" también es adjetivo: que no salten otros aparatos portátiles
@@ -146,7 +157,7 @@ rtx, radeon, tarjeta grafica, geforce, re:\brtx\s?50\d0\b
 -re:\d+\s*gb\s*(de\s*)?(ram|ddr\d)
 -re:(tuf gaming|tuf) [af]\d\d
 -re:rog strix (g|scar)\s?\d*
--victus, -omen, -lenovo legion, -loq, -acer nitro, -acer predator, -katana, -cyborg
+-victus, -omen, -lenovo legion, -loq, -acer nitro, -acer predator, -katana, -cyborg, -ordenador, -ordenadores
 
 
 [🎧 Auriculares]
@@ -155,5 +166,5 @@ airpods, galaxy buds, sony wh, sony wf
 
 
 [📡 Redes y wifi]
-router, mesh, wifi 6, wifi 7, repetidor wifi, switch de red, switch ethernet
+router, wifi mesh, sistema mesh, router mesh, wifi 6, wifi 7, repetidor wifi, switch de red, switch ethernet
 nas, synology, tp-link deco, punto de acceso, plc
