@@ -14,6 +14,7 @@ on:
           - prueba
           - diagnostico
           - palabras
+          - explorar
 
 permissions:
   contents: write
@@ -53,6 +54,7 @@ jobs:
             prueba)      python3 radar.py --prueba ;;
             diagnostico) python3 radar.py --diagnostico ;;
             palabras)    python3 radar.py --palabras ;;
+            explorar)    python3 radar.py --explorar ;;
             *)           python3 radar.py ;;
           esac
 

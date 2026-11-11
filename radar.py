@@ -1255,14 +1255,45 @@ def revisar_palabras(cats_txt, globales, problemas):
     return 1 if problemas else 0
 
 
+def explorar(cfg):
+    """Herramienta de exploración: grupos de Chollometro y formato de otras fuentes."""
+    for url in cfg.get("paginas_listado", [])[:3]:
+        try:
+            pag = descargar(url).decode("utf-8", "replace")
+        except Exception as ex:  # noqa: BLE001
+            log(f"{url}: {ex}")
+            continue
+        for m in RE_VUE.finditer(pag):
+            try:
+                datos = json.loads(html.unescape(m.group(2)))
+            except ValueError:
+                continue
+            for d in _recorrer(datos):
+                if d.get("threadId") and "temperature" in d:
+                    g = d.get("mainGroup") or {}
+                    log(f"GRUPO {g.get('threadGroupUrlName')!s:28} | {g.get('threadGroupName')!s:28} | "
+                        f"{d.get('price')!s:7} | {str(d.get('title'))[:70]}")
+    for url in ("https://www.ofertitas.es/feed/", "https://www.ofertitas.es/nuevas/feed/",
+                "https://hardzone.es/feed/", "https://hardzone.es/ofertas/feed/"):
+        try:
+            t = descargar(url, intentos=0).decode("utf-8", "replace")
+            log(f"\n### {url}: {len(t)} bytes\n{t[:3500]}")
+        except Exception as ex:  # noqa: BLE001
+            log(f"\n### {url}: ERROR {ex}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Radar de chollos de Chollometro → Telegram")
     ap.add_argument("--prueba", action="store_true", help="manda un mensaje de prueba a Telegram")
     ap.add_argument("--diagnostico", action="store_true", help="muestra lo que lee, sin avisar ni guardar")
     ap.add_argument("--palabras", action="store_true", help="comprueba palabras.txt")
+    ap.add_argument("--explorar", action="store_true", help=argparse.SUPPRESS)
     args = ap.parse_args()
 
     cfg = json.loads(RUTA_CONFIG.read_text(encoding="utf-8"))
+    if args.explorar:
+        explorar(cfg)
+        return 0
     cats_txt, globales, problemas = leer_palabras()
     if args.palabras:
         return revisar_palabras(cats_txt, globales, problemas)
