@@ -966,8 +966,6 @@ def mensaje(o: dict, cats_por_id: dict) -> str:
     if o.get("keepa_veredicto"):
         lineas.append(e(o["keepa_veredicto"]["texto"]))
     lineas += [e(a) for a in o.get("advertencias", [])]
-    if o.get("afiliado"):
-        lineas.append("<i>🔗 enlace de afiliada</i>")
     if etiquetas:
         lineas.append(f"<i>{e(etiquetas)}</i>")
     return "\n".join(lineas)
