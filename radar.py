@@ -124,8 +124,12 @@ def _partir(linea: str) -> list[str]:
     return [p.strip() for p in linea.split(",") if p.strip()]
 
 
+NO_SON_JUEGOS: list[str] = []   # palabras de hardware/accesorios (sección [No son juegos])
+
+
 def leer_palabras(ruta: Path = RUTA_PALABRAS) -> tuple[list[dict], list[str], list[str]]:
     """Devuelve (categorías, exclusiones globales, avisos de formato)."""
+    NO_SON_JUEGOS.clear()
     cats: list[dict] = []
     globales: list[str] = []
     problemas: list[str] = []
@@ -139,6 +143,9 @@ def leer_palabras(ruta: Path = RUTA_PALABRAS) -> tuple[list[dict], list[str], li
             cab = m.group(1).strip()
             if "excluir siempre" in normalizar(cab):
                 actual = "GLOBAL"
+                continue
+            if "no son juegos" in normalizar(cab):
+                actual = "NO_JUEGOS"
                 continue
             emoji, nombre = "🔹", cab
             partes = cab.split(maxsplit=1)
@@ -158,6 +165,9 @@ def leer_palabras(ruta: Path = RUTA_PALABRAS) -> tuple[list[dict], list[str], li
             continue
         if actual == "GLOBAL":
             globales += [p.lstrip("-") for p in _partir(linea)]
+            continue
+        if actual == "NO_JUEGOS":
+            NO_SON_JUEGOS.extend(_partir(linea))
             continue
         if normalizar(linea) in ("apagada", "apagado", "desactivada"):
             actual["activo"] = False
@@ -462,6 +472,7 @@ def _hilo_desde_json(d: dict) -> dict | None:
         "caducada": bool(d.get("isExpired") or d.get("expired")),
         "tipo": str(tipo).lower() if tipo else None,
         "es_cupon": bool(d.get("isVoucher") or d.get("voucherCode")) and precio is None,
+        "grupo": (d.get("mainGroup") or {}).get("threadGroupUrlName") if isinstance(d.get("mainGroup"), dict) else None,
     }
 
 
@@ -733,7 +744,50 @@ def no_es_oferta(o: dict, cfg: dict | None = None) -> bool:
     return t == "discusion" or (t == "cupon" and not (cfg or {}).get("incluir_cupones", True))
 
 
+GRUPO_GAMING = "consolas-y-videojuegos"
+RE_PLATAFORMA = re.compile(r"(?<![a-z0-9])(ps5|ps4|playstation|nintendo|switch 2|switch oled|para switch|xbox|"
+                           r"steam|epic games|gog|prime gaming|para pc|ubisoft connect|ea app|battle\.net|videojuegos?|juego para|juego de (ps|switch|xbox|nintendo))(?![a-z0-9])")
+RE_GRATIS = re.compile(r"(?<![a-z0-9])(gratis|gratuito|gratuita|free to keep|free)(?![a-z0-9])")
+RE_ENVIO_GRATIS = re.compile(r"(envio|envios|gastos de envio|devolucion)\s+(gratis|gratuito)")
+_re_no_juegos = None
+
+
+def es_juego(o: dict) -> bool:
+    """Un juego: está en el grupo Gaming (o el título/categorías hablan de una plataforma)
+    y no lleva ninguna palabra de consola/accesorio de la sección [No son juegos]."""
+    global _re_no_juegos
+    if _re_no_juegos is None:
+        _re_no_juegos = compilar_lista(NO_SON_JUEGOS) or re.compile(r"(?!x)x")
+    titulo = normalizar(o.get("titulo"))
+    if o.get("grupo"):
+        contexto = o["grupo"] == GRUPO_GAMING
+    else:
+        cats = normalizar(" ".join(o.get("cats_rss") or []))
+        contexto = bool(RE_PLATAFORMA.search(titulo)) or any(
+            p in cats for p in ("videojuego", "consola", "gaming", "juegos"))
+    return contexto and not _re_no_juegos.search(titulo)
+
+
+def es_gratis(o: dict) -> bool:
+    if o.get("precio") == 0 and tipo_hilo(o) == "oferta":
+        return True
+    titulo = RE_ENVIO_GRATIS.sub(" ", normalizar(o.get("titulo")))
+    return bool(RE_GRATIS.search(titulo))
+
+
+CATEGORIA_JUEGOS_GRATIS = {"id": "juegos_gratis", "nombre": "Juego gratis", "emoji": "🎁", "activo": True,
+                           "incluir": [], "excluir": [], "forzar": [], "avisos": [], "necesita": [],
+                           "grados": None, "precio_max": None, "precio_min": None, "tema": None,
+                           "re_incluir": None, "re_excluir": None, "re_forzar": None, "re_necesita": None,
+                           "re_avisos": []}
+
+
 def clasificar(o: dict, cats, cfg, excluir_global) -> list[str]:
+    # Juegos de cualquier plataforma: solo si son gratis
+    if es_juego(o):
+        quiere = (cfg.get("juegos") or {}).get("avisar_gratis", True)
+        return ["juegos_gratis"] if quiere and es_gratis(o) and \
+            not (excluir_global and excluir_global.search(normalizar(o.get("titulo")))) else []
     texto = " ".join([o.get("titulo", ""), " ".join(o.get("cats_rss", []))])
     if cfg.get("buscar_en_descripcion"):
         texto += " " + quitar_html(o.get("descripcion"))[:600]
@@ -889,8 +943,12 @@ def cabecera_tienda(o: dict) -> str:
 def mensaje(o: dict, cats_por_id: dict) -> str:
     etiquetas = " · ".join(f"{cats_por_id[c]['emoji']} {cats_por_id[c]['nombre']}"
                            for c in o.get("categorias", []) if c in cats_por_id)
-    lineas = [f"{cabecera_tienda(o)}  ·  🔥 <b>{int(o['grados'])}°</b>",
-              f"<b>{e(o['titulo'])}</b>"]
+    if o.get("grados") is not None:
+        medida = f"🔥 <b>{int(o['grados'])}°</b>"
+    else:
+        medida = (f"🏷️ <b>−{o['descuento']}%</b>" if o.get("descuento") else "🏷️") + \
+            f" · <i>{e(o.get('fuente', ''))}</i>"
+    lineas = [f"{cabecera_tienda(o)}  ·  {medida}", f"<b>{e(o['titulo'])}</b>"]
     precio = ""
     if o.get("precio") is not None:
         precio = f"💶 <b>{formatear_precio(o['precio'])}</b>"
@@ -912,7 +970,8 @@ def mensaje(o: dict, cats_por_id: dict) -> str:
 def botones(o: dict) -> list:
     fila = []
     if (o.get("enlace") or "").startswith("http"):
-        fila.append({"text": "🔥 Chollometro", "url": o["enlace"]})
+        fuente = o.get("fuente") or "Chollometro"
+        fila.append({"text": ("🔥 " if fuente == "Chollometro" else "📰 ") + fuente, "url": o["enlace"]})
     if (o.get("destino") or "").startswith("http"):
         fila.append({"text": f"🛒 {o.get('tienda') or 'Tienda'}"[:30], "url": o["destino"]})
     filas = [fila] if fila else []
@@ -950,7 +1009,7 @@ def guardar_json(ruta: Path, datos):
     tmp.replace(ruta)
 
 
-CAMPOS_WEB = ("id", "tipo_hilo", "titulo", "enlace", "destino", "tienda", "precio", "precio_antes", "codigo",
+CAMPOS_WEB = ("id", "fuente", "descuento", "tipo_hilo", "titulo", "enlace", "destino", "tienda", "precio", "precio_antes", "codigo",
               "grados", "categorias", "imagen", "fecha", "detectado", "avisado", "advertencias",
               "asin", "keepa", "keepa_veredicto")
 
@@ -963,7 +1022,85 @@ def para_web(o: dict) -> dict:
 # --------------------------------------------------------------------------
 # Ronda principal
 # --------------------------------------------------------------------------
-CAMPOS_PAGINA = ("grados", "tienda", "caducada", "tipo", "es_cupon", "destino", "codigo", "precio_antes")
+RE_DESCUENTO = re.compile(r"\(\s*[-−]\s*(\d{1,2})\s*%\s*\)|[-−]\s?(\d{1,2})\s?%|(\d{1,2})\s?%\s*(?:de\s+)?(?:descuento|dto|rebaja)",
+                          re.I)
+RE_ENLACE_OTRAS = re.compile(r'href=["\'](https?://(?:[a-z]+\.)?(?:amazon\.es|amzn\.(?:to|eu)|a\.co|aliexpress\.[a-z]+|'
+                             r's\.click\.aliexpress\.com|pccomponentes\.com|mediamarkt\.es|elcorteingles\.es)[^"\']*)', re.I)
+
+
+def descuento_en_texto(texto: str) -> int | None:
+    m = RE_DESCUENTO.search(texto or "")
+    return int(next(g for g in m.groups() if g)) if m else None
+
+
+def parecido(a: str, b: str) -> float:
+    from difflib import SequenceMatcher
+    return SequenceMatcher(None, normalizar(a), normalizar(b)).ratio()
+
+
+def leer_fuentes_extra(cfg, cats, excluir_global, avisados: dict, recientes: list[str], iniciadas: dict):
+    """Ofertas de otras webs (sin grados): entran si encajan y tienen el descuento mínimo.
+    Devuelve (para_avisar, para_marcar_sin_avisar)."""
+    salida, silenciosas = [], []
+    for f in cfg.get("fuentes_extra", []):
+        if not isinstance(f, dict) or not f.get("url") or f.get("activa") is False:
+            continue
+        nombre = f.get("nombre") or urllib.parse.urlparse(f["url"]).netloc
+        try:
+            items = list(leer_rss(descargar(f["url"])))
+        except Exception as ex:  # noqa: BLE001
+            log(f"Fuente {nombre}: ERROR {ex}")
+            continue
+        filtro = re.compile(f["solo_si_titulo"], re.I) if f.get("solo_si_titulo") else None
+        minimo = f.get("descuento_minimo", 20)
+        validas = 0
+        for o in items:
+            o["id"] = f"{slug(nombre)}-{o['id'].rstrip('/').rsplit('/', 1)[-1] or o['id']}"
+            o["fuente"] = nombre
+            if o["id"] in avisados or (filtro and not filtro.search(o["titulo"])):
+                continue
+            texto = o["titulo"] + " " + quitar_html(o.get("descripcion"))[:300]
+            o["descuento"] = descuento_en_texto(o["titulo"]) or descuento_en_texto(texto)
+            o["precio"] = o.get("precio") or precio_en_texto(o["titulo"])
+            o["tienda"] = o.get("tienda") or adivinar_tienda(" ".join(o.get("cats_rss", [])), o["titulo"]) \
+                or nombre
+            gratis_juego = es_juego(o) and es_gratis(o)
+            if not gratis_juego and (o["descuento"] or 0) < minimo:
+                continue
+            o["categorias"] = clasificar(o, cats, cfg, excluir_global)
+            if not o["categorias"]:
+                continue
+            if any(parecido(o["titulo"], t) >= 0.85 for t in recientes):
+                log(f"  {nombre}: «{o['titulo'][:50]}» ya avisada por otra fuente")
+                avisados[o["id"]] = time.time()
+                continue
+            validas += 1
+            o["detectado"] = time.time()
+            (salida if iniciadas.get(nombre) else silenciosas).append(o)
+            recientes.append(o["titulo"])
+        log(f"Fuente {nombre}: {len(items)} entradas, {validas} encajan")
+        iniciadas[nombre] = True
+    return salida, silenciosas
+
+
+def destino_desde_pagina(o: dict):
+    """En fuentes externas, busca en su página el enlace a la tienda (para el botón y Keepa)."""
+    if o.get("destino") or not (o.get("enlace") or "").startswith("http"):
+        return
+    try:
+        texto = descargar(o["enlace"], intentos=0).decode("utf-8", "replace")
+    except Exception:  # noqa: BLE001
+        return
+    m = RE_ENLACE_OTRAS.search(texto)
+    if m:
+        o["destino"] = html.unescape(m.group(1))
+    if not o.get("imagen"):
+        m = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', texto)
+        if m:
+            o["imagen"] = m.group(1)
+
+
+CAMPOS_PAGINA = ("grados", "tienda", "caducada", "tipo", "es_cupon", "destino", "codigo", "precio_antes", "grupo")
 
 
 def descubrir(cfg) -> tuple[dict, int, int, int]:
@@ -1048,7 +1185,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             nuevas += 1
             s = {"detectado": ahora, "comprobado": 0}
         for k in ("titulo", "enlace", "tienda", "precio", "precio_antes", "codigo", "imagen",
-                  "fecha", "caducada", "destino", "tipo", "es_cupon"):
+                  "fecha", "caducada", "destino", "tipo", "es_cupon", "grupo"):
             if o.get(k) not in (None, ""):
                 s[k] = o[k]
         s["id"], s["categorias"] = hid, elegidas
@@ -1132,6 +1269,19 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             log(f"  botones: {botones(s)}")
         return 0
 
+    # 3b) Otras fuentes (sin grados: criterio de descuento mínimo)
+    recientes = [o.get("titulo", "") for o in destacadas.values()
+                 if ahora - (o.get("avisado") or 0) < 72 * 3600] + [s.get("titulo", "") for s in listas]
+    iniciadas = estado.setdefault("fuentes_iniciadas", {})
+    extra, silenciosas = leer_fuentes_extra(cfg, cats, excluir_global, avisados, recientes, iniciadas)
+    for o in silenciosas:   # primera vez que se lee una fuente: no inundar el grupo
+        o["avisado"] = ahora
+        avisados[o["id"]] = ahora
+        destacadas[o["id"]] = para_web(o)
+    if silenciosas:
+        log(f"Fuentes nuevas: {len(silenciosas)} ofertas guardadas sin avisar (primera lectura)")
+    listas = listas + extra
+
     # 4) Avisar
     silencioso = en_silencio(cfg)
     enviados = 0
@@ -1150,7 +1300,10 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
         sin_telegram = not os.environ.get("TELEGRAM_TOKEN")
         for s in listas[: cfg.get("max_avisos_por_ronda", 10)]:
             s["advertencias"] = advertencias(s, cats)
-            completar_destino(s)
+            if s.get("fuente"):
+                destino_desde_pagina(s)
+            else:
+                completar_destino(s)
             enriquecer_amazon(s, cfg)
             veredicto = (s.get("keepa_veredicto") or {}).get("nivel")
             if cfg_keepa.get("descartar_falsas") and veredicto == "rojo":
@@ -1249,6 +1402,8 @@ def revisar_palabras(cats_txt, globales, problemas):
             log(f"   aviso si {', '.join(a['si'])} → {a['texto']}")
     if globales:
         log(f"\n⛔ Excluir siempre: {', '.join(globales)}")
+    log(f"\n🕹️ No son juegos (consolas y accesorios): {', '.join(NO_SON_JUEGOS) or '—'}")
+    log("   Los juegos de cualquier plataforma solo avisan si son GRATIS.")
     compilar_categorias(cats_txt)
     for p in problemas:
         log(f"⚠️ {p}")
@@ -1309,9 +1464,12 @@ def main() -> int:
                       botones=[[{"text": "📈 Así se verán los botones", "url": "https://keepa.com"}]])
         log("Mensaje de prueba enviado." if ok else "No se pudo enviar el mensaje de prueba.")
         if ok:
-            ejemplo_amazon(cfg, compilar_categorias(cats_txt))
+            ejemplo_amazon(cfg, compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)])
         return 0 if ok else 1
-    return ronda(cfg, compilar_categorias(cats_txt), compilar_lista(globales), diagnostico=args.diagnostico)
+    cats = compilar_categorias(cats_txt)
+    if (cfg.get("juegos") or {}).get("avisar_gratis", True):
+        cats.append(dict(CATEGORIA_JUEGOS_GRATIS))
+    return ronda(cfg, cats, compilar_lista(globales), diagnostico=args.diagnostico)
 
 
 if __name__ == "__main__":

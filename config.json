@@ -30,5 +30,23 @@
     "grafica": true,
     "descartar_falsas": false,
     "rebaja_minima_pct": 10
-  }
+  },
+  "juegos": {
+    "_ayuda": "Los juegos (de cualquier plataforma) nunca avisan, salvo si son gratis y avisar_gratis es true.",
+    "avisar_gratis": true
+  },
+  "fuentes_extra": [
+    {
+      "nombre": "Ofertitas",
+      "url": "https://www.ofertitas.es/feed/",
+      "descuento_minimo": 20
+    },
+    {
+      "nombre": "HardZone",
+      "url": "https://hardzone.es/feed/",
+      "descuento_minimo": 20,
+      "solo_si_titulo": "oferta|descuento|rebaj|chollo|precio m[ií]nimo|black friday|cyber monday|[-−]\\s?\\d{1,2}\\s?%"
+    }
+  ],
+  "_ayuda_fuentes_extra": "Webs sin votos: avisan si encajan con palabras.txt y tienen al menos descuento_minimo %. 'activa': false para apagar una."
 }

@@ -40,6 +40,17 @@
 # segunda mano
 
 
+[🕹️ No son juegos]
+# Los JUEGOS de cualquier plataforma NUNCA avisan, salvo que sean GRATIS (🎁).
+# Un título de gaming con alguna de estas palabras se trata como consola o accesorio, no como juego:
+consola, consolas, mando, mandos, controller, gamepad, dualsense, dualshock, joy-con, joycon
+auriculares, auricular, headset, cascos, playstation portal, ps portal, vr2, psvr2, volante, pedales
+cargador, base de carga, estacion de carga, soporte, ssd, nvme, disco, tarjeta, saldo, ps plus, playstation plus
+game pass, gamepass, suscripcion, eshop, teclado, raton, monitor, silla, amiibo, figura, funda, protector
+cable, adaptador, dock, grip, camara, mochila, alfombrilla, lector, steam deck, rog ally, legion go, msi claw
+router, televisor, smart tv, barra de sonido, altavoz, microfono, webcam, bateria, power bank, pack consola
+
+
 [🎮 PS5 y PS4]
 # Consolas, PS Portal, PS VR2 y PS Plus. Los JUEGOS no avisan: el título tiene que
 # llevar además una palabra de consola o accesorio (línea "necesita").

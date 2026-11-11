@@ -129,6 +129,13 @@ Al guardar se ejecuta **Comprobar palabras**. Si sale en **verde**, el fichero s
 
 ---
 
+## Juegos y otras fuentes
+
+- **Juegos:** los de cualquier plataforma (PS5, PS4, Switch, Xbox, PC…) **no avisan nunca, salvo que sean gratis** (🎁 Juego gratis). Las consolas y los accesorios sí avisan: se distinguen porque llevan alguna palabra de la sección `[🕹️ No son juegos]` de `palabras.txt` (consola, mando, auriculares…). Si un accesorio se quedara fuera por error, añade allí su palabra. Para no recibir ni los gratis: `config.json` → `juegos` → `avisar_gratis: false`.
+- **Otras fuentes** (`config.json` → `fuentes_extra`): **Ofertitas** y **HardZone**. No tienen votos, así que el criterio es otro: tienen que encajar con tus palabras y llevar **al menos un 20 % de descuento** (`descuento_minimo`). Salen marcadas con 🏷️ −XX % y el nombre de la fuente. Si una oferta ya llegó desde otra fuente, no se repite. La primera vez que se lee una fuente nueva no se avisa de nada, para no inundar el grupo. Para apagar una: `"activa": false`.
+
+---
+
 ## Que se ejecute solo de verdad (cron-job.org)
 
 La programación de GitHub (`schedule`) a veces tarda horas en arrancar en repositorios nuevos, y en horas punta se salta ejecuciones. Para que vaya como un reloj, lánzalo cada 10 minutos desde **cron-job.org**:
