@@ -48,5 +48,9 @@
       "solo_si_titulo": "oferta|descuento|rebaj|chollo|precio m[ií]nimo|black friday|cyber monday|[-−]\\s?\\d{1,2}\\s?%"
     }
   ],
-  "_ayuda_fuentes_extra": "Webs sin votos: avisan si encajan con palabras.txt y tienen al menos descuento_minimo %. 'activa': false para apagar una."
+  "_ayuda_fuentes_extra": "Webs sin votos: avisan si encajan con palabras.txt y tienen al menos descuento_minimo %. 'activa': false para apagar una.",
+  "afiliados": {
+    "_ayuda": "Etiqueta de Amazon Afiliados: el botón de Amazon lleva ?tag=. Vacío = sin afiliado.",
+    "amazon_tag": "cacharrear0b-21"
+  }
 }

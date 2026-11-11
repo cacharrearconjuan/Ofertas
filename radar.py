@@ -718,6 +718,10 @@ def enriquecer_amazon(s: dict, cfg: dict):
         return
     s["asin"] = asin
     s["keepa"] = keepa_enlace(asin)
+    tag = ((cfg.get("afiliados") or {}).get("amazon_tag") or "").strip()
+    if tag:
+        s["destino"] = f"https://www.amazon.es/dp/{asin}?tag={urllib.parse.quote(tag)}"
+        s["afiliado"] = True
     v = keepa_veredicto(asin, s.get("precio"), cfg.get("keepa") or {})
     if v:
         s["keepa_veredicto"] = v
@@ -962,6 +966,8 @@ def mensaje(o: dict, cats_por_id: dict) -> str:
     if o.get("keepa_veredicto"):
         lineas.append(e(o["keepa_veredicto"]["texto"]))
     lineas += [e(a) for a in o.get("advertencias", [])]
+    if o.get("afiliado"):
+        lineas.append("<i>🔗 enlace de afiliada</i>")
     if etiquetas:
         lineas.append(f"<i>{e(etiquetas)}</i>")
     return "\n".join(lineas)
@@ -1009,7 +1015,7 @@ def guardar_json(ruta: Path, datos):
     tmp.replace(ruta)
 
 
-CAMPOS_WEB = ("id", "fuente", "descuento", "tipo_hilo", "titulo", "enlace", "destino", "tienda", "precio", "precio_antes", "codigo",
+CAMPOS_WEB = ("id", "afiliado", "fuente", "descuento", "tipo_hilo", "titulo", "enlace", "destino", "tienda", "precio", "precio_antes", "codigo",
               "grados", "categorias", "imagen", "fecha", "detectado", "avisado", "advertencias",
               "asin", "keepa", "keepa_veredicto")
 
