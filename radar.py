@@ -355,6 +355,43 @@ def seguir_redirecciones(url: str, saltos: int = 5) -> str:
     return url
 
 
+def _es_de_la_fuente(url: str) -> bool:
+    host = urllib.parse.urlparse(url or "").netloc.lower()
+    return any(x in host for x in ("chollometro", "pepper", "ofertitas", "hardzone"))
+
+
+def destino_real(url: str, saltos: int = 6) -> str | None:
+    """Convierte el enlace de salida de la fuente (chollometro.com/visit/...) en el enlace real de la tienda,
+    para que al reenviar el aviso no aparezca la web de origen. Devuelve None si no se puede."""
+    for _ in range(saltos):
+        if not url:
+            return None
+        if not _es_de_la_fuente(url):
+            return url
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+        dentro = next((q[k][0] for k in ("url", "u", "target", "dest") if q.get(k)), None)
+        if dentro and dentro.startswith("http"):
+            url = dentro
+            continue
+        req = urllib.request.Request(url, headers={"User-Agent": UA}, method="GET")
+        try:
+            with _abridor_sin_redireccion.open(req, timeout=15) as r:
+                cuerpo = r.read(300_000).decode("utf-8", "replace")
+                m = re.search(r'(?:url=|location(?:\.href)?\s*=\s*["\']|href=["\'])(https?://[^"\'\s<>]+)', cuerpo, re.I)
+                nuevo = html.unescape(m.group(1)) if m else None
+                if not nuevo or nuevo == url:
+                    return None
+                url = nuevo
+        except urllib.error.HTTPError as ex:
+            loc = ex.headers.get("Location") if ex.code in (301, 302, 303, 307, 308) else None
+            if not loc:
+                return None
+            url = urllib.parse.urljoin(url, loc)
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            return None
+    return None if _es_de_la_fuente(url) else url
+
+
 # --------------------------------------------------------------------------
 # Lectura del RSS
 # --------------------------------------------------------------------------
@@ -971,12 +1008,15 @@ def mensaje(o: dict, cats_por_id: dict) -> str:
     return "\n".join(lineas)
 
 
+MOSTRAR_BOTON_FUENTE = False
+
+
 def botones(o: dict) -> list:
     fila = []
-    if (o.get("enlace") or "").startswith("http"):
+    if MOSTRAR_BOTON_FUENTE and (o.get("enlace") or "").startswith("http"):
         fuente = o.get("fuente") or "Chollometro"
         fila.append({"text": ("🔥 " if fuente == "Chollometro" else "📰 ") + fuente, "url": o["enlace"]})
-    if (o.get("destino") or "").startswith("http"):
+    if (o.get("destino") or "").startswith("http") and (MOSTRAR_BOTON_FUENTE or not _es_de_la_fuente(o["destino"])):
         fila.append({"text": f"🛒 {o.get('tienda') or 'Tienda'}"[:30], "url": o["destino"]})
     filas = [fila] if fila else []
     if o.get("keepa"):
@@ -1322,6 +1362,8 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             else:
                 completar_destino(s)
             enriquecer_amazon(s, cfg)
+            if s.get("destino") and _es_de_la_fuente(s["destino"]) and not MOSTRAR_BOTON_FUENTE:
+                s["destino"] = destino_real(s["destino"]) or s["destino"]
             veredicto = (s.get("keepa_veredicto") or {}).get("nivel")
             if cfg_keepa.get("descartar_falsas") and veredicto == "rojo":
                 log(f"  {s['id']}: Keepa dice que no es rebaja; no se avisa")
@@ -1483,6 +1525,8 @@ def main() -> int:
         if ok:
             ejemplo_amazon(cfg, compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)])
         return 0 if ok else 1
+    global MOSTRAR_BOTON_FUENTE
+    MOSTRAR_BOTON_FUENTE = bool(cfg.get("boton_fuente", False))
     cats = compilar_categorias(cats_txt)
     if (cfg.get("juegos") or {}).get("avisar_gratis", True):
         cats.append(dict(CATEGORIA_JUEGOS_GRATIS))

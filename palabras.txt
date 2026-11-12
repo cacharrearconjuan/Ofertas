@@ -49,6 +49,8 @@ cargador, base de carga, estacion de carga, soporte, ssd, nvme, disco, tarjeta, 
 game pass, gamepass, suscripcion, eshop, teclado, raton, monitor, silla, amiibo, figura, funda, protector
 cable, adaptador, dock, grip, camara, mochila, alfombrilla, lector, steam deck, rog ally, legion go, msi claw
 router, televisor, smart tv, barra de sonido, altavoz, microfono, webcam, bateria, power bank, pack consola
+disipador, m.2, memoria, ventilador, refrigeracion, carcasa, skin, pegatina, estuche, bolsa, maleta
+fundas, kit, accesorios, accesorio, hub, mando a distancia, gafas, capturadora, stream deck
 
 
 [🎮 PS5 y PS4]
@@ -70,10 +72,13 @@ joy-con, joycon, pro controller, 8bitdo, gamesir, scuf, xbox elite
 
 [💾 SSD, M.2 y discos]
 # Todos los SSD: M.2 NVMe, M.2 SATA, 2,5", externos, portátiles, mSATA
-ssd, ssds, nvme, m.2, m2, msata, estado solido, unidad de estado solido
+ssd, ssds, nvme, m.2, msata, estado solido, unidad de estado solido
 disco duro, discos duros, hdd, disco externo, ssd externo
 microsd, micro sd, tarjeta sd, tarjeta de memoria, pendrive, memoria usb
 samsung t7, samsung t9, sandisk extreme, crucial x9, crucial x10, wd black
+# "M2" sin punto solo cuenta si va con algo de disco (así no salta con "70 g/m²" ni "50 m2")
+re:(?<![a-z0-9/])m2(?![a-z0-9]).*(ssd|nvme|pcie|sata|\d+\s?(tb|gb))
+re:(ssd|nvme|pcie|sata|\d+\s?(tb|gb)).*(?<![a-z0-9/])m2(?![a-z0-9])
 # Los SSD portátiles/externos entran aunque digan "portátil"
 +ssd portatil, +disco duro portatil, +disco portatil, +ssd externo, +disco externo
 # Que no salten los portátiles y ordenadores que traen SSD

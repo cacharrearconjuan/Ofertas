@@ -52,5 +52,7 @@
   "afiliados": {
     "_ayuda": "Etiqueta de Amazon Afiliados: el botón de Amazon lleva ?tag=. Vacío = sin afiliado.",
     "amazon_tag": "cacharrear0b-21"
-  }
+  },
+  "boton_fuente": false,
+  "_ayuda_boton_fuente": "false = los avisos no llevan botón ni enlaces de Chollometro/Ofertitas (para reenviarlos). true = lo llevan."
 }
