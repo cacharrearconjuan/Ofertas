@@ -45,8 +45,8 @@
 # Un título de gaming con alguna de estas palabras se trata como consola o accesorio, no como juego:
 consola, consolas, mando, mandos, controller, gamepad, dualsense, dualshock, joy-con, joycon
 auriculares, auricular, headset, cascos, playstation portal, ps portal, vr2, psvr2, volante, pedales
-cargador, base de carga, estacion de carga, soporte, ssd, nvme, disco, tarjeta, saldo, ps plus, playstation plus
-game pass, gamepass, suscripcion, eshop, teclado, raton, monitor, silla, amiibo, figura, funda, protector
+cargador, base de carga, estacion de carga, soporte, ssd, nvme, disco duro, lector de disco, unidad de disco, tarjeta, saldo, ps plus, playstation plus
+game pass, gamepass, eshop, teclado, raton, monitor, silla, amiibo, figura, funda, protector
 cable, adaptador, dock, grip, camara, mochila, alfombrilla, lector, steam deck, rog ally, legion go, msi claw
 router, televisor, smart tv, barra de sonido, altavoz, microfono, webcam, bateria, power bank, pack consola
 disipador, m.2, memoria, ventilador, refrigeracion, carcasa, skin, pegatina, estuche, bolsa, maleta
@@ -68,6 +68,10 @@ mando, mandos, dualsense, dualsense edge, dualshock, gamepad, controller
 joy-con, joycon, pro controller, 8bitdo, gamesir, scuf, xbox elite
 -mando a distancia, -mando de garaje, -mando garaje, -mando universal
 -mando para tv, -mando tv, -mando de la tele, -mando aire acondicionado, -mando de aire
+-smart tv, -televisor, -dron, -drone, -ventilador, -lampara, -techo, -persiana, -toldo, -calefactor
+# Solo mandos de juego: el título tiene que llevar alguna de estas
+necesita: ps5, ps4, playstation, xbox, switch, nintendo, pc, gaming, gamer, dualsense, dualshock, joy-con, joycon
+necesita: controller, gamepad, 8bitdo, gamesir, scuf, elite, steam, android, iphone, movil, consola, inalambrico para
 
 
 [💾 SSD, M.2 y discos]
@@ -122,18 +126,19 @@ necesita: re:\d{1,2}([.,]\d)?\s*("|”|pulg)
 -cargador, -pegatina, -mesa para, -bandeja, -candado
 -altavoz portatil, -bateria portatil, -power bank, -aire acondicionado
 -nevera portatil, -proyector portatil, -impresora portatil, -ventilador portatil
--consola portatil, -monitor portatil, -radio portatil, -barbacoa
+-consola portatil, -monitor portatil, -radio portatil, -barbacoa, -consola, -consolas, -monitor, -monitores
 
 
 [📺 Fire TV]
 fire tv, firetv, fire stick, firestick, fire tv stick, fire tv cube
--funda
+-funda, -televisor, -smart tv, -tv f, -integrada, -integrado, -tv 4-series, -tv 2-series
+-re:\b\d{2}\s*("|”|pulgadas)
 aviso: select, stick hd => ⚠️ Ojo: los modelos nuevos con Vega OS (4K Select, Stick HD nuevo) no instalan APKs.
 
 
 [🍄 Nintendo]
 nintendo switch, switch 2, switch oled, nintendo, joy-con, amiibo
--mando a distancia
+-mando a distancia, -lego, -peluche, -camiseta, -taza, -calcetines, -pijama
 
 
 [🟢 Xbox]
@@ -142,7 +147,8 @@ xbox, xbox series, game pass, gamepass
 
 [🎒 Consolas portátiles]
 steam deck, rog ally, legion go, msi claw, consola portatil, retroid
-anbernic, ayaneo, miyoo
+anbernic, ayaneo, miyoo, ayn thor, ayn odin, consola retro
+re:consola.{0,25}portatil
 
 
 [💳 Saldo y suscripciones]
@@ -153,7 +159,10 @@ tarjeta xbox, tarjeta nintendo, eshop, tarjeta steam, saldo steam
 [🖥️ Monitores]
 monitor, monitores, monitor gaming
 -monitor de bebe, -vigilabebes, -monitor cardiaco, -monitor de actividad
--monitor de presion, -tensiometro
+-monitor de presion, -tensiometro, -frecuencia cardiaca, -temperatura, -humedad, -garmin
+# Solo pantallas: el título tiene que llevar alguna de estas
+necesita: hz, pulgadas, qhd, fhd, full hd, uhd, 4k, 2k, oled, qd-oled, woled, ips, curvo, ultrawide, gaming
+necesita: re:\d{2}([.,]\d)?\s*("|”|'')
 
 
 [🧩 Tarjetas gráficas]
@@ -171,5 +180,5 @@ airpods, galaxy buds, sony wh, sony wf
 
 
 [📡 Redes y wifi]
-router, wifi mesh, sistema mesh, router mesh, wifi 6, wifi 7, repetidor wifi, switch de red, switch ethernet
+router, wifi mesh, sistema mesh, router mesh, repetidor wifi, switch de red, switch ethernet
 nas, synology, tp-link deco, punto de acceso, plc

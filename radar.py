@@ -806,12 +806,19 @@ def es_juego(o: dict) -> bool:
         cats = normalizar(" ".join(o.get("cats_rss") or []))
         contexto = bool(RE_PLATAFORMA.search(titulo)) or any(
             p in cats for p in ("videojuego", "consola", "gaming", "juegos"))
+    if (o.get("precio") or 0) >= PRECIO_MIN_CONSOLA:   # a ese precio es una consola o un pack, no un juego
+        return False
     return contexto and not _re_no_juegos.search(titulo)
+
+
+PRECIO_MIN_CONSOLA = 120
 
 
 def es_gratis(o: dict) -> bool:
     if o.get("precio") == 0 and tipo_hilo(o) == "oferta":
         return True
+    if (o.get("precio") or 0) > 0:          # "actualización gratis", "envío gratis"... pero cuesta dinero
+        return False
     titulo = RE_ENVIO_GRATIS.sub(" ", normalizar(o.get("titulo")))
     return bool(RE_GRATIS.search(titulo))
 
@@ -1356,6 +1363,12 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
     else:
         sin_telegram = not os.environ.get("TELEGRAM_TOKEN")
         for s in listas[: cfg.get("max_avisos_por_ronda", 10)]:
+            # Volver a clasificar con las palabras de ahora (puede llevar días en seguimiento)
+            s["categorias"] = clasificar(s, cats, cfg, excluir_global)
+            if not s["categorias"]:
+                log(f"  {s['id']}: ya no encaja con palabras.txt; no se avisa")
+                seguimiento.pop(s["id"], None)
+                continue
             s["advertencias"] = advertencias(s, cats)
             if s.get("fuente"):
                 destino_desde_pagina(s)
