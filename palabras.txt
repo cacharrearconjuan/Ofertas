@@ -99,6 +99,11 @@ re:(ssd|nvme|pcie|sata|\d+\s?(tb|gb)).*(?<![a-z0-9/])m2(?![a-z0-9])
 -macbook, -chromebook, -tablet, -ipad, -all in one
 # Que "M2" no salte con el chip de Apple ni con metros cuadrados
 -apple m2, -chip m2, -re:\d\s*m2\b, -m2 de
+# Placas base y otros aparatos que mencionan M.2 o microSD pero no son discos
+-placa base, -placa madre, -placas base, -motherboard, -chipset, -lga, -lga1700, -lga1851, -am4, -am5
+-atx, -micro-atx, -matx, -mini-itx, -ranuras m.2, -ranura m.2, -socket
+-re:\b[abhxz]\d{3}[a-z]?\b.*(ddr|pcie|atx|wifi)
+-tocadiscos, -reproductor, -radio, -altavoz, -camara, -dashcam, -mp3, -mp4, -proyector, -consola retro
 aviso: sata => ℹ️ SSD SATA: perfecto para PC, portátil o como disco externo; en la ranura M.2 de la PS5 no vale (pide NVMe PCIe 4.0).
 aviso: ps5 => ℹ️ Para la ranura de la PS5: NVMe PCIe 4.0, 5.500 MB/s o más y con disipador.
 
