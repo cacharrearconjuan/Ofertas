@@ -1492,6 +1492,18 @@ def explorar(cfg):
     sospecha = re.compile(r"(?<![a-z0-9])(ssd|nvme|m\.?2|hdd|disco|discos|\d+\s?tb|microsd|micro sd|sd card|tarjeta (de )?memoria|"
                           r"pendrive|memoria usb|almacenamiento|nas|sata|990|980|870|sn\d{3,4}|t7|t9|t500|t700|t705|nv[23]|"
                           r"barracuda|ironwolf|canvio|passport|firecuda|kingston|crucial|lexar|seagate|western digital|wd)(?![a-z0-9])")
+    for u in ("https://www.chollometro.com/search?q=ssd", "https://www.chollometro.com/search?q=ssd&sortBy=new",
+              "https://www.chollometro.com/search?q=ssd&sort=new", "https://www.chollometro.com/search?q=ssd&order=new",
+              "https://www.chollometro.com/search/nuevos?q=ssd", "https://www.chollometro.com/search?q=disco+duro",
+              "https://www.chollometro.com/search?q=nvme", "https://www.chollometro.com/search?q=microsd"):
+        try:
+            hh = hilos_en_html(descargar(u, intentos=0).decode("utf-8", "replace"))
+            ids = sorted(int(x) for x in hh if x.isdigit())
+            log(f"ORDEN {u.split('.com')[-1]:32} n={len(ids):3} id_min={ids[0] if ids else '-'} id_max={ids[-1] if ids else '-'} "
+                f"mediana={ids[len(ids)//2] if ids else '-'}")
+        except Exception as ex:  # noqa: BLE001
+            log(f"ORDEN {u.split('.com')[-1]:32} ERROR {ex}")
+    return
     candidatas = ["https://www.chollometro.com/search?q=ssd", "https://www.chollometro.com/search/ofertas?q=ssd",
                   "https://www.chollometro.com/grupo/almacenamiento", "https://www.chollometro.com/grupo/discos-duros",
                   "https://www.chollometro.com/grupo/ssd", "https://www.chollometro.com/grupo/discos-duros-ssd",
