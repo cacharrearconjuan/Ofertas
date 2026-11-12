@@ -75,6 +75,8 @@ necesita: controller, gamepad, 8bitdo, gamesir, scuf, elite, steam, android, iph
 
 
 [💾 SSD, M.2 y discos]
+# Lo que más interesa: con 100° ya avisa (el resto de categorías, 200°)
+grados: 100
 # Todos los SSD: M.2 NVMe, M.2 SATA, 2,5", externos, portátiles, mSATA
 ssd, ssds, nvme, m.2, msata, estado solido, unidad de estado solido
 disco duro, discos duros, hdd, disco externo, ssd externo

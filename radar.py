@@ -1119,6 +1119,9 @@ def leer_fuentes_extra(cfg, cats, excluir_global, avisados: dict, recientes: lis
             if not gratis_juego and (o["descuento"] or 0) < minimo:
                 continue
             o["categorias"] = clasificar(o, cats, cfg, excluir_global)
+            solo = f.get("solo_categorias")
+            if solo:
+                o["categorias"] = [c for c in o["categorias"] if c in solo]
             if not o["categorias"]:
                 continue
             if any(parecido(o["titulo"], t) >= 0.85 for t in recientes):

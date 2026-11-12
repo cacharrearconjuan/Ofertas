@@ -39,7 +39,10 @@
     {
       "nombre": "Ofertitas",
       "url": "https://www.ofertitas.es/feed/",
-      "descuento_minimo": 20
+      "descuento_minimo": 20,
+      "solo_categorias": [
+        "ssd_m_2_y_discos"
+      ]
     },
     {
       "nombre": "HardZone",
@@ -48,7 +51,7 @@
       "solo_si_titulo": "oferta|descuento|rebaj|chollo|precio m[ií]nimo|black friday|cyber monday|[-−]\\s?\\d{1,2}\\s?%"
     }
   ],
-  "_ayuda_fuentes_extra": "Webs sin votos: avisan si encajan con palabras.txt y tienen al menos descuento_minimo %. 'activa': false para apagar una.",
+  "_ayuda_fuentes_extra": "Webs sin votos: avisan si encajan con palabras.txt y tienen al menos descuento_minimo %. 'activa': false para apagar una. 'solo_categorias': lista de ids de categoría que se aceptan de esa fuente (p. ej. ssd_m_2_y_discos).",
   "afiliados": {
     "_ayuda": "Etiqueta de Amazon Afiliados: el botón de Amazon lleva ?tag=. Vacío = sin afiliado.",
     "amazon_tag": "cacharrear0b-21"
