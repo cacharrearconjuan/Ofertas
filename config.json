@@ -13,7 +13,12 @@
   "paginas_listado": [
     "https://www.chollometro.com/",
     "https://www.chollometro.com/nuevos",
-    "https://www.chollometro.com/nuevos?page=2"
+    "https://www.chollometro.com/nuevos?page=2",
+    "https://www.chollometro.com/search?q=ssd",
+    "https://www.chollometro.com/search?q=disco+duro",
+    "https://www.chollometro.com/search?q=nvme",
+    "https://www.chollometro.com/search?q=m.2",
+    "https://www.chollometro.com/search?q=microsd"
   ],
   "tiendas_permitidas": [],
   "temas_por_tienda": {

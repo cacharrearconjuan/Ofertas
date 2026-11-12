@@ -487,6 +487,8 @@ def _hilo_desde_json(d: dict) -> dict | None:
         tipo = tipo.get("name") or tipo.get("type")
     precio = a_numero(d.get("price"))
     antes = a_numero(d.get("nextBestPrice") or d.get("previousPrice") or d.get("originalPrice"))
+    publicado = d.get("publishedAt") if isinstance(d.get("publishedAt"), (int, float)) and d.get("publishedAt") else None
+    fin = (d.get("endDate") or {}).get("timestamp") if isinstance(d.get("endDate"), dict) else None
     imagen = d.get("imageUrl") or d.get("image")
     img = d.get("mainImage")
     if isinstance(img, dict) and img.get("path") and img.get("name"):
@@ -506,7 +508,8 @@ def _hilo_desde_json(d: dict) -> dict | None:
         "enlace": enlace or _url(d.get("url")) or _url(d.get("shareableLink")),
         "destino": _url(d.get("link")) or _url(visita),
         "imagen": _url(imagen),
-        "caducada": bool(d.get("isExpired") or d.get("expired")),
+        "caducada": bool(d.get("isExpired") or d.get("expired")) or bool(fin and fin < time.time()),
+        "fecha": float(publicado) if publicado else None,
         "tipo": str(tipo).lower() if tipo else None,
         "es_cupon": bool(d.get("isVoucher") or d.get("voucherCode")) and precio is None,
         "grupo": (d.get("mainGroup") or {}).get("threadGroupUrlName") if isinstance(d.get("mainGroup"), dict) else None,
@@ -1192,7 +1195,7 @@ def descubrir(cfg) -> tuple[dict, int, int, int]:
                     for k in CAMPOS_PAGINA:
                         if h.get(k) not in (None, ""):
                             o[k] = h[k]
-                    for k in ("precio", "imagen"):
+                    for k in ("precio", "imagen", "fecha"):
                         if o.get(k) in (None, "") and h.get(k) not in (None, ""):
                             o[k] = h[k]
                 elif h.get("enlace") and h.get("titulo"):

@@ -80,6 +80,13 @@ ssd, ssds, nvme, m.2, msata, estado solido, unidad de estado solido
 disco duro, discos duros, hdd, disco externo, ssd externo
 microsd, micro sd, tarjeta sd, tarjeta de memoria, pendrive, memoria usb
 samsung t7, samsung t9, sandisk extreme, crucial x9, crucial x10, wd black
+# Modelos que muchas veces no dicen "SSD" ni "disco" en el título
+990 pro, 990 evo, 980 pro, 980 evo, 970 evo, 870 evo, 870 qvo, 9100 pro, samsung pro plus, samsung evo plus, samsung evo select
+wd_black, wd black sn850x, sn850x, sn770, sn7100, sn8100, sn5000, sn580, wd blue sa510, wd red, wd purple, wd elements, my passport, my book
+crucial p3, crucial p3 plus, crucial p310, crucial p5 plus, crucial t500, crucial t700, crucial t705, crucial mx500, crucial bx500
+kingston nv2, kingston nv3, kingston kc3000, kingston fury renegade, kingston a400, kingston canvas, lexar nm790, lexar nm710, lexar nm1090
+seagate barracuda, seagate ironwolf, seagate firecuda, seagate expansion, seagate one touch, toshiba canvio, toshiba n300
+sandisk ultra, sandisk extreme pro, sandisk portable, sandisk creator, pny cs3140, corsair mp600, solidigm p44, hikvision c4000, fikwot
 # "M2" sin punto solo cuenta si va con algo de disco (así no salta con "70 g/m²" ni "50 m2")
 re:(?<![a-z0-9/])m2(?![a-z0-9]).*(ssd|nvme|pcie|sata|\d+\s?(tb|gb))
 re:(ssd|nvme|pcie|sata|\d+\s?(tb|gb)).*(?<![a-z0-9/])m2(?![a-z0-9])
