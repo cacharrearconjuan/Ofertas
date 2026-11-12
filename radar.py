@@ -1486,30 +1486,32 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Herramienta de exploración: grupos de Chollometro y formato de otras fuentes."""
-    for url in cfg.get("paginas_listado", [])[:3]:
+    """Auditoría: ¿qué ofertas de almacenamiento hay en Chollometro y cuáles reconoce el radar?"""
+    cats_txt, globales, _ = leer_palabras()
+    cats = compilar_categorias(cats_txt)
+    sospecha = re.compile(r"(?<![a-z0-9])(ssd|nvme|m\.?2|hdd|disco|discos|\d+\s?tb|microsd|micro sd|sd card|tarjeta (de )?memoria|"
+                          r"pendrive|memoria usb|almacenamiento|nas|sata|990|980|870|sn\d{3,4}|t7|t9|t500|t700|t705|nv[23]|"
+                          r"barracuda|ironwolf|canvio|passport|firecuda|kingston|crucial|lexar|seagate|western digital|wd)(?![a-z0-9])")
+    candidatas = ["https://www.chollometro.com/search?q=ssd", "https://www.chollometro.com/search/ofertas?q=ssd",
+                  "https://www.chollometro.com/grupo/almacenamiento", "https://www.chollometro.com/grupo/discos-duros",
+                  "https://www.chollometro.com/grupo/ssd", "https://www.chollometro.com/grupo/discos-duros-ssd",
+                  "https://www.chollometro.com/grupo/componentes-pc", "https://www.chollometro.com/grupo/informatica",
+                  "https://www.chollometro.com/nuevos?page=3", "https://www.chollometro.com/nuevos?page=5"]
+    vistos = {}
+    for url in cfg.get("paginas_listado", []) + candidatas:
         try:
-            pag = descargar(url).decode("utf-8", "replace")
+            hilos = hilos_en_html(descargar(url, intentos=0).decode("utf-8", "replace"))
+            log(f"FUENTE {len(hilos):3} ofertas · {url}")
+            for h in hilos.values():
+                vistos.setdefault(h["id"], (url, h))
         except Exception as ex:  # noqa: BLE001
-            log(f"{url}: {ex}")
-            continue
-        for m in RE_VUE.finditer(pag):
-            try:
-                datos = json.loads(html.unescape(m.group(2)))
-            except ValueError:
-                continue
-            for d in _recorrer(datos):
-                if d.get("threadId") and "temperature" in d:
-                    g = d.get("mainGroup") or {}
-                    log(f"GRUPO {g.get('threadGroupUrlName')!s:28} | {g.get('threadGroupName')!s:28} | "
-                        f"{d.get('price')!s:7} | {str(d.get('title'))[:70]}")
-    for url in ("https://www.ofertitas.es/feed/", "https://www.ofertitas.es/nuevas/feed/",
-                "https://hardzone.es/feed/", "https://hardzone.es/ofertas/feed/"):
-        try:
-            t = descargar(url, intentos=0).decode("utf-8", "replace")
-            log(f"\n### {url}: {len(t)} bytes\n{t[:3500]}")
-        except Exception as ex:  # noqa: BLE001
-            log(f"\n### {url}: ERROR {ex}")
+            log(f"FUENTE ERROR {ex} · {url}")
+    for hid, (url, h) in vistos.items():
+        t = normalizar(h.get("titulo"))
+        if sospecha.search(t):
+            c = clasificar(h, cats, cfg, None)
+            log(f"{'OK ' if 'ssd_m_2_y_discos' in c else 'NO '}| {str(h.get('grados')):>8}° | {str(h.get('grupo'))[:16]:16} | "
+                f"{url.split('chollometro.com')[-1][:22]:22} | {h.get('titulo','')[:80]}")
 
 
 def main() -> int:
