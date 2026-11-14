@@ -1,0 +1,4691 @@
+{
+ "generado": 1794669933.2488885,
+ "grados_minimos": 200.0,
+ "categorias": [
+  {
+   "id": "ps5_y_ps4",
+   "nombre": "PS5 y PS4",
+   "emoji": "🎮"
+  },
+  {
+   "id": "mandos",
+   "nombre": "Mandos",
+   "emoji": "🕹️"
+  },
+  {
+   "id": "ssd_m_2_y_discos",
+   "nombre": "SSD, M.2 y discos",
+   "emoji": "💾"
+  },
+  {
+   "id": "portatiles_y_pc",
+   "nombre": "Portátiles y PC",
+   "emoji": "💻"
+  },
+  {
+   "id": "fire_tv",
+   "nombre": "Fire TV",
+   "emoji": "📺"
+  },
+  {
+   "id": "nintendo",
+   "nombre": "Nintendo",
+   "emoji": "🍄"
+  },
+  {
+   "id": "xbox",
+   "nombre": "Xbox",
+   "emoji": "🟢"
+  },
+  {
+   "id": "consolas_portatiles",
+   "nombre": "Consolas portátiles",
+   "emoji": "🎒"
+  },
+  {
+   "id": "saldo_y_suscripciones",
+   "nombre": "Saldo y suscripciones",
+   "emoji": "💳"
+  },
+  {
+   "id": "monitores",
+   "nombre": "Monitores",
+   "emoji": "🖥️"
+  },
+  {
+   "id": "tarjetas_graficas",
+   "nombre": "Tarjetas gráficas",
+   "emoji": "🧩"
+  },
+  {
+   "id": "auriculares",
+   "nombre": "Auriculares",
+   "emoji": "🎧"
+  },
+  {
+   "id": "redes_y_wifi",
+   "nombre": "Redes y wifi",
+   "emoji": "📡"
+  },
+  {
+   "id": "juegos_gratis",
+   "nombre": "Juego gratis",
+   "emoji": "🎁"
+  }
+ ],
+ "destacadas": [
+  {
+   "id": "2068970",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Lenovo L15 Monitor Portátil 15.6\" FHD (IPS, Tasa de Refresco 60 Hz, Tiempo de Respuesta 6 ms, 16:9, 2X USB-C 3.2 Gen 1, Montaje VESA 100mm",
+   "enlace": "https://www.chollometro.com/ofertas/lenovo-l15-monitor-portatil-156-fhd-ips-tasa-de-refresco-60-hz-tiempo-de-respuesta-6-ms-169-2x-usb-c-32-gen-1-montaje-vesa-100mm-2068970",
+   "destino": "https://www.amazon.es/dp/B09CZ591ZV?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 116.22,
+   "precio_antes": 199.0,
+   "grados": 265.92,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Q7qT8/2068970_1/re/768x768/qt/60/2068970_1.jpg",
+   "detectado": 1794658840.6897957,
+   "avisado": 1794666046.4963124,
+   "asin": "B09CZ591ZV",
+   "keepa": "https://keepa.com/#!product/9-B09CZ591ZV"
+  },
+  {
+   "id": "2067760",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor ASUS TUF Gaming VG27AQ5A 27\" QHD Fast IPS 210 Hz – 0,3 ms GTG, HDR y FreeSync Premium",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-asus-tuf-gaming-vg27aq5a-27-qhd-fast-ips-210-hz-03-ms-gtg-hdr-y-freesync-premium-2067760",
+   "destino": "https://www.coolmod.com/asus-tuf-gaming-vg27aq5a-27-qhd-fast-ips-210hz-0-3ms-hdr-freesync/",
+   "tienda": "Coolmod",
+   "precio": 158.95,
+   "grados": 201.49,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/yJYTx/2067760_1/re/768x768/qt/60/2067760_1.jpg",
+   "detectado": 1794570930.271585,
+   "avisado": 1794654934.8417268
+  },
+  {
+   "id": "2068502",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Dell P3424WE 34\" IPS 3440x1440 USB-C 90W, KVM y altura ajustable por 229€",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-dell-p3424we-34-ips-3440x1440-usb-c-90w-kvm-y-altura-ajustable-por-229eur-2068502",
+   "destino": "https://outlet-pc.es/products/dell-p3424we-34-3440-x-1440-ips-60-hz-5-ms-curva-plata-y-negro-concentrador-usb-c-y-kvm",
+   "tienda": "Outlet PC",
+   "precio": 229.0,
+   "precio_antes": 530.0,
+   "grados": 220.37,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/s7XNh/2068502_1/re/768x768/qt/60/2068502_1.jpg",
+   "detectado": 1794614127.3470309,
+   "avisado": 1794642638.6857712
+  },
+  {
+   "id": "2062687",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil gaming - Gigabyte Aero X16 1VH93ESC64DH Copilot+ PC, 16\" WQXGA, AMD Ryzen Al 7 350 50 TOPS, 16GB RAM, 1 TB SSD, GeForce RTX 5060",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-gaming-gigabyte-aero-x16-1vh93esc64dh-copilot-pc-16-wqxga-amd-ryzen-al-7-350-50-tops-16gb-ram-1-tb-ssd-geforce-rtx-5060-2062687",
+   "destino": "https://www.mediamarkt.es/es/product/_portatil-gigabyte-aero-x16-1vh93esc64dh-copilot-pc-16-wqxga-amd-ryzentm-al-7-350-50-tops-16gb-ram-1-tb-ssd-geforce-rtxtm-5060-w11-home-gris-1603924.html",
+   "tienda": "MediaMarkt",
+   "precio": 935.22,
+   "precio_antes": 1199.0,
+   "codigo": "Aplicar -22% APP",
+   "grados": 330.8,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Tm4YD/2062687_1/re/768x768/qt/60/2062687_1.jpg",
+   "detectado": 1794641448.9092093,
+   "avisado": 1794641448.9092093
+  },
+  {
+   "id": "2063085",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil - HP OmniBook 5 Next Gen AI 14-hh0002ns Copilot+PC, 14\"2K, Intel Core Ultra 9 386H,50 TOPS, 32GB RAM, 1TB SSD, Windows11 Home",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-hp-omnibook-5-next-gen-ai-14-hh0002ns-copilotpc-142k-intel-core-ultra-9-386h50-tops-32gb-ram-1tb-ssd-windows11-home-2063085",
+   "destino": "https://www.mediamarkt.es/es/product/_portatil-hp-omnibook-5-next-gen-ai-14-hh0002ns-copilotpc-142k-intelr-coretm-ultra-9-386h50-tops-32gb-ram-1tb-ssd-windows11-home-sin-cargador-1668342.html",
+   "tienda": "MediaMarkt",
+   "precio": 1091.22,
+   "precio_antes": 1599.0,
+   "codigo": "desde app",
+   "grados": 492.97,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/YZ8Ay/2063085_1/re/768x768/qt/60/2063085_1.jpg",
+   "detectado": 1794641130.5616226,
+   "avisado": 1794641130.5616226
+  },
+  {
+   "id": "2068493",
+   "tipo_hilo": "oferta",
+   "titulo": "SSD 2TB SanDisk Extreme M.2 NVMe PCIe Gen4",
+   "enlace": "https://www.chollometro.com/ofertas/ssd-2tb-sandisk-extreme-m2-nvme-pcie-gen4-2068493",
+   "destino": "https://www.mediamarkt.es/es/product/_disco-duro-ssd-interno-2tb-sandisk-extremer-m2-nvme-ssd-hasta-5150-mbs-lectura-interfaz-pcier-gen4-negro-1584727.html",
+   "tienda": "MediaMarkt",
+   "precio": 224.0,
+   "grados": 224.25,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/d18tg/2068493_1/re/768x768/qt/60/2068493_1.jpg",
+   "fecha": 1794612203.0,
+   "detectado": 1794612328.555125,
+   "avisado": 1794613536.441427
+  },
+  {
+   "id": "2068436",
+   "tipo_hilo": "oferta",
+   "titulo": "MacBook Air 13 M5 16GB 1TB",
+   "enlace": "https://www.chollometro.com/ofertas/macbook-air-13-m5-16gb-1tb-2068436",
+   "destino": "https://www.shopdutyfree.es/comprar-macbook-air-13-m5-16gb-1tb-sky-blue",
+   "tienda": "ShopDutyFree.es",
+   "precio": 1394.47,
+   "precio_antes": 1752.55,
+   "grados": 209.34,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/sRtCA/2068436_1/re/768x768/qt/60/2068436_1.jpg",
+   "detectado": 1794609329.0130298,
+   "avisado": 1794611128.1427808
+  },
+  {
+   "id": "2067902",
+   "tipo_hilo": "oferta",
+   "titulo": "Nacon EVOL XBX Gamepad PC/Xbox con Cable Negro",
+   "enlace": "https://www.chollometro.com/ofertas/nacon-evol-xbx-gamepad-pcxbox-con-cable-negro-2067902",
+   "destino": "https://www.pccomponentes.com/nacon-evol-xbx-gamepad-pc-xbox-con-cable-negro",
+   "tienda": "PcComponentes",
+   "precio": 19.99,
+   "precio_antes": 49.99,
+   "grados": 207.55,
+   "categorias": [
+    "mandos",
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/0pqjw/2067902_1/re/768x768/qt/60/2067902_1.jpg",
+   "detectado": 1794579641.2188177,
+   "avisado": 1794606638.784901
+  },
+  {
+   "id": "2068276",
+   "tipo_hilo": "oferta",
+   "titulo": "Ofertas Viernes 13: Dead Island 2 Ultimate, The Last of Us, Death Stranding 2, Cronos: The New Dawn, Days Gone, Remnant / Solo 24h",
+   "enlace": "https://www.chollometro.com/ofertas/ofertas-viernes-13-dead-island-2-ultimate-the-last-of-us-death-stranding-2-cronos-the-new-dawn-days-gone-remnant-solo-24h-2068276",
+   "destino": "https://www.loaded.com/es_es/days-gone-pc-steam",
+   "tienda": "Loaded",
+   "precio": 0.0,
+   "grados": 203.53,
+   "categorias": [
+    "juegos_gratis"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ClWaN/2068276_1/re/768x768/qt/60/2068276_1.jpg",
+   "detectado": 1794598251.2400415,
+   "avisado": 1794606638.784901
+  },
+  {
+   "id": "2068268",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Bluetooth Sony WI-C100 Blanco. Un año de envio gratis con esta compra 16,95€",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-bluetooth-sony-wi-c100-blanco-un-ano-de-envio-gratis-con-esta-compra-1695eur-2068268",
+   "destino": "https://www.fnac.es/Auriculares-Bluetooth-Sony-WI-C100-Blanco-Auriculares-Auriculares-Bluetooth/a9305802",
+   "tienda": "Fnac",
+   "precio": 14.99,
+   "grados": 218.52,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/kTxan/2068268_1/re/768x768/qt/60/2068268_1.jpg",
+   "detectado": 1794597935.70204,
+   "avisado": 1794599437.3965504
+  },
+  {
+   "id": "2068150",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Sony WI-C100 Auriculares Inalámbricos - Hasta 25 Horas de Duración de la Batería, Micrófono Incorporado para Llamadas",
+   "enlace": "https://www.chollometro.com/ofertas/sony-wi-c100-auriculares-inalambricos-hasta-25-horas-de-duracion-de-la-bateria-microfono-incorporado-para-llamadas-2068150",
+   "destino": "https://www.amazon.es/dp/B09TT4MB6Y?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 14.99,
+   "precio_antes": 24.7,
+   "grados": 243.53,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/sCl11/2068150_1/re/768x768/qt/60/2068150_1.jpg",
+   "detectado": 1794591638.6168935,
+   "avisado": 1794597037.8504043,
+   "asin": "B09TT4MB6Y",
+   "keepa": "https://keepa.com/#!product/9-B09TT4MB6Y"
+  },
+  {
+   "id": "2067929",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Nacon - Mando XBOX Pro Compact",
+   "enlace": "https://www.chollometro.com/ofertas/nacon-mando-xbox-pro-compact-2067929",
+   "destino": "https://www.amazon.es/dp/B08X6X3WBW?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 19.99,
+   "precio_antes": 49.9,
+   "grados": 227.35,
+   "categorias": [
+    "mandos",
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/XoT8t/2067929_1/re/768x768/qt/60/2067929_1.jpg",
+   "detectado": 1794581442.527147,
+   "avisado": 1794589539.8187368,
+   "asin": "B08X6X3WBW",
+   "keepa": "https://keepa.com/#!product/9-B08X6X3WBW"
+  },
+  {
+   "id": "2067943",
+   "tipo_hilo": "oferta",
+   "titulo": "Drive & Race (Meta quest VR)",
+   "enlace": "https://www.chollometro.com/ofertas/drive-race-meta-quest-vr-2067943",
+   "destino": "https://www.meta.com/es-es/experiences/drive-race/1174514979076636/",
+   "tienda": "Meta Store",
+   "precio": 0.0,
+   "precio_antes": 8.99,
+   "grados": 215.93,
+   "categorias": [
+    "juegos_gratis"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/uK6Nk/2067943_1/re/768x768/qt/60/2067943_1.jpg",
+   "detectado": 1794582330.9000893,
+   "avisado": 1794584736.9560509
+  },
+  {
+   "id": "2067149",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor TCL P2 27P2A 27\" 2K QHD 200Hz IPS Mini LED FreeSync Premium ajuste altura",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-tcl-p2-27p2a-27-2k-qhd-200hz-ips-mini-led-freesync-premium-ajuste-altura-2067149",
+   "destino": "https://www.pccomponentes.com/monitor-tcl-p2-27p2a-27-2k-qhd-200hz-ips-mini-led-freesync-premium-ajuste-altura",
+   "tienda": "PcComponentes",
+   "precio": 199.0,
+   "grados": 201.95,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/LEWbU/2067149_1/re/768x768/qt/60/2067149_1.jpg",
+   "detectado": 1794549036.1883705,
+   "avisado": 1794578133.9597445
+  },
+  {
+   "id": "2067772",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Bose Auriculares de botón QC Ultra Bluetooth (2.ª Gen), Auriculares de botón inalámbricos con cancelación de Ruido, hasta 6h de batería",
+   "enlace": "https://www.chollometro.com/ofertas/bose-auriculares-de-boton-qc-ultra-bluetooth-2a-gen-auriculares-de-boton-inalambricos-con-cancelacion-de-ruido-hasta-6h-de-bateria-2067772",
+   "destino": "https://www.amazon.es/dp/B0F7M1JXVV?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 199.95,
+   "precio_antes": 261.99,
+   "grados": 213.79,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/WKO4E/2067772_1/re/768x768/qt/60/2067772_1.jpg",
+   "detectado": 1794571836.8879309,
+   "avisado": 1794576329.949267,
+   "asin": "B0F7M1JXVV",
+   "keepa": "https://keepa.com/#!product/9-B0F7M1JXVV"
+  },
+  {
+   "id": "2067646",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares TWS Bose QuietComfort Ultra 2ª Gen Negros (cancelación ruido, audio espacial, Black Friday)",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-tws-bose-quietcomfort-ultra-2a-gen-negros-cancelacion-ruido-audio-espacial-black-friday-2067646",
+   "destino": "https://www.pccomponentes.com/auriculares-bose-quiet-comfort-ultra-2a-generacion-bluetooth-tws-con-cancelacion-de-ruido-negros",
+   "tienda": "PcComponentes",
+   "precio": 199.99,
+   "precio_antes": 279.99,
+   "grados": 203.27,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/7T9YS/2067646_1/re/768x768/qt/60/2067646_1.jpg",
+   "detectado": 1794565237.063054,
+   "avisado": 1794572438.7206764
+  },
+  {
+   "id": "2064357",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Inalámbricos Gaming Logitech G G733 LIGHTSPEED",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-inalambricos-gaming-logitech-g-g733-lightspeed-2064357",
+   "destino": "https://www.amazon.es/dp/B07W7KT2B3?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 66.22,
+   "precio_antes": 99.99,
+   "grados": 206.08,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/hxEtZ/2064357_1/re/768x768/qt/60/2064357_1.jpg",
+   "detectado": 1794389449.0762625,
+   "avisado": 1794566128.7230253,
+   "asin": "B07W7KT2B3",
+   "keepa": "https://keepa.com/#!product/9-B07W7KT2B3"
+  },
+  {
+   "id": "2048860",
+   "tipo_hilo": "oferta",
+   "titulo": "Sony WH-1000XM6 Auriculares Bluetooth [Promo 11.11]",
+   "enlace": "https://www.chollometro.com/ofertas/sony-wh-1000xm6-auriculares-bluetooth-promo-1111-empieza-1-11-2048860",
+   "destino": "http://s.click.aliexpress.com/deep_link.htm?aff_short_key=_c3Mflefb&dl_target_url=https://es.aliexpress.com/item/1005010044708756.html",
+   "tienda": "AliExpress",
+   "precio": 216.39,
+   "codigo": "ESD1139 + Paypal",
+   "grados": 1574.84,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/t0zae/2048860_1/re/768x768/qt/60/2048860_1.jpg",
+   "detectado": 1794565237.063054,
+   "avisado": 1794565237.063054
+  },
+  {
+   "id": "2067359",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "UGREEN Carcasa M2 NVMe SSD de 40Gbps Recintos USB 4",
+   "enlace": "https://www.chollometro.com/ofertas/ugreen-carcasa-m2-nvme-ssd-de-40gbps-recintos-usb-4-2067359",
+   "destino": "https://www.amazon.es/dp/B0F62NG7K3?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 56.68,
+   "grados": 234.77,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ItOxl/2067359_1/re/768x768/qt/60/2067359_1.jpg",
+   "fecha": 1794556399.0,
+   "detectado": 1794556530.085446,
+   "avisado": 1794564059.4898589,
+   "asin": "B0F62NG7K3",
+   "keepa": "https://keepa.com/#!product/9-B0F62NG7K3"
+  },
+  {
+   "id": "2066603",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "PDP Afterglow Wave Wireless Pro - Mando para Nintendo Switch, Batería de 2100 mAh recargable integrada, Ocho zonas de iluminación RGB",
+   "enlace": "https://www.chollometro.com/ofertas/pdp-afterglow-wave-wireless-pro-mando-para-nintendo-switch-bateria-de-2100-mah-recargable-integrada-ocho-zonas-de-iluminacion-rgb-2066603",
+   "destino": "https://www.amazon.es/dp/B0DDCJVX72?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 29.73,
+   "precio_antes": 36.67,
+   "grados": 205.59,
+   "categorias": [
+    "mandos",
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/FV6R1/2066603_1/re/768x768/qt/60/2066603_1.jpg",
+   "detectado": 1794500137.5672255,
+   "avisado": 1794561928.171851,
+   "asin": "B0DDCJVX72",
+   "keepa": "https://keepa.com/#!product/9-B0DDCJVX72"
+  },
+  {
+   "id": "2067184",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Mando inalámbrico GameSir Super Nova con base de carga (Hall Effect, gatillos ajustables, PC/Switch, Azul)",
+   "enlace": "https://www.chollometro.com/ofertas/mando-inalambrico-gamesir-super-nova-con-base-de-carga-hall-effect-gatillos-ajustables-pcswitch-azul-2067184",
+   "destino": "https://www.amazon.es/dp/B0DPMGDZLZ?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 44.99,
+   "precio_antes": 59.99,
+   "grados": 290.21,
+   "categorias": [
+    "mandos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/RhRXn/2067184_1/re/768x768/qt/60/2067184_1.jpg",
+   "detectado": 1794550534.768611,
+   "avisado": 1794556860.0997126,
+   "asin": "B0DPMGDZLZ",
+   "keepa": "https://keepa.com/#!product/9-B0DPMGDZLZ"
+  },
+  {
+   "id": "2067211",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos Bose QuietComfort Earbuds (ANC, Deep Bass, IPX4, 8,5h batería) - en todos los colores",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-inalambricos-bose-quietcomfort-earbuds-anc-deep-bass-ipx4-85h-bateria-azul-crepusculo-2067211",
+   "destino": "https://www.amazon.es/dp/B0DZHQHDWR?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 109.95,
+   "precio_antes": 170.77,
+   "grados": 213.9,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/uLwlc/2067211_1/re/768x768/qt/60/2067211_1.jpg",
+   "detectado": 1794551729.3167732,
+   "avisado": 1794556238.718798,
+   "asin": "B0DZHQHDWR",
+   "keepa": "https://keepa.com/#!product/9-B0DZHQHDWR"
+  },
+  {
+   "id": "2066792",
+   "tipo_hilo": "oferta",
+   "titulo": "8BitDo Ultimate 2 Wireless Controller",
+   "enlace": "https://www.chollometro.com/ofertas/8bitdo-ultimate-2-wireless-controller-2066792",
+   "destino": "https://es.aliexpress.com/item/1005004698856770.html",
+   "tienda": "AliExpress",
+   "precio": 37.24,
+   "precio_antes": 55.71,
+   "codigo": "ESD1108",
+   "grados": 202.22,
+   "categorias": [
+    "mandos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/nMN4I/2066792_1/re/768x768/qt/60/2066792_1.jpg",
+   "detectado": 1794508250.212896,
+   "avisado": 1794554438.9192145
+  },
+  {
+   "id": "2067178",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "XIAOMI Redmi Headphones Neo, Auriculares Inalámbricos, ANC, Driver 70 mm, Hi-Res, reducción IA con 3 micrófonos, Bluetooth 5.4, Fast Pair",
+   "enlace": "https://www.chollometro.com/ofertas/xiaomi-redmi-headphones-neo-auriculares-inalambricos-anc-driver-70-mm-hi-res-reduccion-ia-con-3-microfonos-bluetooth-54-fast-pair-2067178",
+   "destino": "https://www.amazon.es/dp/B0GQLYXDGH?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 37.99,
+   "grados": 237.42,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/vmhnI/2067178_1/re/768x768/qt/60/2067178_1.jpg",
+   "detectado": 1794550240.060382,
+   "avisado": 1794552635.9176762,
+   "asin": "B0GQLYXDGH",
+   "keepa": "https://keepa.com/#!product/9-B0GQLYXDGH"
+  },
+  {
+   "id": "2067051",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "GIGABYTE GS32QCA 31.5\" Monitor Curvo para Gaming QHD - 2560 x 1440, 180Hz, 1ms, 250 CD/m², FreeSync, HDR Ready, HDMI 2.0, DisplayPort 1.4",
+   "enlace": "https://www.chollometro.com/ofertas/gigabyte-gs32qca-315-monitor-curvo-para-gaming-qhd-2560-x-1440-180hz-1ms-250-cdm2-freesync-hdr-ready-hdmi-20-displayport-14-2067051",
+   "destino": "https://www.amazon.es/dp/B0DQ5T8M7J?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 169.99,
+   "grados": 204.56,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/5VzNJ/2067051_1/re/768x768/qt/60/2067051_1.jpg",
+   "detectado": 1794525929.210971,
+   "avisado": 1794544841.805523,
+   "asin": "B0DQ5T8M7J",
+   "keepa": "https://keepa.com/#!product/9-B0DQ5T8M7J"
+  },
+  {
+   "id": "2066684",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "OPPO Enco Clip2 Auriculares Abiertos, Sonido Dynaudio, Doble Driver, Llamadas por Conducción Ósea, Bluetooth 6.1",
+   "enlace": "https://www.chollometro.com/ofertas/oppo-enco-clip2-auriculares-abiertos-sonido-dynaudio-doble-driver-llamadas-por-conduccion-osea-bluetooth-61-2066684",
+   "destino": "https://www.amazon.es/dp/B0GY1MC6S5?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 99.06,
+   "precio_antes": 179.0,
+   "grados": 209.46,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/k3UzW/2066684_1/re/768x768/qt/60/2066684_1.jpg",
+   "detectado": 1794503443.9567611,
+   "avisado": 1794525038.196,
+   "asin": "B0GY1MC6S5",
+   "keepa": "https://keepa.com/#!product/9-B0GY1MC6S5"
+  },
+  {
+   "id": "2066557",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Inalámbricos Deportivos Belkin SoundForm ActiveFit - Negro - 36h Autonomía, IP54, USB-C (Reacondicionado - Como Nuevo)",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-inalambricos-deportivos-belkin-soundform-activefit-negro-36h-autonomia-ip54-usb-c-reacondicionado-como-nuevo-2066557",
+   "destino": "https://www.amazon.es/dp/B0FQPGR3ZG?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 12.05,
+   "precio_antes": 34.99,
+   "codigo": "Al tramitar",
+   "grados": 209.64,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/sO4Ey/2066557_1/re/768x768/qt/60/2066557_1.jpg",
+   "detectado": 1794497452.528974,
+   "avisado": 1794523836.2280102,
+   "asin": "B0FQPGR3ZG",
+   "keepa": "https://keepa.com/#!product/9-B0FQPGR3ZG"
+  },
+  {
+   "id": "2034187",
+   "tipo_hilo": "oferta",
+   "titulo": "Asrock B760M-H2/M.2 | Micro-ATX LGA1700 | Chipset Intel B760 | DDR5 | PCIe 4.0 | red LAN 2.5G | doble salida HDMI | 2 ranuras M.2 NVMe",
+   "enlace": "https://www.chollometro.com/ofertas/asrock-b760m-h2m2-micro-atx-lga1700-chipset-intel-b760-ddr5-pcie-40-red-lan-25g-doble-salida-hdmi-2-ranuras-m2-nvme-2034187",
+   "destino": "https://www.pccomponentes.com/placa-base-asrock-b760m-h2-m-2-intel-b760-lga-1700-micro-atx-ddr5-m-2-usb-3-2-gen2",
+   "tienda": "PcComponentes",
+   "precio": 64.0,
+   "grados": 328.76,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/CzFny/2034187_1/re/768x768/qt/60/2034187_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521438.106052
+  },
+  {
+   "id": "2063377",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil gaming Gigabyte AERO X16 (16\" WQXGA, Ryzen 7 260, 16GB, 512GB SSD, RTX 5060, Win 11)",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-gaming-gigabyte-aero-x16-16-wqxga-ryzen-7-260-16gb-512gb-ssd-rtx-5060-win-11-2063377",
+   "destino": "https://www.mediamarkt.es/es/product/_portatil-gaming-gigabyte-aero-x16-3vhk3esc93ah-16-wqxga-amd-ryzentm-7-260-16gb-ram-512gb-ssd-geforce-rtxtm-5060-windows-11-home-1666429.html",
+   "tienda": "MediaMarkt",
+   "precio": 935.22,
+   "precio_antes": 1499.0,
+   "codigo": "descuento app",
+   "grados": 325.93,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/4xw01/2063377_1/re/768x768/qt/60/2063377_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521438.106052
+  },
+  {
+   "id": "2063048",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil gaming - ASUS ROG Strix G16 G614FR-TS365, 16 \" WQXGA, AMD Ryzen 9 9955HX, 16GB RAM, 1TB SSD, GeForce RTX 5070 Ti",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-gaming-asus-rog-strix-g16-g614fr-ts365-16-wqxga-amd-ryzen-9-9955hx-16gb-ram-1tb-ssd-geforce-rtx-5070-ti-2063048",
+   "destino": "https://www.mediamarkt.es/es/product/_portatil-gaming-asus-rog-strix-g16-g614fr-ts365-16-wqxga-amd-ryzentm-9-9955hx-16gb-1tb-ssd-geforce-rtxtm-5070-ti-sin-sistema-operativo-1669477.html",
+   "tienda": "MediaMarkt",
+   "precio": 1871.22,
+   "precio_antes": 2599.0,
+   "codigo": "desde app",
+   "grados": 321.81,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/TYyGE/2063048_1/re/768x768/qt/60/2063048_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521438.106052
+  },
+  {
+   "id": "2062754",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil - ASUS Vivobook 15 F1504VA-BQ585, 15.6 \" Full-HD, Intel Core 7 150U, 16 GB RAM, 512 GB SSD, HD Graphics, Sin sistema operativo",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-asus-vivobook-15-f1504va-bq585-156-full-hd-intel-core-7-150u-16-gb-ram-512-gb-ssd-hd-graphics-sin-sistema-operativo-2062754",
+   "destino": "https://www.mediamarkt.es/es/product/_portatil-asus-vivobook-15-f1504va-bq254-156-full-hd-intelr-coretm-7-150u-16-gb-ram-512-gb-ssd-hd-graphics-sin-sistema-operativo-1621831.html",
+   "tienda": "MediaMarkt",
+   "precio": 506.22,
+   "precio_antes": 899.0,
+   "codigo": "22% app",
+   "grados": 316.39,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/XdETI/2062754_1/re/768x768/qt/60/2062754_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521438.106052
+  },
+  {
+   "id": "2056946",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "LaCie 5TB Rugged Disco Duro Portátil | USB-C 5Gb HDD todoterreno 256-Bit. Resistente a caídas, golpes, aplastamiento y lluvia.",
+   "enlace": "https://www.chollometro.com/ofertas/lacie-5tb-rugged-disco-duro-portatil-usb-c-5gb-hdd-todoterreno-256-bit-resistente-a-caidas-golpes-aplastamiento-y-lluvia-2056946",
+   "destino": "https://www.amazon.es/dp/B079H7JVL3?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 224.99,
+   "grados": 309.44,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/w8nHc/2056946_1/re/768x768/qt/60/2056946_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521438.106052,
+   "asin": "B079H7JVL3",
+   "keepa": "https://keepa.com/#!product/9-B079H7JVL3"
+  },
+  {
+   "id": "2059835",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "MSI PRO Z790-P WIFI Placa Base - ATX | 12ª y 13ª GEN CORE | Intel Z790 (LGA 1700) | PCIe 5.0 | 4 ranuras M.2 Gen4 | DDR5 ( 7000+ MHz OC)",
+   "enlace": "https://www.chollometro.com/ofertas/msi-pro-z790-p-wifi-placa-base-atx-12a-y-13a-gen-core-intel-z790-lga-1700-pcie-50-4-ranuras-m2-gen4-ddr5-7000-mhz-oc-2059835",
+   "destino": "https://www.amazon.es/dp/B09XWR42S5?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 151.31,
+   "grados": 296.6,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ku28x/2059835_1/re/768x768/qt/60/2059835_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521438.106052,
+   "asin": "B09XWR42S5",
+   "keepa": "https://keepa.com/#!product/9-B09XWR42S5"
+  },
+  {
+   "id": "2062775",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil - LG gram 14ZB90S-G.AA55BN, 14\" WQXGA, Intel Core Ultra 5 115U, 16GB RAM, 512GB SSD, Arc Onboard Graphics, W11 Home",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-lg-gram-14zb90s-gaa55bn-14-wqxga-intel-core-ultra-5-115u-16gb-ram-512gb-ssd-arc-onboard-graphics-w11-home-2062775",
+   "destino": "https://www.mediamarkt.es/es/product/_portatil-lg-gram-14zb90s-gaa55bn-14-wqxga-intelr-coretm-ultra-5-115u-16gb-ram-512gb-ssd-arctm-onboard-graphics-windows-11-home-sin-cargador-1667164.html",
+   "tienda": "MediaMarkt",
+   "precio": 763.62,
+   "precio_antes": 1549.0,
+   "codigo": "22% app",
+   "grados": 260.54,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/fw3si/2062775_1/re/768x768/qt/60/2062775_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521438.106052
+  },
+  {
+   "id": "2039719",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Philips TAT6000BK Auriculares True Wireless - Estuche Carga Inteligente, Cancelación Ruido, 4 Micros, Graves Dinámicos, 28H Reproducción",
+   "enlace": "https://www.chollometro.com/ofertas/philips-tat6000bk-auriculares-true-wireless-estuche-carga-inteligente-cancelacion-ruido-4-micros-graves-dinamicos-28h-reproduccion-2039719",
+   "destino": "https://www.amazon.es/dp/B0FN46QXKV?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 46.09,
+   "grados": 259.84,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/08twx/2039719_1/re/768x768/qt/60/2039719_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521438.106052,
+   "asin": "B0FN46QXKV",
+   "keepa": "https://keepa.com/#!product/9-B0FN46QXKV"
+  },
+  {
+   "id": "2062818",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil gaming - ASUS FA608UMI-TU167W, 16\" WUXGA, AMD Ryzen 7 260, 16 GB RAM, 512 GB SSD, GeForce RTX 5060, Windows 11 Home",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-gaming-asus-fa608umi-tu167w-16-wuxga-amd-ryzen-7-260-16-gb-ram-512-gb-ssd-geforce-rtx-5060-windows-11-home-2062818",
+   "destino": "https://www.mediamarkt.es/es/product/_portatil-gaming-asus-fa608umi-tu167w-16-wuxga-amd-ryzentm-7-260-16-gb-ram-512-gb-ssd-geforce-rtxtm-5060-windows-11-home-1625045.html",
+   "tienda": "MediaMarkt",
+   "precio": 1052.22,
+   "precio_antes": 1549.0,
+   "codigo": "22% app",
+   "grados": 244.85,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/HSggn/2062818_1/re/768x768/qt/60/2062818_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521438.106052
+  },
+  {
+   "id": "2059779",
+   "tipo_hilo": "oferta",
+   "titulo": "CREATE Tocadiscos Retro con Bluetooth, USB, SD, MicroSD y Mp3 - RECORD PLAYER RETRO (33,45€ con cupón ventajas)",
+   "enlace": "https://www.chollometro.com/ofertas/create-tocadiscos-retro-con-bluetooth-usb-sd-microsd-y-mp3-record-player-retro-2059779",
+   "destino": "https://es.aliexpress.com/item/1005007634398885.html",
+   "tienda": "AliExpress",
+   "precio": 37.45,
+   "codigo": "AEES08 + cupón ventajas",
+   "grados": 3231.13,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/qWjhC/2059779_1/re/768x768/qt/60/2059779_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521129.462913
+  },
+  {
+   "id": "2041388",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Seagate 5TB One Touch Disco Duro Portátil | USB 3.0",
+   "enlace": "https://www.chollometro.com/ofertas/seagate-5tb-one-touch-disco-duro-portatil-usb-30-2041388",
+   "destino": "https://www.amazon.es/dp/B094R327VT?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 173.99,
+   "precio_antes": 233.0,
+   "grados": 772.33,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/o8xFo/2041388_1/re/768x768/qt/60/2041388_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521129.462913,
+   "asin": "B094R327VT",
+   "keepa": "https://keepa.com/#!product/9-B094R327VT"
+  },
+  {
+   "id": "2037674",
+   "tipo_hilo": "oferta",
+   "titulo": "Disco duro externo SanDisk SSD 1 TB",
+   "enlace": "https://www.chollometro.com/ofertas/disco-duro-externo-sandisk-ssd-1-tb-2037674",
+   "destino": "https://www.mediamarkt.es/es/product/_disco-duro-ssd-externo-1tb-sandisk-portable-ssd-portatil-usb-32-gen-2-lectura-de-hasta-800-mbs-gancho-de-goma-gris-1560146.html?gad_campaignid=23912985034",
+   "tienda": "MediaMarkt",
+   "precio": 139.0,
+   "precio_antes": 159.0,
+   "grados": 718.47,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/XCGI0/2037674_1/re/768x768/qt/60/2037674_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521129.462913
+  },
+  {
+   "id": "2045038",
+   "tipo_hilo": "oferta",
+   "titulo": "Tarjeta microSd express 256gb switch 2",
+   "enlace": "https://www.chollometro.com/ofertas/tarjeta-microsd-express-256gb-switch-2-2045038",
+   "destino": "https://www.fnac.es/Tarjeta-Micro-SD-Express-Sandisk-256GB-para-Nintendo-Switch-2-Accesorio-Videoconsola-Tarjeta-memoria-consola/a11864480",
+   "tienda": "Fnac",
+   "precio": 50.9,
+   "precio_antes": 54.9,
+   "grados": 675.29,
+   "categorias": [
+    "ssd_m_2_y_discos",
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/7UWvP/2045038_1/re/768x768/qt/60/2045038_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521129.462913
+  },
+  {
+   "id": "2062587",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil gaming - Gigabyte EAGLE 9MJ, 16\" WUXGA, AMD Ryzen 5 7533HS, 16GB RAM, 512GB SSD, GeForce RTX 4050, Sin SO - Ordenador Gaming",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-gaming-gigabyte-eagle-9mj-16-wuxga-amd-ryzen-5-7533hs-16gb-ram-512gb-ssd-geforce-rtx-4050-sin-so-ordenador-gaming-2062587",
+   "destino": "https://www.mediamarkt.es/es/product/_portatil-gaming-gigabyte-eagle-9mj-16-wuxga-amd-ryzentm-5-7533hs-16gb-ram-512gb-ssd-geforce-rtxtm-4050-sin-sistema-operativo-1666442.html",
+   "tienda": "MediaMarkt",
+   "precio": 623.22,
+   "codigo": "-22% EN CARRITO APP",
+   "grados": 624.1,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/AjpdQ/2062587_1/re/768x768/qt/60/2062587_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521129.462913
+  },
+  {
+   "id": "2039782",
+   "tipo_hilo": "oferta",
+   "titulo": "Asus TUF A16 TUF608UP-TU162 | Portátil AMD Ryzen 7 260 16GB DDR5 512GB NVMe RTX5070 16″ WUXGA 144Hz",
+   "enlace": "https://www.chollometro.com/ofertas/asus-tuf-a16-tuf608up-tu162-portatil-amd-ryzen-7-260-16gb-ddr5-512gb-nvme-rtx5070-16-wuxga-144hz-2039782",
+   "destino": "https://lifeinformatica.com/tienda/asus-tuf-a16-tuf608up-tu162-portatil-amd-ryzen-7-260-16gb-ddr5-512gb-nvme-rtx5070-16-wuxga-144hz-freedos/",
+   "tienda": "LIFE Informática",
+   "precio": 1259.0,
+   "precio_antes": 1699.0,
+   "grados": 599.37,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/wlvEW/2039782_1/re/768x768/qt/60/2039782_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521129.462913
+  },
+  {
+   "id": "2054580",
+   "tipo_hilo": "oferta",
+   "titulo": "Sandisk WD-Black SN7100 SSD M.2",
+   "enlace": "https://www.chollometro.com/ofertas/sandisk-wd-black-sn7100-ssd-m2-2054580",
+   "destino": "https://es.aliexpress.com/item/1005013226080687.html",
+   "tienda": "AliExpress",
+   "precio": 144.19,
+   "precio_antes": 279.0,
+   "codigo": "ESD1123",
+   "grados": 541.51,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ezG0V/2054580_1/re/768x768/qt/60/2054580_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521129.462913
+  },
+  {
+   "id": "2060911",
+   "tipo_hilo": "oferta",
+   "titulo": "Netac 7400 MB/s SSD NVMe M2 1TB DEVUELVEN 7 EUROS",
+   "enlace": "https://www.chollometro.com/ofertas/netac-7400-mbs-ssd-nvme-m2-1tb-devuelven-7-euros-2060911",
+   "destino": "https://es.aliexpress.com/item/1005005679620230.html",
+   "tienda": "AliExpress",
+   "precio": 110.0,
+   "precio_antes": 160.0,
+   "grados": 447.21,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/laxAr/2060911_1/re/768x768/qt/60/2060911_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521129.462913
+  },
+  {
+   "id": "2062704",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil gaming - ASUS V16 V3607VM-TK228, 16 \" WUXGA, Intel Core 7 240H, 16 GB RAM, 1 TB SSD, GeForce RTX 5060, Sin sistema operativo",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-gaming-asus-v16-v3607vm-tk228-16-wuxga-intel-core-7-240h-16-gb-ram-1-tb-ssd-geforce-rtx-5060-sin-sistema-operativo-2062704",
+   "destino": "https://www.mediamarkt.es/es/product/_portatil-gaming-asus-v16-v3607vm-tk228-16-wuxga-intelr-coretm-7-240h-16-gb-ram-1-tb-ssd-geforce-rtxtm-5060-sin-sistema-operativo-1621827.html",
+   "tienda": "MediaMarkt",
+   "precio": 896.22,
+   "precio_antes": 1449.0,
+   "codigo": "22% app",
+   "grados": 365.43,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/QWYwt/2062704_1/re/768x768/qt/60/2062704_1.jpg",
+   "detectado": 1794521129.462913,
+   "avisado": 1794521129.462913
+  },
+  {
+   "id": "2062655",
+   "tipo_hilo": "oferta",
+   "titulo": "Disco duro SSD externo 1TB - SanDisk Portable SSD, Portátil, USB 3.2 Gen 2, Lectura de hasta 800 MB/s, Gancho de goma, Gris",
+   "enlace": "https://www.chollometro.com/ofertas/disco-duro-ssd-externo-1tb-sandisk-portable-ssd-portatil-usb-32-gen-2-lectura-de-hasta-800-mbs-gancho-de-goma-gris-2062655",
+   "destino": "https://www.mediamarkt.es/es/product/_disco-duro-ssd-externo-1tb-sandisk-portable-ssd-portatil-usb-32-gen-2-lectura-de-hasta-800-mbs-gancho-de-goma-gris-1560146.html",
+   "tienda": "MediaMarkt",
+   "precio": 108.42,
+   "codigo": "-22% en app",
+   "grados": 334.23,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/dbqgb/2062655_1/re/768x768/qt/60/2062655_1.jpg",
+   "fecha": 1794321064.0,
+   "detectado": 1794521129.462913,
+   "avisado": 1794521129.462913
+  },
+  {
+   "id": "2065740",
+   "tipo_hilo": "oferta",
+   "titulo": "Placa base MSI B550 GAMING ATX AM4 con 4 ranuras DDR4, hasta 128 GB, 2 M.2, 6 SATA y PCIe 4.0 x16",
+   "enlace": "https://www.chollometro.com/ofertas/placa-base-msi-b550-gaming-atx-am4-con-4-ranuras-ddr4-hasta-128-gb-2-m2-6-sata-y-pcie-40-x16-2065740",
+   "destino": "https://es-store.msi.com/products/b550-gaming-placas-base",
+   "tienda": "MSI (Tienda)",
+   "precio": 115.9,
+   "precio_antes": 144.9,
+   "grados": 128.94,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/GNFBq/2065740_1/re/768x768/qt/60/2065740_1.jpg",
+   "detectado": 1794439850.56812,
+   "avisado": 1794520536.3696222,
+   "advertencias": [
+    "ℹ️ SSD SATA: perfecto para PC, portátil o como disco externo; en la ranura M.2 de la PS5 no vale (pide NVMe PCIe 4.0)."
+   ]
+  },
+  {
+   "id": "2065657",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil - ASUS Zenbook 14 OLED UX3480QA-U1091W Copilot+ PC, 14\" WUXGA, Snapdragon X X1-26-100 45 TOPS, 16GB RAM, 256GB SSD, W11H",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-asus-zenbook-14-oled-ux3480qa-u1091w-copilot-pc-14-wuxga-snapdragon-x-x1-26-100-45-tops-16gb-ram-256gb-ssd-w11h-2065657",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065657",
+   "tienda": "MediaMarkt",
+   "precio": 622.22,
+   "precio_antes": 899.0,
+   "grados": 213.13,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/V58FF/2065657_1/re/768x768/qt/60/2065657_1.jpg",
+   "detectado": 1794434129.8546128,
+   "avisado": 1794509731.222226
+  },
+  {
+   "id": "2065917",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Miquelrius - Cuaderno A5 Cuadriculado 5 mm, 100 Hojas, con 4 Secciones de Color, Papel 70 g/m², 2 Taladros para Archivar",
+   "enlace": "https://www.chollometro.com/ofertas/miquelrius-cuaderno-a5-cuadriculado-5-mm-100-hojas-con-4-secciones-de-color-papel-70-gm2-2-taladros-para-archivar-2065917",
+   "destino": "https://www.amazon.es/dp/B0FS7ZHVGY?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 2.5,
+   "precio_antes": 6.52,
+   "grados": 204.91,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/L9025/2065917_1/re/768x768/qt/60/2065917_1.jpg",
+   "detectado": 1794468328.85394,
+   "avisado": 1794509437.4203758,
+   "asin": "B0FS7ZHVGY",
+   "keepa": "https://keepa.com/#!product/9-B0FS7ZHVGY"
+  },
+  {
+   "id": "2066543",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Router Cudy wr3000p wifi 6 compatible OpenWRT",
+   "enlace": "https://www.chollometro.com/ofertas/router-cudy-wr3000p-wifi-6-compatible-openwrt-2066543",
+   "destino": "https://www.amazon.es/dp/B0FG3D2SDY?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 48.79,
+   "precio_antes": 76.9,
+   "grados": 217.08,
+   "categorias": [
+    "redes_y_wifi"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/S43Z0/2066543_1/re/768x768/qt/60/2066543_1.jpg",
+   "detectado": 1794497130.564805,
+   "avisado": 1794508531.9116352,
+   "asin": "B0FG3D2SDY",
+   "keepa": "https://keepa.com/#!product/9-B0FG3D2SDY"
+  },
+  {
+   "id": "2066273",
+   "tipo_hilo": "oferta",
+   "titulo": "Recopilación App Store iPhone: Tierra 3D y Weather Now PRO GRATIS + Children of Morta, Severed y Héroe del Reino II a 1,99 €",
+   "enlace": "https://www.chollometro.com/ofertas/recopilacion-app-store-iphone-tierra-3d-y-weather-now-pro-gratis-children-of-morta-severed-y-heroe-del-reino-ii-a-199-eur-2066273",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066273",
+   "tienda": "App Store (iOS)",
+   "precio": 0.0,
+   "grados": 211.31,
+   "categorias": [
+    "juegos_gratis"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/P8IUY/2066273_1/re/768x768/qt/60/2066273_1.jpg",
+   "detectado": 1794483936.1181927,
+   "avisado": 1794506730.468295
+  },
+  {
+   "id": "2066242",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Lenovo L24-4e - Monitor FHD 23.8\" (IPS, 1920x1080, Tasa de Refresco 48 Hz – 100 Hz",
+   "enlace": "https://www.chollometro.com/ofertas/lenovo-l24-4e-monitor-fhd-238-ips-1920x1080-tasa-de-refresco-48-hz-100-hz-2066242",
+   "destino": "https://www.amazon.es/dp/B0F8F1GXCV?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 57.72,
+   "precio_antes": 74.99,
+   "grados": 211.54,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Y4eNs/2066242_1/re/768x768/qt/60/2066242_1.jpg",
+   "detectado": 1794482139.1665282,
+   "avisado": 1794503738.412208,
+   "asin": "B0F8F1GXCV",
+   "keepa": "https://keepa.com/#!product/9-B0F8F1GXCV"
+  },
+  {
+   "id": "2066373",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Edifier W800BT Pro Auriculares con Cancelación Activa del Ruido Híbridos, Bluetooth 5.4, Audio Hi-Res",
+   "enlace": "https://www.chollometro.com/ofertas/edifier-w800bt-pro-auriculares-con-cancelacion-activa-del-ruido-hibridos-bluetooth-54-audio-hi-res-2066373",
+   "destino": "https://www.amazon.es/dp/B0D41KBMFY?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 39.99,
+   "grados": 226.41,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/1tpce/2066373_1/re/768x768/qt/60/2066373_1.jpg",
+   "detectado": 1794487838.2431684,
+   "avisado": 1794501640.4589636,
+   "asin": "B0D41KBMFY",
+   "keepa": "https://keepa.com/#!product/9-B0D41KBMFY"
+  },
+  {
+   "id": "2066230",
+   "tipo_hilo": "oferta",
+   "titulo": "GTA VI (Xbox Series X|S) clave Europa por 66,97 € en Driffle (sin suscripción Plus) · Activable en España",
+   "enlace": "https://www.chollometro.com/ofertas/gta-vi-xbox-series-xs-clave-europa-por-6697-eur-en-driffle-sin-suscripcion-plus-activable-en-espana-2066230",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066230",
+   "tienda": "driffle",
+   "precio": 66.97,
+   "precio_antes": 79.99,
+   "codigo": "Chollometro",
+   "grados": 231.08,
+   "categorias": [
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/hc4dX/2066230_1/re/768x768/qt/60/2066230_1.jpg",
+   "detectado": 1794481838.3338783,
+   "avisado": 1794500730.1755443
+  },
+  {
+   "id": "2056700",
+   "tipo_hilo": "oferta",
+   "titulo": "Epic games regala Knightica [PC/ANDROID/IOS, Jueves 12]",
+   "enlace": "https://www.chollometro.com/ofertas/epic-games-regala-knightica-2056700",
+   "destino": "https://www.chollometro.com/visit/threadmain/2056700",
+   "tienda": "Epic Games",
+   "precio": 0.0,
+   "precio_antes": 14.99,
+   "grados": 1310.7,
+   "categorias": [
+    "juegos_gratis"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/rNzXB/2056700_1/re/768x768/qt/60/2056700_1.jpg",
+   "detectado": 1794499263.441165,
+   "avisado": 1794499263.441165
+  },
+  {
+   "id": "2066529",
+   "tipo_hilo": "oferta",
+   "titulo": "Epic Games regala Mark of the Deep [PC/ANDROID/IOS, Jueves 19]",
+   "enlace": "https://www.chollometro.com/ofertas/epic-games-regala-mark-of-the-deep-jueves-19-2066529",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066529",
+   "tienda": "Epic Games",
+   "precio": 0.0,
+   "precio_antes": 19.5,
+   "grados": 215.57,
+   "categorias": [
+    "juegos_gratis"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/dpCa7/2066529_1/re/768x768/qt/60/2066529_1.jpg",
+   "detectado": 1794496538.136553,
+   "avisado": 1794498639.166675
+  },
+  {
+   "id": "2066534",
+   "tipo_hilo": "oferta",
+   "titulo": "Epic Games regala Alien: Isolation [Jueves 19]",
+   "enlace": "https://www.chollometro.com/ofertas/epic-games-regala-alien-isolation-jueves-19-2066534",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066534",
+   "tienda": "Epic Games",
+   "precio": 0.0,
+   "precio_antes": 39.99,
+   "grados": 287.78,
+   "categorias": [
+    "juegos_gratis"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/6zuKa/2066534_1/re/768x768/qt/60/2066534_1.jpg",
+   "detectado": 1794496837.1616814,
+   "avisado": 1794497452.528974
+  },
+  {
+   "id": "2065597",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "10 x Maxi Cuaderno Manga, A4 21x29,7 cm, 80 páginas + guarda, papel 80 g/m²",
+   "enlace": "https://www.chollometro.com/ofertas/10-x-maxi-cuaderno-manga-a4-21x297-cm-80-paginas-guarda-papel-80-gm2-2065597",
+   "destino": "https://www.amazon.es/dp/B0DX2CD5S4?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 5.27,
+   "grados": 202.5,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/LcZ2H/2065597_1/re/768x768/qt/60/2065597_1.jpg",
+   "detectado": 1794431129.5274913,
+   "avisado": 1794489928.6181061,
+   "asin": "B0DX2CD5S4",
+   "keepa": "https://keepa.com/#!product/9-B0DX2CD5S4"
+  },
+  {
+   "id": "2064004",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Gaming ASUS ROG Strix XG27AQDMGR 26,5\" QHD WOLED TrueBlack Glossy – 240Hz, 0,03ms, HDR True Black 400 y OLED Care Pro",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-gaming-asus-rog-strix-xg27aqdmgr-265-qhd-woled-trueblack-glossy-240hz-003ms-hdr-true-black-400-y-oled-care-pro-2064004",
+   "destino": "https://www.amazon.es/dp/B09CD32DNH?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 358.0,
+   "precio_antes": 458.95,
+   "codigo": "100,93 € al tramitar",
+   "grados": 244.61,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/uQqlU/2064004_1/re/768x768/qt/60/2064004_1.jpg",
+   "detectado": 1794377738.314187,
+   "avisado": 1794489339.4673855,
+   "asin": "B09CD32DNH",
+   "keepa": "https://keepa.com/#!product/9-B09CD32DNH"
+  },
+  {
+   "id": "2065888",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Logitech G G923 volante y pedales Xbox Series X|S/One y PC, Force Feedback TRUEFORCE 1000 Hz, 900°, doble embrague, freno progresivo",
+   "enlace": "https://www.chollometro.com/ofertas/logitech-g-g923-volante-y-pedales-xbox-series-xsone-y-pc-force-feedback-trueforce-1000-hz-900-doble-embrague-freno-progresivo-2065888",
+   "destino": "https://www.amazon.es/dp/B07W4DG81W?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 170.82,
+   "grados": 216.52,
+   "categorias": [
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/cGVFH/2065888_1/re/768x768/qt/60/2065888_1.jpg",
+   "detectado": 1794467129.167714,
+   "avisado": 1794487838.2431684,
+   "asin": "B07W4DG81W",
+   "keepa": "https://keepa.com/#!product/9-B07W4DG81W"
+  },
+  {
+   "id": "2066168",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Xbox Mando inalámbrico Forza Horizon 6 Edición limitada Series X|S, One, PC y dispositivos habilitados para la nube",
+   "enlace": "https://www.chollometro.com/ofertas/xbox-mando-inalambrico-forza-horizon-6-edicion-limitada-series-xs-one-pc-y-dispositivos-habilitados-para-la-nube-2066168",
+   "destino": "https://www.amazon.es/dp/B0GR5ZNHRZ?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 60.5,
+   "precio_antes": 74.99,
+   "grados": 230.87,
+   "categorias": [
+    "mandos",
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/qE2Yp/2066168_1/re/768x768/qt/60/2066168_1.jpg",
+   "detectado": 1794479449.7587984,
+   "avisado": 1794484523.868625,
+   "asin": "B0GR5ZNHRZ",
+   "keepa": "https://keepa.com/#!product/9-B0GR5ZNHRZ"
+  },
+  {
+   "id": "2066070",
+   "tipo_hilo": "oferta",
+   "titulo": "Airpods Pro 3 por sólo 199€ (Club Carrefour)",
+   "enlace": "https://www.chollometro.com/ofertas/airpods-pro-3-por-solo-199eur-club-carrefour-2066070",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066070",
+   "tienda": "Carrefour",
+   "precio": 199.0,
+   "precio_antes": 249.0,
+   "grados": 211.81,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/TrGr5/2066070_1/re/768x768/qt/60/2066070_1.jpg",
+   "detectado": 1794475532.4469721,
+   "avisado": 1794484236.6634853
+  },
+  {
+   "id": "ofertitas-?p=548023",
+   "fuente": "Ofertitas",
+   "descuento": 65,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares gaming Logitech G432 de 7.1 canales con DTS por sólo 31,19€ con envío gratis (-65%)",
+   "enlace": "https://www.ofertitas.es/auriculares-logitech-g432/548023/",
+   "tienda": "Amazon",
+   "precio": 31.19,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/2020/09/chollo-auriculares-gaming-logitech-g432-surround-7.1-dts-cable.jpg",
+   "fecha": 1794481681.0,
+   "detectado": 1794482144.0798793,
+   "avisado": 1794482139.1665282
+  },
+  {
+   "id": "2064306",
+   "tipo_hilo": "oferta",
+   "titulo": "Consola de juegos portátil retro AYN Thor, 128gb (Desde España)",
+   "enlace": "https://www.chollometro.com/ofertas/consola-de-juegos-portatil-retro-ayn-thor-128gb-desde-espana-2064306",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064306",
+   "tienda": "AliExpress",
+   "precio": 286.04,
+   "codigo": "ESD1158",
+   "grados": 220.77,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/gSRVW/2064306_1/re/768x768/qt/60/2064306_1.jpg",
+   "detectado": 1794388235.3323948,
+   "avisado": 1794481262.8039048
+  },
+  {
+   "id": "ofertitas-?p=907226",
+   "fuente": "Ofertitas",
+   "descuento": 42,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos Bose QuietComfort SC por sólo 116,91€ con cupón y envío gratis (-42%)",
+   "enlace": "https://www.ofertitas.es/auriculares-inalambricos-bose-quietcomfort-sc/907226/",
+   "tienda": "AliExpress",
+   "precio": 116.91,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/chollo-auriculares-inalambricos-bose-quietcomfort-sc.webp",
+   "fecha": 1794479761.0,
+   "detectado": 1794479796.741826,
+   "avisado": 1794479731.3007917
+  },
+  {
+   "id": "ofertitas-?p=596665",
+   "afiliado": true,
+   "fuente": "Ofertitas",
+   "descuento": 27,
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor de temperatura y humedad TP-Link TAPO T315 por sólo 21,84€ (-27%)",
+   "enlace": "https://www.ofertitas.es/tp-link-tapo-t315-medidor-temperatura-humedad-chollo/596665/",
+   "destino": "https://www.amazon.es/dp/B0BNYSVV3J?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 21.84,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/2023/02/tp-link-tapo-t315-medidor-temperatura-humedad-chollo.jpg",
+   "fecha": 1794479521.0,
+   "detectado": 1794479796.7721949,
+   "avisado": 1794479731.3007917,
+   "asin": "B0BNYSVV3J",
+   "keepa": "https://keepa.com/#!product/9-B0BNYSVV3J"
+  },
+  {
+   "id": "ofertitas-?p=953717",
+   "fuente": "Ofertitas",
+   "descuento": 27,
+   "tipo_hilo": "oferta",
+   "titulo": "Tarjeta microSD Express Sandisk de 256 GB para Nintendo Switch 2 por sólo 43,66€ con descuento al tramitar y envío gratis (-27%)",
+   "enlace": "https://www.ofertitas.es/tarjeta-microsd-express-sandisk/953717/",
+   "tienda": "Amazon",
+   "precio": 43.66,
+   "categorias": [
+    "ssd_m_2_y_discos",
+    "nintendo"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/tarjeta-microsd-express-sandisk-256gb-barata.webp",
+   "fecha": 1794478921.0,
+   "detectado": 1794479170.3633904,
+   "avisado": 1794479133.5880175
+  },
+  {
+   "id": "2066060",
+   "tipo_hilo": "oferta",
+   "titulo": "Bose QuietComfort SC Headphones, Auriculares inalámbricos con cancelación de Ruido",
+   "enlace": "https://www.chollometro.com/ofertas/bose-quietcomfort-sc-headphones-auriculares-inalambricos-con-cancelacion-de-ruido-2066060",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066060",
+   "tienda": "AliExpress",
+   "precio": 116.91,
+   "codigo": "ESD1123",
+   "grados": 244.39,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/G2wq7/2066060_1/re/768x768/qt/60/2066060_1.jpg",
+   "detectado": 1794474939.436315,
+   "avisado": 1794476438.6624568
+  },
+  {
+   "id": "2066025",
+   "tipo_hilo": "oferta",
+   "titulo": "Mini PC i3 4030U con 8GB y SSD de 128GB para ofimática básica o emulador retro.",
+   "enlace": "https://www.chollometro.com/ofertas/mini-pc-i3-4030u-con-8gb-y-ssd-de-128gb-para-ofimatica-basica-o-emulador-retro-2066025",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066025",
+   "tienda": "AliExpress",
+   "precio": 68.1,
+   "precio_antes": 109.0,
+   "codigo": "ESD1112",
+   "grados": 212.41,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/lMrQh/2066025_1/re/768x768/qt/60/2066025_1.jpg",
+   "detectado": 1794473140.7575073,
+   "avisado": 1794475243.1233113
+  },
+  {
+   "id": "2065948",
+   "tipo_hilo": "oferta",
+   "titulo": "Xiaomi 2k Gaming Monitor G27qi + Regalo Xiaomi Bluetooth Speaker Essential Negro",
+   "enlace": "https://www.chollometro.com/ofertas/xiaomi-2k-gaming-monitor-g27qi-regalo-xiaomi-bluetooth-speaker-essential-negro-2065948",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065948",
+   "tienda": "Mi",
+   "precio": 125.99,
+   "precio_antes": 204.98,
+   "grados": 213.82,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/jLGqB/2065948_1/re/768x768/qt/60/2065948_1.jpg",
+   "detectado": 1794469839.4050589,
+   "avisado": 1794474939.436315
+  },
+  {
+   "id": "2065203",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Gaming Gigabyte GO27Q24A 27\" QHD QD-OLED – 240 Hz, 0,03 ms, HDR Ready y 99% DCI-P3",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-gaming-gigabyte-go27q24a-27-qhd-qd-oled-240-hz-003-ms-hdr-ready-y-99-dci-p3-2065203",
+   "destino": "https://www.amazon.es/dp/B0H2WFMB5F?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 295.62,
+   "precio_antes": 349.0,
+   "codigo": "54,33 € al tramitar",
+   "grados": 203.57,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/BA1Gk/2065203_1/re/768x768/qt/60/2065203_1.jpg",
+   "detectado": 1794417931.2631118,
+   "avisado": 1794473728.8587563,
+   "asin": "B0H2WFMB5F",
+   "keepa": "https://keepa.com/#!product/9-B0H2WFMB5F"
+  },
+  {
+   "id": "ofertitas-?p=1183973",
+   "fuente": "Ofertitas",
+   "descuento": 42,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares gaming Logitech G Astro A50 LIGHTSPEED por sólo 174,72€ con envío gratis (-42%)",
+   "enlace": "https://www.ofertitas.es/auriculares-gaming-logitech-astro-a50-lightspeed/1183973/",
+   "tienda": "Amazon",
+   "precio": 174.72,
+   "categorias": [
+    "nintendo",
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/2026/11/auriculares-gaming-logitech-astro-a50-lightspeed.webp",
+   "fecha": 1794469740.0,
+   "detectado": 1794470130.714764,
+   "avisado": 1794470127.489439
+  },
+  {
+   "id": "2065841",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Volante Gaming Logitech G923 TRUEFORCE + Pedales y Palanca Driving Force – PS5, PS4 y PC, Cuero Auténtico",
+   "enlace": "https://www.chollometro.com/ofertas/volante-gaming-logitech-g923-trueforce-pedales-y-palanca-driving-force-ps5-ps4-y-pc-cuero-autentico-2065841",
+   "destino": "https://www.amazon.es/dp/B08K9SBMJR?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 178.62,
+   "precio_antes": 229.0,
+   "codigo": "50,38 € al tramitar",
+   "grados": 202.55,
+   "categorias": [
+    "ps5_y_ps4"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/IivI7/2065841_1/re/768x768/qt/60/2065841_1.jpg",
+   "detectado": 1794463838.0762348,
+   "avisado": 1794466863.7148204,
+   "asin": "B08K9SBMJR",
+   "keepa": "https://keepa.com/#!product/9-B08K9SBMJR"
+  },
+  {
+   "id": "2065816",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Tarjeta de memoria SanDisk microSD Express Nintendo 256GB (alta velocidad PCIe, licencia oficial Switch 2)",
+   "enlace": "https://www.chollometro.com/ofertas/tarjeta-de-memoria-sandisk-microsd-express-nintendo-256gb-alta-velocidad-pcie-licencia-oficial-switch-2-2065816",
+   "destino": "https://www.amazon.es/dp/B0F3P3X5P2?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 43.66,
+   "precio_antes": 53.08,
+   "codigo": "Al tramitar",
+   "grados": 201.35,
+   "categorias": [
+    "ssd_m_2_y_discos",
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Da7NO/2065816_1/re/768x768/qt/60/2065816_1.jpg",
+   "detectado": 1794463532.262924,
+   "avisado": 1794465330.2408633,
+   "asin": "B0F3P3X5P2",
+   "keepa": "https://keepa.com/#!product/9-B0F3P3X5P2"
+  },
+  {
+   "id": "2064726",
+   "tipo_hilo": "oferta",
+   "titulo": "Apple AirPods 5 Auriculares Inalámbricos ANC Cancelación Ruido Chip H2 Audio Espacial IP57 USB-C",
+   "enlace": "https://www.chollometro.com/ofertas/apple-airpods-5-auriculares-inalambricos-anc-cancelacion-ruido-chip-h2-audio-espacial-ip57-usb-c-2064726",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064726",
+   "tienda": "AliExpress",
+   "precio": 115.69,
+   "precio_antes": 149.0,
+   "codigo": "paypal 9",
+   "grados": 216.04,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/iUtlO/2064726_1/re/768x768/qt/60/2064726_1.jpg",
+   "detectado": 1794404436.0611403,
+   "avisado": 1794464437.4106178
+  },
+  {
+   "id": "ofertitas-?p=1183980",
+   "fuente": "Ofertitas",
+   "descuento": 47,
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor gaming Lenovo Legion 27-10 240 Hz de 27\" por sólo 100,63€ con envío gratis (-47%)",
+   "enlace": "https://www.ofertitas.es/monitor-gaming-lenovo-legion-27-10/1183980/",
+   "tienda": "Amazon",
+   "precio": 100.63,
+   "categorias": [
+    "portatiles_y_pc",
+    "monitores"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/2026/11/monitor-gaming-lenovo-legion-27-10-1.webp",
+   "fecha": 1794463980.0,
+   "detectado": 1794464140.0966895,
+   "avisado": 1794464138.0410259
+  },
+  {
+   "id": "ofertitas-?p=1035425",
+   "fuente": "Ofertitas",
+   "descuento": 42,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Xiaomi Redmi Buds 8 Pro True Wireless Bluetooth ANR por sólo 42,03€ con cupón y envío gratis (-42%)",
+   "enlace": "https://www.ofertitas.es/auriculares-xiaomi-redmi-buds-8-pro-true-wireless-bluetooth-anr/1035425/",
+   "tienda": "AliExpress",
+   "precio": 42.03,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/Auriculares-Xiaomi-Redmi-Buds-8-Pro.webp",
+   "fecha": 1794462481.0,
+   "detectado": 1794462930.3594673,
+   "avisado": 1794462928.5655305
+  },
+  {
+   "id": "2065437",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "TP-Link Deco X60(3-Pack) - Sistema WiFi 6 Mesh, AX5400, Doble Banda",
+   "enlace": "https://www.chollometro.com/ofertas/tp-link-deco-x603-pack-sistema-wifi-6-mesh-ax5400-doble-banda-2065437",
+   "destino": "https://www.amazon.es/dp/B0BN4CJGFT?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 227.99,
+   "precio_antes": 303.9,
+   "grados": 211.78,
+   "categorias": [
+    "redes_y_wifi"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/SpCYD/2065437_1/re/768x768/qt/60/2065437_1.jpg",
+   "detectado": 1794424839.3293388,
+   "avisado": 1794462637.1002603,
+   "asin": "B0BN4CJGFT",
+   "keepa": "https://keepa.com/#!product/9-B0BN4CJGFT"
+  },
+  {
+   "id": "ofertitas-?p=1030968",
+   "fuente": "Ofertitas",
+   "descuento": 49,
+   "tipo_hilo": "oferta",
+   "titulo": "Consola portátil ANBERNIC RG40XXV por sólo 35,55€ con cupón y envío gratis (-49%)",
+   "enlace": "https://www.ofertitas.es/consola-portatil-anbernic-rg40xxv/1030968/",
+   "tienda": "AliExpress",
+   "precio": 35.55,
+   "categorias": [
+    "consolas_portatiles"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/consola-portatil-retro-anbernic-rg40xxv-barata.webp",
+   "fecha": 1794461641.0,
+   "detectado": 1794462038.5959718,
+   "avisado": 1794462036.8626695
+  },
+  {
+   "id": "2065770",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Joy-Con 2 Pareja - Azul Claro/Rojo Claro",
+   "enlace": "https://www.chollometro.com/ofertas/joy-con-2-pareja-azul-clarorojo-claro-2065770",
+   "destino": "https://www.amazon.es/dp/B0F3JM95S4?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 61.61,
+   "grados": 201.43,
+   "categorias": [
+    "mandos",
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/xsljh/2065770_1/re/768x768/qt/60/2065770_1.jpg",
+   "detectado": 1794441666.4125118,
+   "avisado": 1794460538.1734126,
+   "asin": "B0F3JM95S4",
+   "keepa": "https://keepa.com/#!product/9-B0F3JM95S4"
+  },
+  {
+   "id": "ofertitas-?p=1174190",
+   "fuente": "Ofertitas",
+   "descuento": 57,
+   "tipo_hilo": "oferta",
+   "titulo": "Ventilador de techo retráctil con luz LED, motor DC silencioso, mando y 6 velocidades por sólo 23,03€ con cupón y envío gratis (-57%)",
+   "enlace": "https://www.ofertitas.es/ventilador-techo-retractil-led/1174190/",
+   "tienda": "AliExpress",
+   "precio": 23.03,
+   "categorias": [
+    "mandos"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/2026/11/ventilador-techo-retractil-led.webp",
+   "fecha": 1794459961.0,
+   "detectado": 1794460239.7092633,
+   "avisado": 1794460237.8902194
+  },
+  {
+   "id": "ofertitas-?p=963541",
+   "fuente": "Ofertitas",
+   "descuento": 46,
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor de frecuencia cardiaca Garmin HRM-200 por sólo 48,66€ con descuento al tramitar y envío gratis (-46%)",
+   "enlace": "https://www.ofertitas.es/monitor-de-frecuencia-cardiaca-garmin-hrm-200/963541/",
+   "tienda": "Amazon",
+   "precio": 48.66,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/chollo-monitor-frecuencia-cardiaca-garmin-hrm-200.webp",
+   "fecha": 1794445741.0,
+   "detectado": 1794445840.682386,
+   "avisado": 1794445838.5236104
+  },
+  {
+   "id": "ofertitas-?p=1046987",
+   "fuente": "Ofertitas",
+   "descuento": 38,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos Xiaomi Redmi Buds 8 Lite con cancelación de ruido y hasta 36 horas de batería por sólo 15,60€ con descuento al tramitar (-38%)",
+   "enlace": "https://www.ofertitas.es/xiaomi-redmi-buds-8-lite/1046987/",
+   "tienda": "Amazon",
+   "precio": 15.6,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/xiaomi-redmi-buds-8-lite.webp",
+   "fecha": 1794445501.0,
+   "detectado": 1794445532.6903405,
+   "avisado": 1794445530.3994071
+  },
+  {
+   "id": "2065710",
+   "tipo_hilo": "oferta",
+   "titulo": "Nickelodeon Kart Racers Bundle para Nintendo Switch con volante, código de descarga en caja, SIN cartucho",
+   "enlace": "https://www.chollometro.com/ofertas/nickelodeon-kart-racers-bundle-para-nintendo-switch-con-volante-codigo-de-descarga-en-caja-sin-cartucho-2065710",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065710",
+   "tienda": "MediaMarkt",
+   "precio": 6.23,
+   "precio_antes": 19.99,
+   "codigo": "En carrito",
+   "grados": 209.1,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/atK1v/2065710_1/re/768x768/qt/60/2065710_1.jpg",
+   "detectado": 1794437436.762361,
+   "avisado": 1794442840.2946403
+  },
+  {
+   "id": "ofertitas-?p=1053228",
+   "fuente": "Ofertitas",
+   "descuento": 59,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos Xiaomi Buds 5 con cancelación activa de ruido por sólo 40,98€ con cupón y envío gratis (-59%)",
+   "enlace": "https://www.ofertitas.es/xiaomi-buds-5-auriculares-inalambricos-con-cancelacion-activa-de-ruido/1053228/",
+   "tienda": "AliExpress",
+   "precio": 40.98,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/xiaomi-buds-5-auriculares-inalambricos-con-cancelacion-activa-de-ruido-1.webp",
+   "fecha": 1794442741.0,
+   "detectado": 1794442908.0323558,
+   "avisado": 1794442840.2946403
+  },
+  {
+   "id": "ofertitas-?p=852728",
+   "fuente": "Ofertitas",
+   "descuento": 48,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos Nothing Ear (a) con cancelación de ruido por sólo 38,90€ con cupón y envío gratis (-48%)",
+   "enlace": "https://www.ofertitas.es/auriculares-inalambricos-nothing-ear-a/852728/",
+   "tienda": "AliExpress",
+   "precio": 38.9,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/Auriculares-inalambricos-Nothing-Ear.webp",
+   "fecha": 1794441841.0,
+   "detectado": 1794441938.0476196,
+   "avisado": 1794441935.5884802
+  },
+  {
+   "id": "ofertitas-?p=1174963",
+   "fuente": "Ofertitas",
+   "descuento": 68,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares abiertos Xiaomi OpenWear Stereo para disfrutar del mejor sonido sin aislarte por sólo 38,48€ con cupón y envío gratis (-68%)",
+   "enlace": "https://www.ofertitas.es/auriculares-xiaomi-openwear-stereo-2/1174963/",
+   "tienda": "AliExpress",
+   "precio": 38.48,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/2026/11/auriculares-xiaomi-openwear-stereo.webp",
+   "fecha": 1794441421.0,
+   "detectado": 1794441668.2183058,
+   "avisado": 1794441666.4125118
+  },
+  {
+   "id": "ofertitas-?p=1137073",
+   "afiliado": true,
+   "fuente": "Ofertitas",
+   "descuento": 57,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Soundcore P31i de Anker con cancelación de ruido por sólo 29,99€ con envío gratis (-57%)",
+   "enlace": "https://www.ofertitas.es/auriculares-anker-soundcore-p31i-bluetooth/1137073/",
+   "destino": "https://www.amazon.es/dp/B0FNWCYLZN?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 29.99,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/auriculares-anker-soundcore-p31i-bluetooth-1.webp",
+   "fecha": 1794441121.0,
+   "detectado": 1794441359.5008302,
+   "avisado": 1794441328.9231076,
+   "asin": "B0FNWCYLZN",
+   "keepa": "https://keepa.com/#!product/9-B0FNWCYLZN"
+  },
+  {
+   "id": "2065708",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "XIAOMI Redmi Headphones Neo, Auriculares Inalámbricos, ANC, Negro Driver 70 mm, Hi-Res, reducción IA con 3 micrófonos, Bluetooth 5.4",
+   "enlace": "https://www.chollometro.com/ofertas/xiaomi-redmi-headphones-neo-auriculares-inalambricos-anc-negro-driver-70-mm-hi-res-reduccion-ia-con-3-microfonos-bluetooth-54-2065708",
+   "destino": "https://www.amazon.es/dp/B0GQLWNHY9?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 34.32,
+   "precio_antes": 59.99,
+   "codigo": "Precio al tramitar",
+   "grados": 207.31,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/HzlV9/2065708_1/re/768x768/qt/60/2065708_1.jpg",
+   "detectado": 1794437436.762361,
+   "avisado": 1794441039.0893652,
+   "asin": "B0GQLWNHY9",
+   "keepa": "https://keepa.com/#!product/9-B0GQLWNHY9"
+  },
+  {
+   "id": "ofertitas-?p=1174273",
+   "fuente": "Ofertitas",
+   "descuento": 51,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares de conducción ósea Shokz OpenRun Pro 2 para escuchar música sin tapar los oídos por sólo 98€ con cupón y envío gratis (-51%)",
+   "enlace": "https://www.ofertitas.es/auriculares-shokz-openrun-pro-2-conduccion-osea/1174273/",
+   "tienda": "AliExpress",
+   "precio": 98.0,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/2026/11/auriculares-shokz-openrun-pro-2-conduccion-osea.webp",
+   "fecha": 1794440581.0,
+   "detectado": 1794440808.6418133,
+   "avisado": 1794440737.094941
+  },
+  {
+   "id": "ofertitas-?p=1122437",
+   "fuente": "Ofertitas",
+   "descuento": 49,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Samsung Galaxy Buds4 Pro con cancelación de ruido adaptativa por sólo 126,59€ con cupón y envío gratis (-49%)",
+   "enlace": "https://www.ofertitas.es/auriculares-samsung-galaxy-buds4-pro/1122437/",
+   "tienda": "AliExpress",
+   "precio": 126.59,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/auriculares-samsung-galaxy-buds4-pro.webp",
+   "fecha": 1794439801.0,
+   "detectado": 1794440140.8563905,
+   "avisado": 1794440137.122226
+  },
+  {
+   "id": "ofertitas-?p=987969",
+   "fuente": "Ofertitas",
+   "descuento": 49,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos Sony WH-1000XM6 por sólo 236,39€ con cupón y envío gratis (-49%)",
+   "enlace": "https://www.ofertitas.es/auriculares-inalambricos-sony-wh-1000xm6/987969/",
+   "tienda": "AliExpress",
+   "precio": 236.39,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/auriculares-sony-wh-1000xm6-barato.webp",
+   "fecha": 1794439621.0,
+   "detectado": 1794439852.5100794,
+   "avisado": 1794439850.56812
+  },
+  {
+   "id": "ofertitas-?p=439265",
+   "fuente": "Ofertitas",
+   "descuento": 34,
+   "tipo_hilo": "oferta",
+   "titulo": "Consola Nintendo Switch OLED modelo blanco por sólo 222,78€ con cupón y envío gratis (-34%)",
+   "enlace": "https://www.ofertitas.es/nintendo-switch-oled-barata/439265/",
+   "tienda": "AliExpress",
+   "precio": 222.78,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/nintendo-switch-oled-neon.jpg",
+   "fecha": 1794439261.0,
+   "detectado": 1794439531.476013,
+   "avisado": 1794439529.0243092
+  },
+  {
+   "id": "ofertitas-?p=1066543",
+   "fuente": "Ofertitas",
+   "descuento": 62,
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil Ninkear A15 Plus con pantalla FHD de 15,6\" y Ryzen 7 por sólo 344,53€ con cupón y envío gratis (-62%)",
+   "enlace": "https://www.ofertitas.es/portatil-ninkear-a15-plus-ryzen7-15-6-fhd/1066543/",
+   "tienda": "AliExpress",
+   "precio": 344.53,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/portatil-ninkear-a15-plus-ryzen7-15-6-fhd.webp",
+   "fecha": 1794438901.0,
+   "detectado": 1794439275.012789,
+   "avisado": 1794439237.6649268
+  },
+  {
+   "id": "2065705",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "XIAOMI Redmi Buds 8, auriculares inalámbricos, ANC 50 dB, 44 h",
+   "enlace": "https://www.chollometro.com/ofertas/xiaomi-redmi-buds-8-auriculares-inalambricos-anc-50-db-44-h-2065705",
+   "destino": "https://www.amazon.es/dp/B0GQM2BHBB?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 30.42,
+   "codigo": "Precio al tramitar",
+   "grados": 227.57,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/BJW0o/2065705_1/re/768x768/qt/60/2065705_1.jpg",
+   "detectado": 1794437135.4327343,
+   "avisado": 1794438637.4386337,
+   "asin": "B0GQM2BHBB",
+   "keepa": "https://keepa.com/#!product/9-B0GQM2BHBB"
+  },
+  {
+   "id": "2065700",
+   "tipo_hilo": "oferta",
+   "titulo": "Mando PS5 - Sony DualSense Wireless Marathon, Para PlayStation 5 y PC, Bluetooth, Edición Limitada",
+   "enlace": "https://www.chollometro.com/ofertas/mando-ps5-sony-dualsense-wireless-marathon-para-playstation-5-y-pc-bluetooth-edicion-limitada-2065700",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065700",
+   "tienda": "MediaMarkt",
+   "precio": 55.3,
+   "precio_antes": 70.9,
+   "codigo": "15,60 € extra\nDescuento adicional en Carrito",
+   "grados": 217.64,
+   "categorias": [
+    "mandos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/iUYTX/2065700_1/re/768x768/qt/60/2065700_1.jpg",
+   "detectado": 1794436530.9444425,
+   "avisado": 1794438637.4386337
+  },
+  {
+   "id": "2064520",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego Pokémon Leyendas: Z-A + Mega Dimensión DLC para Nintendo Switch 2 (Edición especial, Kalos, RPG, Español)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-pokemon-leyendas-z-a-mega-dimension-dlc-para-nintendo-switch-2-edicion-especial-kalos-rpg-espanol-2064520",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064520",
+   "tienda": "MediaMarkt",
+   "precio": 66.29,
+   "precio_antes": 84.99,
+   "codigo": "-18,70€ extra",
+   "grados": 202.08,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/cnJ2y/2064520_1/re/768x768/qt/60/2064520_1.jpg",
+   "detectado": 1794393936.3325646,
+   "avisado": 1794436530.9444425
+  },
+  {
+   "id": "2065379",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Sony WF-C710N Auriculares Inalámbricos con ANC, Blanco | Auriculares in-ear Bluetooth, llamadas IA, multipunto, IPX4, batería 40h",
+   "enlace": "https://www.chollometro.com/ofertas/sony-wf-c710n-auriculares-inalambricos-con-anc-blanco-auriculares-in-ear-bluetooth-llamadas-ia-multipunto-ipx4-bateria-40h-2065379",
+   "destino": "https://www.amazon.es/dp/B0FDBFDWLD?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 53.82,
+   "precio_antes": 85.0,
+   "grados": 213.45,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/H72km/2065379_1/re/768x768/qt/60/2065379_1.jpg",
+   "detectado": 1794422735.1632833,
+   "avisado": 1794435044.7618558,
+   "asin": "B0FDBFDWLD",
+   "keepa": "https://keepa.com/#!product/9-B0FDBFDWLD"
+  },
+  {
+   "id": "2063688",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Lords of the Fallen (Xbox Series X)",
+   "enlace": "https://www.chollometro.com/ofertas/lords-of-the-fallen-xbox-series-x-2063688",
+   "destino": "https://www.amazon.es/dp/B0C5SWNYB1?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 13.34,
+   "precio_antes": 29.99,
+   "grados": 200.3,
+   "categorias": [
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/jdCO5/2063688_1/re/768x768/qt/60/2063688_1.jpg",
+   "detectado": 1794348077.148049,
+   "avisado": 1794434465.7659395,
+   "asin": "B0C5SWNYB1",
+   "keepa": "https://keepa.com/#!product/9-B0C5SWNYB1"
+  },
+  {
+   "id": "2065564",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Xiaomi REDMI Buds 8 Lite, auriculares inalámbricos, ANC, negro ANC 42 dB, Driver 12,4 mm, 36 h, 5 EQ, Bluetooth 5.4",
+   "enlace": "https://www.chollometro.com/ofertas/xiaomi-redmi-buds-8-lite-auriculares-inalambricos-anc-negro-anc-42-db-driver-124-mm-36-h-5-eq-bluetooth-54-2065564",
+   "destino": "https://www.amazon.es/dp/B0FRSCXWSV?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 15.6,
+   "precio_antes": 25.0,
+   "codigo": "Precio al tramitar",
+   "grados": 304.09,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/gRJK5/2065564_1/re/768x768/qt/60/2065564_1.jpg",
+   "detectado": 1794430634.8637462,
+   "avisado": 1794434129.8546128,
+   "asin": "B0FRSCXWSV",
+   "keepa": "https://keepa.com/#!product/9-B0FRSCXWSV"
+  },
+  {
+   "id": "2064119",
+   "tipo_hilo": "oferta",
+   "titulo": "Xiaomi Pad 8 8/128GB 11,2\" 3,2K 144Hz, Snapdragon 8s Gen 4, 9200mAh 45W, WiFi 7, 4 altavoces Dolby Atmos, Dolby Vision, HyperOS 3, ES",
+   "enlace": "https://www.chollometro.com/ofertas/xiaomi-pad-8-8128gb-112-32k-144hz-snapdragon-8s-gen-4-9200mah-45w-wifi-7-4-altavoces-dolby-atmos-dolby-vision-hyperos-3-es-2064119",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064119",
+   "tienda": "AliExpress",
+   "precio": 270.0,
+   "codigo": "ESD1139",
+   "grados": 242.2,
+   "categorias": [
+    "redes_y_wifi"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/cFPcQ/2064119_1/re/768x768/qt/60/2064119_1.jpg",
+   "detectado": 1794383133.7077334,
+   "avisado": 1794433241.4495323
+  },
+  {
+   "id": "2064597",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego LEGO Harry Potter Collection para Nintendo Switch 2 (Game Key Card, Años 1-7, magia, cooperativo, Español)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-lego-harry-potter-collection-para-nintendo-switch-2-game-key-card-anos-1-7-magia-cooperativo-espanol-2064597",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064597",
+   "tienda": "MediaMarkt",
+   "precio": 38.99,
+   "precio_antes": 49.99,
+   "grados": 226.84,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/PYz6x/2064597_1/re/768x768/qt/60/2064597_1.jpg",
+   "detectado": 1794396648.5315487,
+   "avisado": 1794433241.4495323
+  },
+  {
+   "id": "2064296",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Logitech G Astro A50 Gen 5 Auriculares Gaming Inalámbricos Multiplataforma Negros + Estación Base A50",
+   "enlace": "https://www.chollometro.com/ofertas/astro-a50-2064296",
+   "destino": "https://www.amazon.es/dp/B0DBJ5PBLT?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 189.99,
+   "precio_antes": 299.0,
+   "grados": 214.5,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/t0U7m/2064296_1/re/768x768/qt/60/2064296_1.jpg",
+   "detectado": 1794388235.3323948,
+   "avisado": 1794433241.4495323,
+   "asin": "B0DBJ5PBLT",
+   "keepa": "https://keepa.com/#!product/9-B0DBJ5PBLT"
+  },
+  {
+   "id": "2064416",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Joy-Con 2 Wheel (2 uds)",
+   "enlace": "https://www.chollometro.com/ofertas/joy-con-2-wheel-2-uds-2064416",
+   "destino": "https://www.amazon.es/dp/B0F3JVK9N6?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 15.54,
+   "precio_antes": 19.99,
+   "codigo": "-4,40€ al tramitar pedido",
+   "grados": 213.73,
+   "categorias": [
+    "mandos",
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/WBgz6/2064416_1/re/768x768/qt/60/2064416_1.jpg",
+   "detectado": 1794390929.0495198,
+   "avisado": 1794432934.460906,
+   "asin": "B0F3JVK9N6",
+   "keepa": "https://keepa.com/#!product/9-B0F3JVK9N6"
+  },
+  {
+   "id": "2063969",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor LG UltraGearLG Monitor 27GX704A-B Glossy WOLED 27” QHD 240 Hz, 0,03 ms y HDR True Black 400",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-lg-ultragearlg-monitor-27gx704a-b-glossy-woled-27-qhd-240-hz-003-ms-y-hdr-true-black-400-2063969",
+   "destino": "https://www.amazon.es/dp/B0FTPCP6S1?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 324.48,
+   "precio_antes": 416.0,
+   "codigo": "91,52 € al tramitar",
+   "grados": 202.78,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/AVhqJ/2063969_1/re/768x768/qt/60/2063969_1.jpg",
+   "detectado": 1794377438.0415728,
+   "avisado": 1794432651.913913,
+   "asin": "B0FTPCP6S1",
+   "keepa": "https://keepa.com/#!product/9-B0FTPCP6S1"
+  },
+  {
+   "id": "2064821",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Logitech G G923 volante y pedales de carrera para Xbox & PC",
+   "enlace": "https://www.chollometro.com/ofertas/logitech-g-g923-volante-y-pedales-de-carrera-para-xbox-pc-2064821",
+   "destino": "https://www.amazon.es/dp/B07W4DG81W?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 186.91,
+   "precio_antes": 239.0,
+   "grados": 250.62,
+   "categorias": [
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/SYSxN/2064821_1/re/768x768/qt/60/2064821_1.jpg",
+   "detectado": 1794405036.8386164,
+   "avisado": 1794430737.3556757,
+   "asin": "B07W4DG81W",
+   "keepa": "https://keepa.com/#!product/9-B07W4DG81W"
+  },
+  {
+   "id": "2064525",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego Nintendo Switch 2 Kingdom Hearts Collection I-II (Game Key Card, ARPG épico, Disney y Square Enix, Español)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-nintendo-switch-2-kingdom-hearts-collection-i-ii-game-key-card-arpg-epico-disney-y-square-enix-espanol-2064525",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064525",
+   "tienda": "MediaMarkt",
+   "precio": 57.71,
+   "precio_antes": 81.99,
+   "codigo": "-16,28€ extra",
+   "grados": 208.37,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/xgeY6/2064525_1/re/768x768/qt/60/2064525_1.jpg",
+   "detectado": 1794393936.3325646,
+   "avisado": 1794430634.8637462
+  },
+  {
+   "id": "ofertitas-?p=1181465",
+   "fuente": "Ofertitas",
+   "descuento": 60,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos OPPO Enco Buds3s con hasta 54 h de batería por sólo 19,99€ (-60%)",
+   "enlace": "https://www.ofertitas.es/auriculares-oppo-enco-buds3s-inalambricos/1181465/",
+   "tienda": "Amazon",
+   "precio": 19.99,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/2026/11/auriculares-oppo-enco-buds3s-inalambricos.webp",
+   "fecha": 1794429541.0,
+   "detectado": 1794430712.4397788,
+   "avisado": 1794430634.8637462
+  },
+  {
+   "id": "ofertitas-?p=1175658",
+   "fuente": "Ofertitas",
+   "descuento": 49,
+   "tipo_hilo": "oferta",
+   "titulo": "Mini PC Chuwi Ubox con Ryzen 5 6600H, 16 GB de RAM y SSD de 512 GB por sólo 256,01€ con cupón y envío gratis (-49%)",
+   "enlace": "https://www.ofertitas.es/mini-pc-chuwi-ubox-ryzen-5-6600h/1175658/",
+   "tienda": "AliExpress",
+   "precio": 256.01,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/2026/11/mini-pc-chuwi-ubox-ryzen-5-6600h.webp",
+   "fecha": 1794428041.0,
+   "detectado": 1794428215.0370936,
+   "avisado": 1794428141.28104
+  },
+  {
+   "id": "2065012",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Cecotec Calefactor Cerámico de Sobremesa ReadyWarm 1500 Max Ceramic (1500 W, Termostato Regulable)",
+   "enlace": "https://www.chollometro.com/ofertas/cecotec-calefactor-ceramico-de-sobremesa-readywarm-1500-max-ceramic-1500-w-termostato-regulable-2065012",
+   "destino": "https://www.amazon.es/dp/B0BPYVWS6Y?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 17.93,
+   "precio_antes": 29.83,
+   "grados": 213.02,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/HfwbR/2065012_1/re/768x768/qt/60/2065012_1.jpg",
+   "detectado": 1794411638.2739623,
+   "avisado": 1794426931.9362283,
+   "asin": "B0BPYVWS6Y",
+   "keepa": "https://keepa.com/#!product/9-B0BPYVWS6Y"
+  },
+  {
+   "id": "ofertitas-2026",
+   "fuente": "Ofertitas",
+   "descuento": 42,
+   "tipo_hilo": "oferta",
+   "titulo": "Televisor Xiaomi TV F 32 2026 con Fire TV integrada y control por voz con Alexa por sólo 110,31€ con cupón y envío gratis (-42%)",
+   "enlace": "https://www.ofertitas.es/smart-tv-xiaomi-tv-f-32-2026/1180385/",
+   "tienda": "AliExpress",
+   "precio": 110.31,
+   "categorias": [
+    "fire_tv"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/2026/11/smart-tv-xiaomi-tv-f-32-2026.webp",
+   "fecha": 1794426661.0,
+   "detectado": 1794426985.3885405,
+   "avisado": 1794426931.9362283
+  },
+  {
+   "id": "2065360",
+   "tipo_hilo": "oferta",
+   "titulo": "Sony Dualsense Blanco mando ps5 Inalámbrico - PlayStation 5",
+   "enlace": "https://www.chollometro.com/ofertas/sony-dualsense-blanco-mando-ps5-inalambrico-playstation-5-2065360",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065360",
+   "tienda": "Miravia",
+   "precio": 53.05,
+   "precio_antes": 89.99,
+   "codigo": "CUPON PLUS 10€",
+   "grados": 216.47,
+   "categorias": [
+    "mandos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/vtZdc/2065360_1/re/768x768/qt/60/2065360_1.jpg",
+   "detectado": 1794422438.8079803,
+   "avisado": 1794426637.0282512
+  },
+  {
+   "id": "2063809",
+   "tipo_hilo": "oferta",
+   "titulo": "Apple AirPods 4 con chip H2, audio espacial personalizado, Bluetooth 5.3 y hasta 30 horas de autonomía",
+   "enlace": "https://www.chollometro.com/ofertas/apple-airpods-4-con-chip-h2-audio-espacial-personalizado-bluetooth-53-y-hasta-30-horas-de-autonomia-2063809",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063809",
+   "tienda": "Miravia",
+   "precio": 87.98,
+   "precio_antes": 139.0,
+   "grados": 212.59,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/oMl78/2063809_1/re/768x768/qt/60/2063809_1.jpg",
+   "detectado": 1794352240.1250217,
+   "avisado": 1794426339.9808254
+  },
+  {
+   "id": "2065377",
+   "tipo_hilo": "oferta",
+   "titulo": "PC gaming - Gigabyte Aorus Prime 3 AP3A7N6-5111, AMD Ryzen 7 9700X, 16 GB RAM, 1 TB SSD, GeForce RTX 5060, Windows 11 Home, Negro",
+   "enlace": "https://www.chollometro.com/ofertas/pc-gaming-gigabyte-aorus-prime-3-ap3a7n6-5111-amd-ryzen-7-9700x-16-gb-ram-1-tb-ssd-geforce-rtx-5060-windows-11-home-negro-2065377",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065377",
+   "tienda": "MediaMarkt",
+   "precio": 1170.0,
+   "precio_antes": 1899.0,
+   "codigo": "-22% en el carrito",
+   "grados": 203.83,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/MKx97/2065377_1/re/768x768/qt/60/2065377_1.jpg",
+   "detectado": 1794422438.8079803,
+   "avisado": 1794423330.073154
+  },
+  {
+   "id": "2065246",
+   "tipo_hilo": "oferta",
+   "titulo": "Airpods pro 3",
+   "enlace": "https://www.chollometro.com/ofertas/airpods-pro-3-2065246",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065246",
+   "tienda": "AliExpress",
+   "precio": 158.05,
+   "precio_antes": 249.0,
+   "codigo": "ESD1123 o AEES23 + 9€ pagando con paypal",
+   "grados": 306.19,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Evu8V/2065246_1/re/768x768/qt/60/2065246_1.jpg",
+   "detectado": 1794419137.528502,
+   "avisado": 1794423041.160931
+  },
+  {
+   "id": "2065295",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor QD-OLED Curvo 49\" Philips Evnia 49M2C8900L (Dual QHD, 144Hz, 0.03ms, HDR400, USB-C 90W).",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-qd-oled-curvo-49-philips-evnia-49m2c8900l-dual-qhd-144hz-003ms-hdr400-usb-c-90w-2065295",
+   "destino": "https://www.amazon.es/dp/B0CVXQ59YY?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 544.44,
+   "precio_antes": 679.0,
+   "codigo": "- 134,56 € al tramitar pedido",
+   "grados": 203.83,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/LeGE3/2065295_1/re/768x768/qt/60/2065295_1.jpg",
+   "detectado": 1794420637.462614,
+   "avisado": 1794422133.432826,
+   "asin": "B0CVXQ59YY",
+   "keepa": "https://keepa.com/#!product/9-B0CVXQ59YY"
+  },
+  {
+   "id": "ofertitas-?p=1107921",
+   "fuente": "Ofertitas",
+   "descuento": 54,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Edifier W80 Over-Ear con cancelación de ruido activa de hasta -49dB y audio Hi-Res por sólo 59,99€ con envío gratis (-54%)",
+   "enlace": "https://www.ofertitas.es/auriculares-edifier-w80-over-ear-anc-49db-ldac/1107921/",
+   "tienda": "Amazon",
+   "precio": 59.99,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/auriculares-edifier-w80-over-ear-anc-49db-ldac.webp",
+   "fecha": 1794421921.0,
+   "detectado": 1794422204.4817164,
+   "avisado": 1794422133.432826
+  },
+  {
+   "id": "2065192",
+   "tipo_hilo": "oferta",
+   "titulo": "Apple AirPods Pro 3 Auriculares Inalámbricos con Cancelación Activa de Ruido (ANC)",
+   "enlace": "https://www.chollometro.com/ofertas/apple-airpods-pro-3-auriculares-inalambricos-con-cancelacion-activa-de-ruido-anc-2065192",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065192",
+   "tienda": "Miravia",
+   "precio": 171.99,
+   "precio_antes": 219.99,
+   "grados": 216.85,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/2bFFL/2065192_1/re/768x768/qt/60/2065192_1.jpg",
+   "detectado": 1794417038.274405,
+   "avisado": 1794418837.8541307
+  },
+  {
+   "id": "2065110",
+   "tipo_hilo": "oferta",
+   "titulo": "Volante Logitech G923 + palanca de cambios Driving Force Shifter (Xbox/PC) por 178,62€ con el 22% en la app de MediaMarkt",
+   "enlace": "https://www.chollometro.com/ofertas/volante-logitech-g923-palanca-de-cambios-driving-force-shifter-xboxpc-por-17862eur-con-el-22-en-la-app-de-mediamarkt-2065110",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065110",
+   "tienda": "MediaMarkt",
+   "precio": 178.62,
+   "precio_antes": 229.0,
+   "grados": 264.54,
+   "categorias": [
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/WT3ok/2065110_1/re/768x768/qt/60/2065110_1.jpg",
+   "detectado": 1794414653.206253,
+   "avisado": 1794418251.5642326
+  },
+  {
+   "id": "2065106",
+   "tipo_hilo": "oferta",
+   "titulo": "Volante Logitech G923 + palanca de cambios Driving Force Shifter (PS5/PS4/PC) por 178,62€ con el 22% en la app de MediaMarkt",
+   "enlace": "https://www.chollometro.com/ofertas/volante-logitech-g923-palanca-de-cambios-driving-force-shifter-ps5ps4pc-por-17862eur-con-el-22-en-la-app-de-mediamarkt-2065106",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065106",
+   "tienda": "MediaMarkt",
+   "precio": 178.62,
+   "precio_antes": 229.0,
+   "grados": 209.79,
+   "categorias": [
+    "ps5_y_ps4"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/43R3J/2065106_1/re/768x768/qt/60/2065106_1.jpg",
+   "detectado": 1794414330.8463097,
+   "avisado": 1794418251.5642326
+  },
+  {
+   "id": "2065185",
+   "tipo_hilo": "oferta",
+   "titulo": "LEGO Super Mario 72046 Game Boy Nintendo – Réplica casi a tamaño real, 421 piezas y cartuchos intercambiables",
+   "enlace": "https://www.chollometro.com/ofertas/lego-super-mario-72046-game-boy-nintendo-replica-casi-a-tamano-real-421-piezas-y-cartuchos-intercambiables-2065185",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065185",
+   "tienda": "Miravia",
+   "precio": 37.05,
+   "precio_antes": 59.99,
+   "grados": 218.24,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/XbhbE/2065185_1/re/768x768/qt/60/2065185_1.jpg",
+   "detectado": 1794416735.957539,
+   "avisado": 1794417638.9909384
+  },
+  {
+   "id": "2064693",
+   "tipo_hilo": "oferta",
+   "titulo": "Sony WF-1000XM6",
+   "enlace": "https://www.chollometro.com/ofertas/sony-wf-1000xm6-2064693",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064693",
+   "tienda": "MediaMarkt",
+   "precio": 171.0,
+   "precio_antes": 229.0,
+   "grados": 222.27,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/zbmKy/2064693_1/re/768x768/qt/60/2064693_1.jpg",
+   "detectado": 1794400526.9629025,
+   "avisado": 1794416127.7089741
+  },
+  {
+   "id": "2064616",
+   "tipo_hilo": "oferta",
+   "titulo": "Nintendo Switch 2 Toy Story: Retro Roundup! + Toy Story 3 Complete Edition Double Pack",
+   "enlace": "https://www.chollometro.com/ofertas/nintendo-switch-2-toy-story-retro-roundup-toy-story-3-complete-edition-double-pack-2064616",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064616",
+   "tienda": "MediaMarkt",
+   "precio": 41.33,
+   "precio_antes": 54.99,
+   "codigo": "-12,10 € extra Descuento adicional en Carrito",
+   "grados": 220.52,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/nF23t/2064616_1/re/768x768/qt/60/2064616_1.jpg",
+   "detectado": 1794397235.6157806,
+   "avisado": 1794416127.7089741
+  },
+  {
+   "id": "2064330",
+   "tipo_hilo": "oferta",
+   "titulo": "Ninkear YBook15, portátil de 15,6 pulgadas, ordenador 2 en 1 con pantalla táctil, diseño 360, Windows 11",
+   "enlace": "https://www.chollometro.com/ofertas/ninkear-ybook15-portatil-de-156-pulgadas-ordenador-2-en-1-con-pantalla-tactil-diseno-360-windows-11-2064330",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064330",
+   "tienda": "AliExpress",
+   "precio": 218.35,
+   "codigo": "ESD1139 + PayPal",
+   "grados": 201.51,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/UHk8N/2064330_1/re/768x768/qt/60/2064330_1.jpg",
+   "detectado": 1794388834.5766096,
+   "avisado": 1794416127.7089741
+  },
+  {
+   "id": "2064363",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Xbox Mando inalámbrico Robot White Series X|S, One, PC, televisores, móviles y más",
+   "enlace": "https://www.chollometro.com/ofertas/xbox-mando-inalambrico-robot-white-series-xs-one-pc-televisores-moviles-y-mas-2064363",
+   "destino": "https://www.amazon.es/dp/B0F2NCQYTX?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 44.45,
+   "precio_antes": 64.99,
+   "codigo": "-12,54 al tramitar pedido",
+   "grados": 302.39,
+   "categorias": [
+    "mandos",
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/OkzpN/2064363_1/re/768x768/qt/60/2064363_1.jpg",
+   "detectado": 1794410118.738441,
+   "avisado": 1794415839.6922698,
+   "asin": "B0F2NCQYTX",
+   "keepa": "https://keepa.com/#!product/9-B0F2NCQYTX"
+  },
+  {
+   "id": "2065003",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Impresora fotográfica portátil Fujifilm Instax Link Wide (impresión Bluetooth, formato Wide, Gris Moka) o blanco",
+   "enlace": "https://www.chollometro.com/ofertas/impresora-fotografica-portatil-fujifilm-instax-link-wide-impresion-bluetooth-formato-wide-gris-moka-o-blanco-2065003",
+   "destino": "https://www.amazon.es/dp/B00JOBFVMI?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 60.83,
+   "precio_antes": 105.98,
+   "grados": 250.43,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/THw1U/2065003_1/re/768x768/qt/60/2065003_1.jpg",
+   "detectado": 1794411331.5585694,
+   "avisado": 1794415240.8238113,
+   "asin": "B00JOBFVMI",
+   "keepa": "https://keepa.com/#!product/9-B00JOBFVMI"
+  },
+  {
+   "id": "2063975",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Gaming LG UltraGear 24G411A-B 23,8\" Full HD IPS, 144 Hz, 1 ms, HDR10, G-Sync y FreeSync",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-gaming-lg-ultragear-24g411a-b-238-full-hd-ips-144-hz-1-ms-hdr10-g-sync-y-freesync-2063975",
+   "destino": "https://www.amazon.es/dp/B0FL32LSR5?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 66.3,
+   "precio_antes": 83.95,
+   "codigo": "17,65 € al tramitar",
+   "grados": 233.26,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/OuSM9/2063975_1/re/768x768/qt/60/2063975_1.jpg",
+   "detectado": 1794377438.0415728,
+   "avisado": 1794414037.8920424,
+   "asin": "B0FL32LSR5",
+   "keepa": "https://keepa.com/#!product/9-B0FL32LSR5"
+  },
+  {
+   "id": "2064963",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos - Sony ULT WEAR, WH-ULT900N, Cancelación ruido, Noise Cancelling, 30h, Carga Rápida, Asistente, Bluetooth, Diadema",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-inalambricos-sony-ult-wear-wh-ult900n-cancelacion-ruido-noise-cancelling-30h-carga-rapida-asistente-bluetooth-diadema-2064963",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064963",
+   "tienda": "MediaMarkt",
+   "precio": 83.46,
+   "precio_antes": 129.0,
+   "codigo": "Descuento en Carrito",
+   "grados": 223.19,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/TIUzl/2064963_1/re/768x768/qt/60/2064963_1.jpg",
+   "detectado": 1794410118.738441,
+   "avisado": 1794414037.8920424
+  },
+  {
+   "id": "2064196",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Apple AirPods Max USB-C – Cancelación Activa de Ruido, Audio Espacial y Dolby Atmos (Varios colores)",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-apple-airpods-max-usb-c-cancelacion-activa-de-ruido-audio-espacial-y-dolby-atmos-varios-colores-2064196",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064196",
+   "tienda": "PcComponentes",
+   "precio": 349.0,
+   "precio_antes": 479.0,
+   "grados": 201.63,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/1mGe0/2064196_1/re/768x768/qt/60/2064196_1.jpg",
+   "detectado": 1794385528.5026882,
+   "avisado": 1794413748.0640996
+  },
+  {
+   "id": "2064819",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Gaming Gigabyte MO32U2 31,5\" 4K UHD QD-OLED – 240 Hz, 0,03 ms, HDR True Black 400 y 99% DCI-P3",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-gaming-gigabyte-mo32u2-315-4k-uhd-qd-oled-240-hz-003-ms-hdr-true-black-400-y-99-dci-p3-2064819",
+   "destino": "https://www.amazon.es/dp/B0G1MXRSZ4?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 531.18,
+   "precio_antes": 649.0,
+   "codigo": "117,82 € al tramitar",
+   "grados": 234.96,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/LuT7y/2064819_1/re/768x768/qt/60/2064819_1.jpg",
+   "detectado": 1794405036.8386164,
+   "avisado": 1794412863.265371,
+   "asin": "B0G1MXRSZ4",
+   "keepa": "https://keepa.com/#!product/9-B0G1MXRSZ4"
+  },
+  {
+   "id": "ofertitas-?p=1134042",
+   "fuente": "Ofertitas",
+   "descuento": 25,
+   "tipo_hilo": "oferta",
+   "titulo": "Irrigador bucal portátil OasiSmile con 4 modos, 5 boquillas y depósito de 300 ml por sólo 20,89€ (-25%)",
+   "enlace": "https://www.ofertitas.es/irrigador-oasismile-portatil-300ml/1134042/",
+   "destino": "https://www.amazon.es/pruebaprime?tag=ofertas-prime-21",
+   "tienda": "Amazon",
+   "precio": 20.89,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://cdn.ofertitas.es/wp-content/uploads/irrigador-oasismile-portatil-300ml.webp",
+   "fecha": 1794411901.0,
+   "detectado": 1794412306.0404115,
+   "avisado": 1794412237.748621
+  },
+  {
+   "id": "2064975",
+   "tipo_hilo": "oferta",
+   "titulo": "MacBook Air 13 M5 16GB 512GB Plata",
+   "enlace": "https://www.chollometro.com/ofertas/macbook-air-13-m5-16gb-512gb-plata-2064975",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064975",
+   "tienda": "ShopDutyFree.es",
+   "precio": 1193.69,
+   "precio_antes": 1422.0,
+   "grados": 220.23,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/pvYlq/2064975_1/re/768x768/qt/60/2064975_1.jpg",
+   "detectado": 1794410439.447954,
+   "avisado": 1794411938.2848923
+  },
+  {
+   "id": "2064949",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Xbox Wireless Controller + cable USB-C Black",
+   "enlace": "https://www.chollometro.com/ofertas/xbox-wireless-controller-cable-usb-c-black-2064949",
+   "destino": "https://www.amazon.es/dp/B0F2Q8S4HN?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 45.22,
+   "precio_antes": 59.99,
+   "codigo": "Cupón al tramitar",
+   "grados": 208.78,
+   "categorias": [
+    "mandos",
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/qBYAd/2064949_1/re/768x768/qt/60/2064949_1.jpg",
+   "detectado": 1794409529.5378597,
+   "avisado": 1794411638.2739623,
+   "asin": "B0F2Q8S4HN",
+   "keepa": "https://keepa.com/#!product/9-B0F2Q8S4HN"
+  },
+  {
+   "id": "2064835",
+   "afiliado": true,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares gaming Logitech G335 con cable, 240 g, drivers 40 mm, micro abatible para silenciar, jack 3,5 mm, PC, PS5, Xbox y Switch 2",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-gaming-logitech-g335-con-cable-240-g-drivers-40-mm-micro-abatible-para-silenciar-jack-35-mm-pc-ps5-xbox-y-switch-2-2064835",
+   "destino": "https://www.amazon.es/dp/B07W6J6TG5?tag=cacharrear0b-21",
+   "tienda": "Amazon",
+   "precio": 27.29,
+   "grados": 215.78,
+   "categorias": [
+    "nintendo",
+    "xbox",
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Z4Szu/2064835_1/re/768x768/qt/60/2064835_1.jpg",
+   "detectado": 1794405327.4013557,
+   "avisado": 1794411331.5585694,
+   "asin": "B07W6J6TG5",
+   "keepa": "https://keepa.com/#!product/9-B07W6J6TG5"
+  },
+  {
+   "id": "2064753",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor gaming - Gigabyte MO27U2, 27\" UHD 4K, 240 Hz, 0.03 ms, OLED, Altavoces integrados, Altura ajustable, VESA DisplayHDR True Black 400",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-gaming-gigabyte-mo27u2-27-uhd-4k-240-hz-003-ms-oled-altavoces-integrados-altura-ajustable-vesa-displayhdr-true-black-400-2064753",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064753",
+   "tienda": "MediaMarkt",
+   "precio": 490.62,
+   "precio_antes": 629.0,
+   "codigo": "precio en Carrito",
+   "grados": 245.95,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/jc7jh/2064753_1/re/768x768/qt/60/2064753_1.jpg",
+   "detectado": 1794402646.34935,
+   "avisado": 1794410730.2223458
+  },
+  {
+   "id": "ofertitas-?p=875994",
+   "fuente": "Ofertitas",
+   "descuento": 40,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos Soundcore P40i por sólo 41,99€ con envío gratis (-40%)",
+   "enlace": "https://www.ofertitas.es/auriculares-inalambricos-soundcore-p40i/875994/",
+   "tienda": "Amazon",
+   "precio": 41.99,
+   "categorias": [
+    "auriculares"
+   ],
+   "fecha": 1794407161.0,
+   "detectado": 1794410183.6950142,
+   "avisado": 1794410118.738441
+  },
+  {
+   "id": "ofertitas-?p=848187",
+   "fuente": "Ofertitas",
+   "descuento": 36,
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos Apple AirPods 4 sin ANC, con audio espacial y estuche USB-C por sólo 95,79€ con cupón y envío gratis (-36%)",
+   "enlace": "https://www.ofertitas.es/airpods-4/848187/",
+   "tienda": "AliExpress",
+   "precio": 95.79,
+   "categorias": [
+    "auriculares"
+   ],
+   "fecha": 1794400441.0,
+   "detectado": 1794410183.7177312,
+   "avisado": 1794410118.738441
+  },
+  {
+   "id": "2064901",
+   "tipo_hilo": "oferta",
+   "titulo": "Joy-Con (set Izda/Dcha) Azul/Amarillo Neón BTR",
+   "enlace": "https://www.chollometro.com/ofertas/joy-con-set-izdadcha-azulamarillo-neon-btr-2064901",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0H9R91725%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039892597&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 56.93,
+   "precio_antes": 74.99,
+   "codigo": "Al Tramitar (-12,97€)",
+   "grados": 215.87,
+   "categorias": [
+    "mandos",
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/XHbG0/2064901_1/re/768x768/qt/60/2064901_1.jpg",
+   "detectado": 1794407455.029742,
+   "avisado": 1794409529.5378597,
+   "asin": "B0H9R91725",
+   "keepa": "https://keepa.com/#!product/9-B0H9R91725"
+  },
+  {
+   "id": "2064875",
+   "tipo_hilo": "oferta",
+   "titulo": "Garmin HRM-200, Monitor de frecuencia Cardiaca, Resistente al Agua, Correa Lavable a máquina, Correa Ajustable, Talla M-XL",
+   "enlace": "https://www.chollometro.com/ofertas/garmin-hrm-200-monitor-de-frecuencia-cardiaca-resistente-al-agua-correa-lavable-a-maquina-correa-ajustable-talla-m-xl-2064875",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0DQ9KDKT2%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039890770&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 48.66,
+   "precio_antes": 89.0,
+   "codigo": "13,73€dto al tramitar",
+   "grados": 200.26,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/wwbnm/2064875_1/re/768x768/qt/60/2064875_1.jpg",
+   "detectado": 1794406840.0947871,
+   "avisado": 1794409263.7422373,
+   "asin": "B0DQ9KDKT2",
+   "keepa": "https://keepa.com/#!product/9-B0DQ9KDKT2"
+  },
+  {
+   "id": "2064367",
+   "tipo_hilo": "oferta",
+   "titulo": "Resident evil 4 gold edition ps5",
+   "enlace": "https://www.chollometro.com/ofertas/resident-evil-4-gold-edition-ps5-2064367",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064367",
+   "tienda": "MediaMarkt",
+   "precio": 23.39,
+   "precio_antes": 29.99,
+   "grados": 232.2,
+   "categorias": [
+    "ps5"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/FvFCM/2064367_1/re/768x768/qt/60/2064367_1.jpg",
+   "detectado": 1794389727.7690923,
+   "avisado": 1794408651.8781264
+  },
+  {
+   "id": "2064882",
+   "tipo_hilo": "oferta",
+   "titulo": "Mando inalámbrico Nintendo Switch 2 Pro Controller (ergonomía prémium, vibración HD, NFC) - Descuento al tramitar",
+   "enlace": "https://www.chollometro.com/ofertas/mando-inalambrico-nintendo-switch-2-pro-controller-ergonomia-premium-vibracion-hd-nfc-descuento-al-tramitar-2064882",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0F3JR79YY%3Fsmid%3DA1AT7YVPFBWXBL%26ascsubtag%3Dppr-es-1039870787%26th%3D1&product=ppr-es-1039882692&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 62.39,
+   "precio_antes": 79.9,
+   "codigo": "-17,51€ al tramitar",
+   "grados": 211.53,
+   "categorias": [
+    "mandos",
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Z1tym/2064882_1/re/768x768/qt/60/2064882_1.jpg",
+   "detectado": 1794407130.8772883,
+   "avisado": 1794408038.470449,
+   "asin": "B0F3JR79YY",
+   "keepa": "https://keepa.com/#!product/9-B0F3JR79YY"
+  },
+  {
+   "id": "2064080",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil - ASUS Vivobook 15 F1504MA-BQ316, 15.6 \" Full-HD, Intel Core 5 320, 16GB RAM, 512GB SSD, HD Graphics",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-asus-vivobook-15-f1504ma-bq316-156-full-hd-intel-core-5-320-16gb-ram-512gb-ssd-hd-graphics-2064080",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064080",
+   "tienda": "MediaMarkt",
+   "precio": 507.0,
+   "precio_antes": 799.0,
+   "codigo": "22% app",
+   "grados": 203.68,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/7ieOp/2064080_1/re/768x768/qt/60/2064080_1.jpg",
+   "detectado": 1794380728.8619118,
+   "avisado": 1794408038.470449
+  },
+  {
+   "id": "2064087",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares gaming - Sony INZONE H9 II [Descuento en Cesta]",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-gaming-sony-inzone-h9-ii-descuento-en-cesta-2064087",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064087",
+   "tienda": "MediaMarkt",
+   "precio": 139.62,
+   "precio_antes": 245.0,
+   "codigo": "en cesta",
+   "grados": 204.13,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/v347b/2064087_1/re/768x768/qt/60/2064087_1.jpg",
+   "detectado": 1794380460.2320325,
+   "avisado": 1794406236.5296023
+  },
+  {
+   "id": "2064224",
+   "tipo_hilo": "oferta",
+   "titulo": "MotoGP 26 xbox series x",
+   "enlace": "https://www.chollometro.com/ofertas/motogp-26-xbox-series-x-2064224",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064224",
+   "tienda": "MediaMarkt",
+   "precio": 20.98,
+   "grados": 217.64,
+   "categorias": [
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/WctMH/2064224_1/re/768x768/qt/60/2064224_1.jpg",
+   "detectado": 1794386435.4579852,
+   "avisado": 1794405662.6037676
+  },
+  {
+   "id": "2064787",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego The Legend of Zelda: Tears of the Kingdom (Switch 2 Edition, 60 fps, 4K, mejoras gráficas, DLC, Español)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-the-legend-of-zelda-tears-of-the-kingdom-switch-2-edition-60-fps-4k-mejoras-graficas-dlc-espanol-2064787",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0F2N69SGN%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039855093&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 56.93,
+   "precio_antes": 69.99,
+   "grados": 223.5,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/aBJc5/2064787_1/re/768x768/qt/60/2064787_1.jpg",
+   "detectado": 1794403528.6001673,
+   "avisado": 1794404436.0611403,
+   "asin": "B0F2N69SGN",
+   "keepa": "https://keepa.com/#!product/9-B0F2N69SGN"
+  },
+  {
+   "id": "2064742",
+   "tipo_hilo": "oferta",
+   "titulo": "Nintendo Switch 2 Ed. Especial Zelda 40 Aniversario",
+   "enlace": "https://www.chollometro.com/ofertas/nintendo-switch-2-ed-especial-zelda-40-aniversario-2064742",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064742",
+   "tienda": "Facilitea",
+   "precio": 519.99,
+   "precio_antes": 700.0,
+   "grados": 222.19,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/plFZ7/2064742_1/re/768x768/qt/60/2064742_1.jpg",
+   "detectado": 1794402329.1951067,
+   "avisado": 1794403528.6001673
+  },
+  {
+   "id": "2064294",
+   "tipo_hilo": "oferta",
+   "titulo": "Router - Starlink Starlink Standard 4, 300 Mbit/s, IP67, derretimiento automático de nieve, Mesh, tecnología Electronic Phased Array",
+   "enlace": "https://www.chollometro.com/ofertas/router-starlink-starlink-standard-4-300-mbits-ip67-derretimiento-automatico-de-nieve-mesh-tecnologia-electronic-phased-array-2064294",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064294",
+   "tienda": "MediaMarkt",
+   "precio": 241.02,
+   "precio_antes": 349.0,
+   "codigo": "-22% APP",
+   "grados": 212.7,
+   "categorias": [
+    "redes_y_wifi"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/0GQLR/2064294_1/re/768x768/qt/60/2064294_1.jpg",
+   "detectado": 1794388235.3323948,
+   "avisado": 1794401726.9533098
+  },
+  {
+   "id": "2064600",
+   "tipo_hilo": "oferta",
+   "titulo": "Nintendo Switch Final Fantasy Resonance",
+   "enlace": "https://www.chollometro.com/ofertas/nintendo-switch-final-fantasy-resonance-2064600",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064600",
+   "tienda": "MediaMarkt",
+   "precio": 46.01,
+   "precio_antes": 58.99,
+   "codigo": "-12,98 € extra Descuento adicional en Carrito",
+   "grados": 270.38,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/DBCIU/2064600_1/re/768x768/qt/60/2064600_1.jpg",
+   "detectado": 1794396327.888936,
+   "avisado": 1794401133.6231444
+  },
+  {
+   "id": "2064585",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego LEGO Batman El Legado del Caballero Oscuro para Switch 2 (aventura, cooperativo, Gotham, Español)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-lego-batman-el-legado-del-caballero-oscuro-para-switch-2-aventura-cooperativo-gotham-espanol-2064585",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064585",
+   "tienda": "MediaMarkt",
+   "precio": 50.69,
+   "precio_antes": 69.99,
+   "grados": 215.47,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/5BSfO/2064585_1/re/768x768/qt/60/2064585_1.jpg",
+   "detectado": 1794396648.5315487,
+   "avisado": 1794401133.6231444
+  },
+  {
+   "id": "2064540",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego Monster Hunter Stories 3 Twisted Reflection para Switch 2 (Game Key Card, RPG, crianza de Monsties, Español)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-monster-hunter-stories-3-twisted-reflection-para-switch-2-game-key-card-rpg-crianza-de-monsties-espanol-2064540",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064540",
+   "tienda": "MediaMarkt",
+   "precio": 37.36,
+   "precio_antes": 69.99,
+   "grados": 224.0,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ZSKwQ/2064540_1/re/768x768/qt/60/2064540_1.jpg",
+   "detectado": 1794394861.7563548,
+   "avisado": 1794400835.090133
+  },
+  {
+   "id": "2064476",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil gram 16UD55U-G.AX85BN 16\" WUXGA 32GB RAM - LG",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-gram-16ud55u-gax85bn-16-wuxga-32gb-ram-lg-2064476",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064476",
+   "tienda": "MediaMarkt",
+   "precio": 982.0,
+   "precio_antes": 1400.0,
+   "grados": 242.25,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ioS9j/2064476_1/re/768x768/qt/60/2064476_1.jpg",
+   "detectado": 1794392135.1423225,
+   "avisado": 1794400526.9629025
+  },
+  {
+   "id": "2064517",
+   "tipo_hilo": "oferta",
+   "titulo": "Mini PC GMKtec G10 (AMD Ryzen 5 3500U, Barebone) por 105,39 € con cupón de 12 € (o por 96,39 € pagando con PayPal)",
+   "enlace": "https://www.chollometro.com/ofertas/mini-pc-gmktec-g10-amd-ryzen-5-3500u-barebone-por-10539-eur-con-cupon-de-12-eur-o-por-9639-eur-pagando-con-paypal-2064517",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064517",
+   "tienda": "AliExpress",
+   "precio": 96.39,
+   "precio_antes": 170.0,
+   "codigo": "ESD1112 / AEES12 / MARCAES12 / AVPES12 y PayPal 9€",
+   "grados": 211.15,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/QEGLJ/2064517_1/re/768x768/qt/60/2064517_1.jpg",
+   "detectado": 1794393636.2937322,
+   "avisado": 1794399927.9693274
+  },
+  {
+   "id": "2064623",
+   "tipo_hilo": "oferta",
+   "titulo": "Saros para PS5",
+   "enlace": "https://www.chollometro.com/ofertas/saros-para-ps5-2064623",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064623",
+   "tienda": "Miravia",
+   "precio": 42.99,
+   "precio_antes": 70.99,
+   "grados": 215.78,
+   "categorias": [
+    "ps5"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/PTEHY/2064623_1/re/768x768/qt/60/2064623_1.jpg",
+   "detectado": 1794397835.169323,
+   "avisado": 1794399635.1918046
+  },
+  {
+   "id": "2064213",
+   "tipo_hilo": "oferta",
+   "titulo": "Invincible VS /PS5 Invincible VS (MM edition)",
+   "enlace": "https://www.chollometro.com/ofertas/invincible-vs-ps5-invincible-vs-mm-edition-2064213",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064213",
+   "tienda": "MediaMarkt",
+   "precio": 26.44,
+   "grados": 206.4,
+   "categorias": [
+    "ps5"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/oh0i0/2064213_1/re/768x768/qt/60/2064213_1.jpg",
+   "detectado": 1794386127.1085715,
+   "avisado": 1794399635.1918046
+  },
+  {
+   "id": "2064605",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego Assassin’s Creed Shadows para Nintendo Switch 2 (Game Key Card, Japón Feudal, Shinobi y Samurái, Español)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-assassins-creed-shadows-para-nintendo-switch-2-game-key-card-japon-feudal-shinobi-y-samurai-espanol-2064605",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064605",
+   "tienda": "MediaMarkt",
+   "precio": 28.07,
+   "precio_antes": 41.99,
+   "grados": 201.44,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/uaZbK/2064605_1/re/768x768/qt/60/2064605_1.jpg",
+   "detectado": 1794396648.5315487,
+   "avisado": 1794397835.169323
+  },
+  {
+   "id": "2064067",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares gaming - ISY IGH-2000, Supraaurales, Para PC, PS4, PS5, Xbox One, Nintendo Switch, Negro",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-gaming-isy-igh-2000-supraaurales-para-pc-ps4-ps5-xbox-one-nintendo-switch-negro-2064067",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064067",
+   "tienda": "MediaMarkt",
+   "precio": 19.49,
+   "grados": 249.32,
+   "categorias": [
+    "ps5",
+    "nintendo",
+    "xbox",
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/fnFek/2064067_1/re/768x768/qt/60/2064067_1.jpg",
+   "detectado": 1794380460.2320325,
+   "avisado": 1794397535.2057364
+  },
+  {
+   "id": "2064513",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego Tomodachi Life: Una vida de ensueño para Nintendo Switch (simulación de vida, Miis, multijugador, Español)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-tomodachi-life-una-vida-de-ensueno-para-nintendo-switch-simulacion-de-vida-miis-multijugador-espanol-2064513",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064513",
+   "tienda": "MediaMarkt",
+   "precio": 36.65,
+   "precio_antes": 59.99,
+   "codigo": "-10,34€ extra en carrito",
+   "grados": 231.98,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/IIqyW/2064513_1/re/768x768/qt/60/2064513_1.jpg",
+   "detectado": 1794393636.2937322,
+   "avisado": 1794397535.2057364
+  },
+  {
+   "id": "2064356",
+   "tipo_hilo": "oferta",
+   "titulo": "STAR WARS Zero Company Standard Edition XBOX Series X | Disco",
+   "enlace": "https://www.chollometro.com/ofertas/star-wars-zero-company-standard-edition-xbox-series-x-disco-2064356",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0GT15C35C%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039801277&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 36.64,
+   "precio_antes": 59.99,
+   "codigo": "10,35€ al tramitar el pedido",
+   "grados": 222.59,
+   "categorias": [
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/HuND0/2064356_1/re/768x768/qt/60/2064356_1.jpg",
+   "detectado": 1794389449.0762625,
+   "avisado": 1794396927.0058,
+   "asin": "B0GT15C35C",
+   "keepa": "https://keepa.com/#!product/9-B0GT15C35C"
+  },
+  {
+   "id": "2064548",
+   "tipo_hilo": "oferta",
+   "titulo": "MOUSE: P.I. For Hire - PS5",
+   "enlace": "https://www.chollometro.com/ofertas/mouse-pi-for-hire-ps5-2064548",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0GTR8256K%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039801313&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 21.83,
+   "codigo": "-6,16 Al tramitar",
+   "grados": 215.06,
+   "categorias": [
+    "ps5"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/2RiCw/2064548_1/re/768x768/qt/60/2064548_1.jpg",
+   "detectado": 1794395126.3181748,
+   "avisado": 1794396927.0058,
+   "asin": "B0GTR8256K",
+   "keepa": "https://keepa.com/#!product/9-B0GTR8256K"
+  },
+  {
+   "id": "2064402",
+   "tipo_hilo": "oferta",
+   "titulo": "Black Myth Wukong - PS5",
+   "enlace": "https://www.chollometro.com/ofertas/black-myth-wukong-ps5-2064402",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0DKFCHCYZ%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039801366&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 46.79,
+   "precio_antes": 55.99,
+   "grados": 201.91,
+   "categorias": [
+    "ps5"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/64cPz/2064402_1/re/768x768/qt/60/2064402_1.jpg",
+   "detectado": 1794390929.0495198,
+   "avisado": 1794396927.0058,
+   "asin": "B0DKFCHCYZ",
+   "keepa": "https://keepa.com/#!product/9-B0DKFCHCYZ"
+  },
+  {
+   "id": "2064554",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego Super Mario Odyssey para Nintendo Switch (plataformas 3D, Cappy, exploración de Reinos, multijugador) - Acutalización gratis para SW2",
+   "enlace": "https://www.chollometro.com/ofertas/juego-super-mario-odyssey-para-nintendo-switch-plataformas-3d-cappy-exploracion-de-reinos-multijugador-acutalizacion-gratis-para-sw2-2064554",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB01MZ973SY%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039799052&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 38.99,
+   "precio_antes": 47.33,
+   "grados": 219.08,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/UhkI1/2064554_1/re/768x768/qt/60/2064554_1.jpg",
+   "detectado": 1794395126.3181748,
+   "avisado": 1794396648.5315487,
+   "asin": "B01MZ973SY",
+   "keepa": "https://keepa.com/#!product/9-B01MZ973SY"
+  },
+  {
+   "id": "2064345",
+   "tipo_hilo": "oferta",
+   "titulo": "Figura Amiibo Nintendo Super Mario Bros Wonder: Elephant Mario",
+   "enlace": "https://www.chollometro.com/ofertas/figura-amiibo-nintendo-super-mario-bros-wonder-elephant-mario-2064345",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064345",
+   "tienda": "MediaMarkt",
+   "precio": 14.03,
+   "precio_antes": 17.99,
+   "grados": 201.5,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/xyiMa/2064345_1/re/768x768/qt/60/2064345_1.jpg",
+   "detectado": 1794389127.7388623,
+   "avisado": 1794396327.888936
+  },
+  {
+   "id": "2064443",
+   "tipo_hilo": "oferta",
+   "titulo": "Metroid Prime Remastered Nintendo Switch",
+   "enlace": "https://www.chollometro.com/ofertas/metroid-prime-remastered-nintendo-switch-2064443",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064443",
+   "tienda": "MediaMarkt",
+   "precio": 29.63,
+   "precio_antes": 37.99,
+   "codigo": "-22% EN EL CARRITO",
+   "grados": 210.12,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/tlpFg/2064443_1/re/768x768/qt/60/2064443_1.jpg",
+   "detectado": 1794391526.8464813,
+   "avisado": 1794395436.3368661
+  },
+  {
+   "id": "2064505",
+   "tipo_hilo": "oferta",
+   "titulo": "Servidor NAS - UGREEN DXP4800PLUS, HDD y/o SDD, Capacidad 32TB (bahía) + 64 GB ampliable, 8GB RAM DDR5, 4 bahías, Intel Pentium Gold 8505",
+   "enlace": "https://www.chollometro.com/ofertas/servidor-nas-ugreen-dxp4800plus-hdd-yo-sdd-capacidad-32tb-bahia-64-gb-ampliable-8gb-ram-ddr5-4-bahias-intel-pentium-gold-8505-2064505",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064505",
+   "tienda": "MediaMarkt",
+   "precio": 467.0,
+   "precio_antes": 599.0,
+   "codigo": "-132,– € extra Descuento adicional en Carrito",
+   "grados": 206.46,
+   "categorias": [
+    "redes_y_wifi"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/qfBdV/2064505_1/re/768x768/qt/60/2064505_1.jpg",
+   "detectado": 1794393326.8045678,
+   "avisado": 1794395126.3181748
+  },
+  {
+   "id": "2064365",
+   "tipo_hilo": "oferta",
+   "titulo": "Thrustmaster T128 SimTask Farming Pack - Pack Volante Farming - PS5 y PC",
+   "enlace": "https://www.chollometro.com/ofertas/thrustmaster-t128-simtask-farming-pack-pack-volante-farming-ps5-y-pc-2064365",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0GC6JQ31X%2F&product=ppr-es-1039785297&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 114.0,
+   "precio_antes": 339.99,
+   "grados": 215.26,
+   "categorias": [
+    "ps5"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/e2F3I/2064365_1/re/768x768/qt/60/2064365_1.jpg",
+   "detectado": 1794389449.0762625,
+   "avisado": 1794394861.7563548,
+   "asin": "B0GC6JQ31X",
+   "keepa": "https://keepa.com/#!product/9-B0GC6JQ31X"
+  },
+  {
+   "id": "2064271",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego Nintendo Switch 2 Let's Sing 2027 + 2 Micrófonos Bundle (Game Key Card, karaoke, canciones top, oferta MediaMarkt)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-nintendo-switch-2-lets-sing-2027-2-microfonos-bundle-game-key-card-karaoke-canciones-top-oferta-mediamarkt-2064271",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064271",
+   "tienda": "MediaMarkt",
+   "precio": 42.11,
+   "precio_antes": 54.99,
+   "grados": 204.36,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/EPV5F/2064271_1/re/768x768/qt/60/2064271_1.jpg",
+   "detectado": 1794387662.6919043,
+   "avisado": 1794394526.9825141
+  },
+  {
+   "id": "2064130",
+   "tipo_hilo": "oferta",
+   "titulo": "Assassin's Creed Shadows (Xbox Series X) precio al tramitar pedido",
+   "enlace": "https://www.chollometro.com/ofertas/assassins-creed-shadows-xbox-series-x-precio-al-tramitar-pedido-2064130",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0FX3895S9%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039775595&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 24.17,
+   "grados": 208.79,
+   "categorias": [
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Me6Zi/2064130_1/re/768x768/qt/60/2064130_1.jpg",
+   "detectado": 1794383435.0867586,
+   "avisado": 1794393636.2937322,
+   "asin": "B0FX3895S9",
+   "keepa": "https://keepa.com/#!product/9-B0FX3895S9"
+  },
+  {
+   "id": "2064385",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares inalámbricos - Sony WH-1000XM4C, Noise Cancelling, 34h, Hi-Res, HD Noise Cancelling Processor QN",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-inalambricos-sony-wh-1000xm4c-noise-cancelling-34h-hi-res-hd-noise-cancelling-processor-qn-2064385",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064385",
+   "tienda": "MediaMarkt",
+   "precio": 167.7,
+   "precio_antes": 229.0,
+   "codigo": "en cesta",
+   "grados": 200.4,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ieDHn/2064385_1/re/768x768/qt/60/2064385_1.jpg",
+   "detectado": 1794390036.3619587,
+   "avisado": 1794393636.2937322
+  },
+  {
+   "id": "2064113",
+   "tipo_hilo": "oferta",
+   "titulo": "Metal Gear Solid: Master Collection Volume 2 switch/switch 2",
+   "enlace": "https://www.chollometro.com/ofertas/metal-gear-solid-master-collection-volume-2-switchswitch-2-2064113",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064113",
+   "tienda": "MediaMarkt",
+   "precio": 34.41,
+   "grados": 212.37,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/uZXyK/2064113_1/re/768x768/qt/60/2064113_1.jpg",
+   "detectado": 1794382248.8034208,
+   "avisado": 1794393326.8045678
+  },
+  {
+   "id": "2064192",
+   "tipo_hilo": "oferta",
+   "titulo": "MARIO KART 8 DELUXE NINTENDO SWITCH",
+   "enlace": "https://www.chollometro.com/ofertas/mario-kart-8-deluxe-nintendo-switch-2064192",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB01N7RLGIJ%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039773178&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 42.89,
+   "precio_antes": 49.99,
+   "codigo": "-4,01€ al tramitar pedido",
+   "grados": 200.18,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/0BRqV/2064192_1/re/768x768/qt/60/2064192_1.jpg",
+   "detectado": 1794385528.5026882,
+   "avisado": 1794393326.8045678,
+   "asin": "B01N7RLGIJ",
+   "keepa": "https://keepa.com/#!product/9-B01N7RLGIJ"
+  },
+  {
+   "id": "2064053",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil - ASUS Vivobook S14 OLED S3407QA-SF061W Copilot+ PC, 14 \" WUXGA, Snapdragon X X1-26-100 50 TOPS, 16GB RAM, 512GB SSD, W11H,",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-asus-vivobook-s14-oled-s3407qa-sf061w-copilot-pc-14-wuxga-snapdragon-x-x1-26-100-50-tops-16gb-ram-512gb-ssd-w11h-2064053",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064053",
+   "tienda": "MediaMarkt",
+   "precio": 623.3,
+   "precio_antes": 999.0,
+   "codigo": "22% app",
+   "grados": 206.5,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/TFkBS/2064053_1/re/768x768/qt/60/2064053_1.jpg",
+   "detectado": 1794378652.1117506,
+   "avisado": 1794392436.6262262
+  },
+  {
+   "id": "2064298",
+   "tipo_hilo": "oferta",
+   "titulo": "Nas Ugreen DXP2800",
+   "enlace": "https://www.chollometro.com/ofertas/nas-ugreen-dxp2800-2064298",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064298",
+   "tienda": "MediaMarkt",
+   "precio": 280.0,
+   "precio_antes": 359.99,
+   "grados": 290.35,
+   "categorias": [
+    "redes_y_wifi"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/u0qKb/2064298_1/re/768x768/qt/60/2064298_1.jpg",
+   "detectado": 1794388235.3323948,
+   "avisado": 1794391258.9765859
+  },
+  {
+   "id": "2064266",
+   "tipo_hilo": "oferta",
+   "titulo": "Metal Gear Solid: Master Collection Volumen 1 para Nintendo Switch",
+   "enlace": "https://www.chollometro.com/ofertas/metal-gear-solid-master-collection-volumen-1-para-nintendo-switch-2064266",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064266",
+   "tienda": "Nintendo eShop",
+   "precio": 35.99,
+   "precio_antes": 59.99,
+   "grados": 242.5,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ggEiJ/2064266_1/re/768x768/qt/60/2064266_1.jpg",
+   "detectado": 1794387328.106655,
+   "avisado": 1794390635.2471194
+  },
+  {
+   "id": "2064201",
+   "tipo_hilo": "oferta",
+   "titulo": "Mando inalámbrico Nintendo Switch Pro Controller (ergonomía prémium, vibración HD, lector NFC, cable USB, Negro)",
+   "enlace": "https://www.chollometro.com/ofertas/mando-inalambrico-nintendo-switch-pro-controller-ergonomia-premium-vibracion-hd-lector-nfc-cable-usb-negro-2064201",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB01N4ND1T2%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039739871&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 50.69,
+   "precio_antes": 64.99,
+   "codigo": "Al tramitar",
+   "grados": 214.07,
+   "categorias": [
+    "mandos",
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/I60Yq/2064201_1/re/768x768/qt/60/2064201_1.jpg",
+   "detectado": 1794385731.8219728,
+   "avisado": 1794389449.0762625,
+   "asin": "B01N4ND1T2",
+   "keepa": "https://keepa.com/#!product/9-B01N4ND1T2"
+  },
+  {
+   "id": "2063741",
+   "tipo_hilo": "oferta",
+   "titulo": "Meridiem MIO: Memories in Orbit para Nintendo Switch",
+   "enlace": "https://www.chollometro.com/ofertas/meridiem-mio-memories-in-orbit-para-nintendo-switch-2063741",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063741",
+   "tienda": "MediaMarkt",
+   "precio": 29.63,
+   "precio_antes": 39.99,
+   "codigo": "22% app o carrito",
+   "grados": 204.08,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/L3jnU/2063741_1/re/768x768/qt/60/2063741_1.jpg",
+   "detectado": 1794349614.3110418,
+   "avisado": 1794389449.0762625
+  },
+  {
+   "id": "2064279",
+   "tipo_hilo": "oferta",
+   "titulo": "The Elder Scrolls V: Skyrim Anniversary Edition (Código de descarga) switch 2 (precio en carrito)",
+   "enlace": "https://www.chollometro.com/ofertas/the-elder-scrolls-v-skyrim-anniversary-edition-codigo-de-descarga-switch-2-precio-en-carrito-2064279",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064279",
+   "tienda": "MediaMarkt",
+   "precio": 24.88,
+   "grados": 208.11,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/fW4lT/2064279_1/re/768x768/qt/60/2064279_1.jpg",
+   "detectado": 1794387926.129764,
+   "avisado": 1794389127.7388623
+  },
+  {
+   "id": "2050134",
+   "tipo_hilo": "oferta",
+   "titulo": "Nintendo Switch 2, versión actualizada con batería extraíble [Promo 11.11]",
+   "enlace": "https://www.chollometro.com/ofertas/nintendo-switch-2-version-renovada-con-bateria-extraible-promo-1111-empieza-1-11-2050134",
+   "destino": "https://www.chollometro.com/visit/threadmain/2050134",
+   "tienda": "AliExpress",
+   "precio": 321.16,
+   "codigo": "ESD1158 + PAYPAL",
+   "grados": 13421.41,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ZFhDP/2050134_1/re/768x768/qt/60/2050134_1.jpg",
+   "detectado": 1794388834.5766096,
+   "avisado": 1794388834.5766096
+  },
+  {
+   "id": "2064186",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego The Legend of Zelda: Tears of the Kingdom para Nintendo Switch (Aventura épica, Hyrule y Cielos, Español)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-the-legend-of-zelda-tears-of-the-kingdom-para-nintendo-switch-aventura-epica-hyrule-y-cielos-espanol-2064186",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB09S4R3WT1%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039734128&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 46.79,
+   "precio_antes": 56.71,
+   "grados": 254.43,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/BNRYa/2064186_1/re/768x768/qt/60/2064186_1.jpg",
+   "detectado": 1794385235.5803876,
+   "avisado": 1794388834.5766096,
+   "asin": "B09S4R3WT1",
+   "keepa": "https://keepa.com/#!product/9-B09S4R3WT1"
+  },
+  {
+   "id": "2063905",
+   "tipo_hilo": "oferta",
+   "titulo": "Dron DJI Lito X1 (pack estándar con mando RC-N3)",
+   "enlace": "https://www.chollometro.com/ofertas/dron-dji-lito-x1-pack-estandar-con-mando-rc-n3-2063905",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063905",
+   "tienda": "AliExpress",
+   "precio": 261.55,
+   "precio_antes": 419.0,
+   "codigo": "ESD1139 + PayPal 40€",
+   "grados": 215.94,
+   "categorias": [
+    "mandos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/jG6nm/2063905_1/re/768x768/qt/60/2063905_1.jpg",
+   "detectado": 1794356727.8959043,
+   "avisado": 1794388834.5766096
+  },
+  {
+   "id": "2063992",
+   "tipo_hilo": "oferta",
+   "titulo": "Disco Duro Externo WD My Passport 5TB – USB 3.2 Gen 1, Copias de Seguridad y Cifrado AES de 256 bits",
+   "enlace": "https://www.chollometro.com/ofertas/disco-duro-externo-wd-my-passport-5tb-usb-32-gen-1-copias-de-seguridad-y-cifrado-aes-de-256-bits-2063992",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB07VP5X239%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039729029&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 155.23,
+   "precio_antes": 192.99,
+   "codigo": "37,76 € al tramitar",
+   "grados": 235.37,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/IWXT5/2063992_1/re/768x768/qt/60/2063992_1.jpg",
+   "detectado": 1794377738.314187,
+   "avisado": 1794388235.3323948,
+   "asin": "B07VP5X239",
+   "keepa": "https://keepa.com/#!product/9-B07VP5X239"
+  },
+  {
+   "id": "2063615",
+   "tipo_hilo": "oferta",
+   "titulo": "Mando inalámbrico Sony DualSense V2 para PS5 (retroalimentación háptica, gatillos adaptativos, Bluetooth, Galactic Purple)",
+   "enlace": "https://www.chollometro.com/ofertas/mando-inalambrico-sony-dualsense-v2-para-ps5-retroalimentacion-haptica-gatillos-adaptativos-bluetooth-galactic-purple-2063615",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063615",
+   "tienda": "MediaMarkt",
+   "precio": 58.49,
+   "precio_antes": 74.99,
+   "codigo": "Desde la APP",
+   "grados": 210.26,
+   "categorias": [
+    "ps5",
+    "mandos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/xo1WY/2063615_1/re/768x768/qt/60/2063615_1.jpg",
+   "detectado": 1794348077.148049,
+   "avisado": 1794388235.3323948
+  },
+  {
+   "id": "2064066",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Gaming AOC AGON PRO AG276QZD2 26,5\" QD-OLED QHD – 280Hz, 0,03ms y HDR True Black 400",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-gaming-aoc-agon-pro-ag276qzd2-265-qd-oled-qhd-280hz-003ms-y-hdr-true-black-400-2064066",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0D966ZJGR%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039723932&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 280.02,
+   "precio_antes": 359.0,
+   "codigo": "21,97 € al tramitar",
+   "grados": 228.33,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ukwMw/2064066_1/re/768x768/qt/60/2064066_1.jpg",
+   "detectado": 1794380460.2320325,
+   "avisado": 1794387662.6919043,
+   "asin": "B0D966ZJGR",
+   "keepa": "https://keepa.com/#!product/9-B0D966ZJGR"
+  },
+  {
+   "id": "2064118",
+   "tipo_hilo": "oferta",
+   "titulo": "The Rogue Prince of Persia (Game Key Card) switch 2 a 12.40 /switch a 13.96/Immortal Edition (Game Key Card) switch 2 a 15.52",
+   "enlace": "https://www.chollometro.com/ofertas/the-rogue-prince-of-persia-game-key-card-switch-2-a-1240-the-rogue-prince-of-persia-switch-a-1396-2064118",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064118",
+   "tienda": "MediaMarkt",
+   "precio": 12.4,
+   "grados": 214.52,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/xFgMs/2064118_1/re/768x768/qt/60/2064118_1.jpg",
+   "detectado": 1794382835.812787,
+   "avisado": 1794387328.106655
+  },
+  {
+   "id": "2063953",
+   "tipo_hilo": "oferta",
+   "titulo": "Mando Turtle Beach Afterglow Switch 2 RGB Cable Botones Programables Transparente",
+   "enlace": "https://www.chollometro.com/ofertas/mando-turtle-beach-afterglow-switch-2-rgb-cable-botones-programables-transparente-2063953",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063953",
+   "tienda": "PcComponentes",
+   "precio": 18.99,
+   "precio_antes": 31.99,
+   "grados": 203.45,
+   "categorias": [
+    "mandos",
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/UDIh7/2063953_1/re/768x768/qt/60/2063953_1.jpg",
+   "detectado": 1794377438.0415728,
+   "avisado": 1794387328.106655
+  },
+  {
+   "id": "2064059",
+   "tipo_hilo": "oferta",
+   "titulo": "Juego GTA: The Trilogy – The Definitive Edition para Nintendo Switch (Código en caja, 3 juegos icónicos, remasterizado)",
+   "enlace": "https://www.chollometro.com/ofertas/juego-gta-the-trilogy-the-definitive-edition-para-nintendo-switch-codigo-en-caja-3-juegos-iconicos-remasterizado-2064059",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0FGQ387G8%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039716547&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 15.59,
+   "precio_antes": 24.68,
+   "grados": 202.76,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/dj6ZI/2064059_1/re/768x768/qt/60/2064059_1.jpg",
+   "detectado": 1794380460.2320325,
+   "avisado": 1794386737.6312656,
+   "asin": "B0FGQ387G8",
+   "keepa": "https://keepa.com/#!product/9-B0FGQ387G8"
+  },
+  {
+   "id": "2064057",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil gaming - ASUS ROG Strix G18 G815LP-S9005W, 18 \" WQXGA, Intel Core Ultra 9 275HX, 32 GB RAM, 1 TB SSD, GeForce RTX 5070, W 11",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-gaming-asus-rog-strix-g18-g815lp-s9005w-18-wqxga-intel-core-ultra-9-275hx-32-gb-ram-1-tb-ssd-geforce-rtx-5070-w-11-2064057",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064057",
+   "tienda": "MediaMarkt",
+   "precio": 1871.22,
+   "precio_antes": 3199.0,
+   "codigo": "22% app",
+   "grados": 201.45,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/YFoYn/2064057_1/re/768x768/qt/60/2064057_1.jpg",
+   "detectado": 1794380460.2320325,
+   "avisado": 1794386737.6312656
+  },
+  {
+   "id": "2063984",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Gaming LG UltraGear 27G411A-B 27\" Full HD IPS, 144 Hz, 1 ms, HDR10, G-Sync y FreeSync",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-gaming-lg-ultragear-27g411a-b-27-full-hd-ips-144-hz-1-ms-hdr10-g-sync-y-freesync-2063984",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0FL366VPN%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039711798&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 76.36,
+   "precio_antes": 97.9,
+   "codigo": "21,54 € al tramitar",
+   "grados": 222.88,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/eQSgG/2063984_1/re/768x768/qt/60/2063984_1.jpg",
+   "detectado": 1794377438.0415728,
+   "avisado": 1794386127.1085715,
+   "asin": "B0FL366VPN",
+   "keepa": "https://keepa.com/#!product/9-B0FL366VPN"
+  },
+  {
+   "id": "2063997",
+   "tipo_hilo": "oferta",
+   "titulo": "Hogwarts Legacy Xbox Series X",
+   "enlace": "https://www.chollometro.com/ofertas/hogwarts-legacy-xbox-series-x-2063997",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063997",
+   "tienda": "PcComponentes",
+   "precio": 11.84,
+   "grados": 203.53,
+   "categorias": [
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/3Zy8U/2063997_1/re/768x768/qt/60/2063997_1.jpg",
+   "detectado": 1794377738.314187,
+   "avisado": 1794386127.1085715
+  },
+  {
+   "id": "2064165",
+   "tipo_hilo": "oferta",
+   "titulo": "PlayStation Portal - blanco o negro",
+   "enlace": "https://www.chollometro.com/ofertas/playstation-portal-blanco-o-negro-2064165",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064165",
+   "tienda": "MediaMarkt",
+   "precio": 180.96,
+   "precio_antes": 249.0,
+   "grados": 206.15,
+   "categorias": [
+    "ps5"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/a30mx/2064165_1/re/768x768/qt/60/2064165_1.jpg",
+   "detectado": 1794384635.0302637,
+   "avisado": 1794385848.8978274
+  },
+  {
+   "id": "2064139",
+   "tipo_hilo": "oferta",
+   "titulo": "MARVEL Cosmic Invasion swith a 14.74 / ps5 a 18.64",
+   "enlace": "https://www.chollometro.com/ofertas/marvel-cosmic-invasion-swith-a-1474-ps5-a-1864-2064139",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064139",
+   "tienda": "MediaMarkt",
+   "precio": 14.74,
+   "grados": 205.75,
+   "categorias": [
+    "ps5"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/YelKt/2064139_1/re/768x768/qt/60/2064139_1.jpg",
+   "detectado": 1794383726.354781,
+   "avisado": 1794385235.5803876
+  },
+  {
+   "id": "2063790",
+   "tipo_hilo": "oferta",
+   "titulo": "Apple AirPods MAX 2 por 354,42€ con cupón de 75€ (o por 314,42€ pagando con PayPal)",
+   "enlace": "https://www.chollometro.com/ofertas/apple-airpods-max-2-por-35442eur-con-cupon-de-75eur-o-por-31442eur-pagando-con-paypal-2063790",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063790",
+   "tienda": "AliExpress",
+   "precio": 314.42,
+   "precio_antes": 549.0,
+   "codigo": "ESD1175 / AEES75 / AVPES75",
+   "grados": 222.08,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/pvgfR/2063790_1/re/768x768/qt/60/2063790_1.jpg",
+   "detectado": 1794351663.5396013,
+   "avisado": 1794384058.017396
+  },
+  {
+   "id": "2063839",
+   "tipo_hilo": "oferta",
+   "titulo": "Mini PC Chuwi Aubox Amd R7 8745Hs 0Gb RAM 0Gb SSD con Oculink, Pantalla 4K 60Hz, Wifi 6, Bt 5.1, Extensión M.2 2t*2",
+   "enlace": "https://www.chollometro.com/ofertas/mini-pc-chuwi-aubox-amd-r7-8745hs-0gb-ram-0gb-ssd-con-oculink-pantalla-4k-60hz-wifi-6-bt-51-extension-m2-2t2-2063839",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063839",
+   "tienda": "AliExpress",
+   "precio": 190.37,
+   "codigo": "ESD1139 y paypal",
+   "grados": 215.79,
+   "categorias": [
+    "portatiles_y_pc",
+    "redes_y_wifi"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Led0x/2063839_1/re/768x768/qt/60/2063839_1.jpg",
+   "detectado": 1794353128.8518028,
+   "avisado": 1794383435.0867586
+  },
+  {
+   "id": "2064091",
+   "tipo_hilo": "oferta",
+   "titulo": "Assassins Creed Mirage xbox series x",
+   "enlace": "https://www.chollometro.com/ofertas/assassins-creed-mirage-xbox-series-x-2064091",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064091",
+   "tienda": "MediaMarkt",
+   "precio": 9.35,
+   "grados": 227.62,
+   "categorias": [
+    "xbox"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/gZt5R/2064091_1/re/768x768/qt/60/2064091_1.jpg",
+   "detectado": 1794380728.8619118,
+   "avisado": 1794382526.8010051
+  },
+  {
+   "id": "2064104",
+   "tipo_hilo": "oferta",
+   "titulo": "Stellar Blade Complete Edition switch 2",
+   "enlace": "https://www.chollometro.com/ofertas/stellar-blade-complete-edition-switch-2-2064104",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064104",
+   "tienda": "MediaMarkt",
+   "precio": 42.11,
+   "grados": 223.91,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/cz1uR/2064104_1/re/768x768/qt/60/2064104_1.jpg",
+   "detectado": 1794381637.2727568,
+   "avisado": 1794382526.8010051
+  },
+  {
+   "id": "2063974",
+   "tipo_hilo": "oferta",
+   "titulo": "Mario Kart World- Nintendo Switch 2",
+   "enlace": "https://www.chollometro.com/ofertas/mario-kart-world-nintendo-switch-2-2063974",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0F2N6V24N%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039678516&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 58.49,
+   "precio_antes": 74.9,
+   "codigo": "-16,41€ al tramitar pedido",
+   "grados": 314.17,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/DZ3DF/2063974_1/re/768x768/qt/60/2063974_1.jpg",
+   "detectado": 1794377438.0415728,
+   "avisado": 1794381339.983989,
+   "asin": "B0F2N6V24N",
+   "keepa": "https://keepa.com/#!product/9-B0F2N6V24N"
+  },
+  {
+   "id": "2063828",
+   "tipo_hilo": "oferta",
+   "titulo": "Mini PC Chuwi Ubox, AMD Ryzen 5 6600H, 16 GB DDR5, SSD de 512 GB, Windows 11 Pro, 4K, 144 Hz, decodificación, Wifi 6, BT 5.2,",
+   "enlace": "https://www.chollometro.com/ofertas/mini-pc-chuwi-ubox-amd-ryzen-5-6600h-16-gb-ddr5-ssd-de-512-gb-windows-11-pro-4k-144-hz-decodificacion-wifi-6-bt-52-2063828",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063828",
+   "tienda": "AliExpress",
+   "precio": 247.01,
+   "codigo": "ESD1139 y payapl",
+   "grados": 239.9,
+   "categorias": [
+    "portatiles_y_pc",
+    "redes_y_wifi"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/vD6ud/2063828_1/re/768x768/qt/60/2063828_1.jpg",
+   "detectado": 1794353128.8518028,
+   "avisado": 1794380129.7910402
+  },
+  {
+   "id": "2063893",
+   "tipo_hilo": "oferta",
+   "titulo": "PRAGMATA - PS5",
+   "enlace": "https://www.chollometro.com/ofertas/pragmata-ps5-2063893",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0G7L9ZPX1%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039652246&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 42.88,
+   "precio_antes": 49.99,
+   "codigo": "Al Tramitar (-5,45€)",
+   "grados": 201.24,
+   "categorias": [
+    "ps5"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/56d6D/2063893_1/re/768x768/qt/60/2063893_1.jpg",
+   "detectado": 1794356138.5905354,
+   "avisado": 1794375328.772939,
+   "asin": "B0G7L9ZPX1",
+   "keepa": "https://keepa.com/#!product/9-B0G7L9ZPX1"
+  },
+  {
+   "id": "2063929",
+   "tipo_hilo": "oferta",
+   "titulo": "HUAWEI FreeBuds Pro 5 Auriculares Inalámbricos | Cancelación de Ruido IA Doble Moto | ANC | IP57 | Ajuste Ergonómico y Seguro | 3 Colores",
+   "enlace": "https://www.chollometro.com/ofertas/huawei-freebuds-pro-5-auriculares-inalambricos-cancelacion-de-ruido-ia-doble-moto-anc-ip57-ajuste-ergonomico-y-seguro-3-colores-2063929",
+   "destino": "https://path.chollometro.com/pepper-es/redirect?url=https%3A%2F%2Fwww.amazon.es%2Fdp%2FB0GK7YSVTL%3Fsmid%3DA1AT7YVPFBWXBL&product=ppr-es-1039649747&tag=eugc&referer=https%3A%2F%2Fwww.chollometro.com",
+   "tienda": "Amazon",
+   "precio": 139.61,
+   "grados": 207.05,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/L1obw/2063929_1/re/768x768/qt/60/2063929_1.jpg",
+   "detectado": 1794359737.771156,
+   "avisado": 1794374136.6577067,
+   "asin": "B0GK7YSVTL",
+   "keepa": "https://keepa.com/#!product/9-B0GK7YSVTL"
+  },
+  {
+   "id": "2063968",
+   "tipo_hilo": "oferta",
+   "titulo": "PS5 The Lord of the Rings: Gollum",
+   "enlace": "https://www.chollometro.com/ofertas/ps5-the-lord-of-the-rings-gollum-2063968",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063968",
+   "tienda": "MediaMarkt",
+   "precio": 5.45,
+   "precio_antes": 10.0,
+   "codigo": "Desde la APP",
+   "grados": 213.5,
+   "categorias": [
+    "ps5"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/LRCwT/2063968_1/re/768x768/qt/60/2063968_1.jpg",
+   "detectado": 1794368736.6271641,
+   "avisado": 1794371451.5452862
+  },
+  {
+   "id": "2063803",
+   "tipo_hilo": "oferta",
+   "titulo": "Lies of P: Complete Edition - Switch 2 Version - Version España",
+   "enlace": "https://www.chollometro.com/ofertas/lies-of-p-complete-edition-switch-2-version-version-espana-2063803",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063803",
+   "tienda": "Miravia",
+   "precio": 41.11,
+   "precio_antes": 59.99,
+   "codigo": "11.1 -4€ cupón",
+   "grados": 214.18,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/I7prO/2063803_1/re/768x768/qt/60/2063803_1.jpg",
+   "detectado": 1794351930.7020926,
+   "avisado": 1794361237.4508557
+  }
+ ],
+ "calentando": [
+  {
+   "id": "2067600",
+   "tipo_hilo": "oferta",
+   "titulo": "Apple AirPods Max Naranja",
+   "enlace": "https://www.chollometro.com/ofertas/apple-airpods-max-naranja-2067600",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067600",
+   "tienda": "PcComponentes",
+   "precio": 349.0,
+   "precio_antes": 540.0,
+   "grados": 198.18,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/kBHOM/2067600_1/re/768x768/qt/60/2067600_1.jpg",
+   "detectado": 1794564059.4898589
+  },
+  {
+   "id": "2067727",
+   "tipo_hilo": "oferta",
+   "titulo": "Pack 3 WiFi Mesh Mercusys Halo H1200G (Gigabit, AC1200, hasta 320 m²) | Red Unificada. Puertos Gigabit. Control Parental. App Mercusys.",
+   "enlace": "https://www.chollometro.com/ofertas/mercusys-halo-h1200g3-pack-sistema-wifi-5-mesh-ac1200-doble-banda500m2-hasta-320m2-red-unificada-puertos-gigabit-control-parental-2067727",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067727",
+   "tienda": "Amazon",
+   "precio": 53.06,
+   "precio_antes": 85.0,
+   "grados": 172.07,
+   "categorias": [
+    "redes_y_wifi"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/7yJSU/2067727_1/re/768x768/qt/60/2067727_1.jpg",
+   "detectado": 1794569729.0587506
+  },
+  {
+   "id": "2065725",
+   "tipo_hilo": "oferta",
+   "titulo": "Logitech G Astro A50 LIGHTSPEED auriculares inalámbricos de gaming + base | (5 Gen), PRO-G graphene | 174€ en negro",
+   "enlace": "https://www.chollometro.com/ofertas/logitech-g-astro-a50-lightspeed-auriculares-inalambricos-de-gaming-base-5-gen-pro-g-graphene-174eur-en-negro-2065725",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065725",
+   "tienda": "Amazon",
+   "precio": 170.82,
+   "grados": 170.65,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/zHShM/2065725_1/re/768x768/qt/60/2065725_1.jpg",
+   "detectado": 1794438637.4386337
+  },
+  {
+   "id": "2067750",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Bose Quiet Comfort Ultra 2ª Generación Bluetooth TWS con Cancelación de Ruido (Varios colores)",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-bose-quiet-comfort-ultra-2a-generacion-bluetooth-tws-con-cancelacion-de-ruido-negros-2067750",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067750",
+   "tienda": "Amazon",
+   "precio": 199.95,
+   "precio_antes": 270.0,
+   "grados": 163.93,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/895zd/2067750_1/re/768x768/qt/60/2067750_1.jpg",
+   "detectado": 1794570339.8510003
+  },
+  {
+   "id": "2066188",
+   "tipo_hilo": "oferta",
+   "titulo": "Lenovo Legion 27Q-11 Monitor, 27\" QHD IPS, 300Hz, FreeSync Premium",
+   "enlace": "https://www.chollometro.com/ofertas/lenovo-legion-27q-11-monitor-27-qhd-ips-300hz-freesync-premium-2066188",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066188",
+   "tienda": "Amazon",
+   "precio": 205.92,
+   "precio_antes": 264.0,
+   "grados": 162.42,
+   "categorias": [
+    "portatiles_y_pc",
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/oz3bg/2066188_1/re/768x768/qt/60/2066188_1.jpg",
+   "detectado": 1794480039.2663088
+  },
+  {
+   "id": "2054823",
+   "tipo_hilo": "oferta",
+   "titulo": "Disco duro Seagate 1TB",
+   "enlace": "https://www.chollometro.com/ofertas/disco-duro-seagate-1tb-2054823",
+   "destino": "https://www.chollometro.com/visit/threadmain/2054823",
+   "tienda": "Amazon",
+   "precio": 79.99,
+   "grados": 160.8,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/TFkHB/2054823_1/re/768x768/qt/60/2054823_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2065924",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Gaming con Cable Logitech G G335 - Blanco (PC, PS, Xbox, Switch)",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-gaming-con-cable-logitech-g-g335-blanco-pc-ps-xbox-switch-2065924",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065924",
+   "tienda": "Amazon",
+   "precio": 27.29,
+   "codigo": "Al tramitar",
+   "grados": 160.02,
+   "categorias": [
+    "xbox",
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/K0IkA/2065924_1/re/768x768/qt/60/2065924_1.jpg",
+   "detectado": 1794468647.8051252
+  },
+  {
+   "id": "2062938",
+   "tipo_hilo": "oferta",
+   "titulo": "Disco duro SSD externo 1TB - SanDisk Extreme Portable SSD, 2.5\", Hasta 1050 MB/s, NVMe, USB 3.2, IP65, Gris",
+   "enlace": "https://www.chollometro.com/ofertas/disco-duro-ssd-externo-1tb-sandisk-extreme-portable-ssd-25-hasta-1050-mbs-nvme-usb-32-ip65-gris-2062938",
+   "destino": "https://www.chollometro.com/visit/threadmain/2062938",
+   "tienda": "MediaMarkt",
+   "precio": 124.79,
+   "precio_antes": 169.99,
+   "grados": 159.84,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/N75tc/2062938_1/re/768x768/qt/60/2062938_1.jpg",
+   "fecha": 1794325548.0,
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2066352",
+   "tipo_hilo": "oferta",
+   "titulo": "Recopilación Gaming 2 (18 Chollazos · Descuentos de hasta -97%)",
+   "enlace": "https://www.chollometro.com/ofertas/recopilacion-gaming-2-18-chollazos-descuentos-de-hasta-97-2066352",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066352",
+   "tienda": "Instant Gaming",
+   "precio": 0.0,
+   "grados": 157.96,
+   "categorias": [
+    "juegos_gratis"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/WqpEw/2066352_1/re/768x768/qt/60/2066352_1.jpg",
+   "detectado": 1794486933.4286432
+  },
+  {
+   "id": "2066687",
+   "tipo_hilo": "oferta",
+   "titulo": "American Tourister Puffypop - Equipaje de Mano Bajo Asiento Mujer (40 x 25 x 20 cm, 21 L, 0.70 kg) | con Compartimento Portátil 14\" - Negro",
+   "enlace": "https://www.chollometro.com/ofertas/american-tourister-puffypop-equipaje-de-mano-bajo-asiento-mujer-40-x-25-x-20-cm-21-l-070-kg-con-compartimento-portatil-14-negro-2066687",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066687",
+   "tienda": "Amazon",
+   "precio": 37.06,
+   "precio_antes": 56.0,
+   "grados": 155.55,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/HPTJI/2066687_1/re/768x768/qt/60/2066687_1.jpg",
+   "detectado": 1794503443.9567611
+  },
+  {
+   "id": "2066556",
+   "tipo_hilo": "oferta",
+   "titulo": "ASUS VY27UQ Monitor Eye Care de 27 Pulgadas 4K, 3840 x 2160, IPS, HDR-10, Adaptive Sync",
+   "enlace": "https://www.chollometro.com/ofertas/asus-vy27uq-monitor-eye-care-de-27-pulgadas-4k-3840-x-2160-ips-hdr-10-adaptive-sync-2066556",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066556",
+   "tienda": "Amazon",
+   "precio": 154.19,
+   "precio_antes": 184.83,
+   "grados": 154.81,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/JrvMz/2066556_1/re/768x768/qt/60/2066556_1.jpg",
+   "detectado": 1794497452.528974
+  },
+  {
+   "id": "2059840",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil AI Ultraligero Acer Aspire 14 AI(Intel Core Ultra 5 226V Lunar Lake/16 GB RAM LPDDR5X/512 GB SSD NVMe/14\"/Copilot+ PC/Win 11 Home)",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-ai-ultraligero-acer-aspire-14-aiintel-core-ultra-5-226v-lunar-lake16-gb-ram-lpddr5x512-gb-ssd-nvme14copilot-pcwin-11-home-2059840",
+   "destino": "https://www.chollometro.com/visit/threadmain/2059840",
+   "tienda": "PcComponentes",
+   "precio": 749.0,
+   "precio_antes": 999.0,
+   "grados": 153.91,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/A9EtN/2059840_1/re/768x768/qt/60/2059840_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2066980",
+   "tipo_hilo": "oferta",
+   "titulo": "Edifier ES850NB Auriculares Inalámbricos ANC con LDAC y Audio Hi-Res",
+   "enlace": "https://www.chollometro.com/ofertas/edifier-es850nb-auriculares-inalambricos-anc-con-ldac-y-audio-hi-res-2066980",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066980",
+   "tienda": "Amazon",
+   "precio": 89.99,
+   "precio_antes": 149.99,
+   "grados": 150.11,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/LNv7i/2066980_1/re/768x768/qt/60/2066980_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2066375",
+   "tipo_hilo": "oferta",
+   "titulo": "Edifier W820NB Plus Gen 2 Auriculares con ANC de Audio Hi-Res, gris oscuro 88h de autonomía,",
+   "enlace": "https://www.chollometro.com/ofertas/edifier-w820nb-plus-gen-2-auriculares-con-anc-de-audio-hi-res-gris-oscuro-88h-de-autonomia-2066375",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066375",
+   "tienda": "Amazon",
+   "precio": 56.98,
+   "grados": 148.09,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/NwmXp/2066375_1/re/768x768/qt/60/2066375_1.jpg",
+   "detectado": 1794487838.2431684
+  },
+  {
+   "id": "2068940",
+   "tipo_hilo": "oferta",
+   "titulo": "HyperX Cloud Mini multicolor: auriculares con cable para niños, micrófono abatible y jack de 3,5 mm",
+   "enlace": "https://www.chollometro.com/ofertas/hyperx-cloud-mini-multicolor-auriculares-con-cable-para-ninos-microfono-abatible-y-jack-de-35-mm-2068940",
+   "destino": "https://www.chollometro.com/visit/threadmain/2068940",
+   "tienda": "PcComponentes",
+   "precio": 9.99,
+   "precio_antes": 29.99,
+   "grados": 147.92,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/hvSzX/2068940_1/re/768x768/qt/60/2068940_1.jpg",
+   "detectado": 1794657661.8785703
+  },
+  {
+   "id": "2068699",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Dell Alienware AW2524HF 24.5\" LED IPS FullHD 500Hz 0.5ms Altura Ajustable FreeSync Premium",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-dell-alienware-aw2524hf-245-led-ips-fullhd-500hz-05ms-altura-ajustable-freesync-premium-2068699",
+   "destino": "https://www.chollometro.com/visit/threadmain/2068699",
+   "tienda": "PcComponentes",
+   "precio": 293.81,
+   "precio_antes": 419.99,
+   "grados": 143.94,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/pUl9s/2068699_1/re/768x768/qt/60/2068699_1.jpg",
+   "detectado": 1794645051.7686148
+  },
+  {
+   "id": "1906367",
+   "tipo_hilo": "oferta",
+   "titulo": "Caja Externa USB4 para 4 SSD M.2 NVMe de 40Gbps con RAID y hasta 32TB",
+   "enlace": "https://www.chollometro.com/ofertas/caja-externa-usb4-para-4-ssd-m2-nvme-de-40gbps-con-raid-y-hasta-32tb-1906367",
+   "destino": "https://www.chollometro.com/visit/threadmain/1906367",
+   "tienda": "Alibaba",
+   "precio": 72.5,
+   "grados": 143.14,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/v9ZH9/1906367_1/re/768x768/qt/60/1906367_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2062650",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil - ASUS Vivobook 15 F1504MA-BQ454, 15.6 \" Full-HD, Intel Core 5 320, 8GB RAM, 512GB SSD (Desde APP)",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-asus-vivobook-15-f1504ma-bq454-156-full-hd-intel-core-5-320-8gb-ram-512gb-ssd-desde-app-2062650",
+   "destino": "https://www.chollometro.com/visit/threadmain/2062650",
+   "tienda": "MediaMarkt",
+   "precio": 381.42,
+   "precio_antes": 489.0,
+   "codigo": "Se aplica -22%",
+   "grados": 141.55,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/8XARy/2062650_1/re/768x768/qt/60/2062650_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2066946",
+   "tipo_hilo": "oferta",
+   "titulo": "JBL Live Beam 3 Auriculares inalambricos de botón con almohadillas, True Wireless con cancelación de ruido adaptable",
+   "enlace": "https://www.chollometro.com/ofertas/jbl-live-beam-3-auriculares-inalambricos-de-boton-con-almohadillas-true-wireless-con-cancelacion-de-ruido-adaptable-2066946",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066946",
+   "tienda": "Amazon",
+   "precio": 109.99,
+   "precio_antes": 149.07,
+   "grados": 141.19,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/fN5yw/2066946_1/re/768x768/qt/60/2066946_1.jpg",
+   "detectado": 1794518137.894781
+  },
+  {
+   "id": "2064992",
+   "tipo_hilo": "oferta",
+   "titulo": "Soporte para monitor con cajón, organizador de escritorio y accesorios",
+   "enlace": "https://www.chollometro.com/ofertas/soporte-para-monitor-con-cajon-organizador-de-escritorio-y-accesorios-2064992",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064992",
+   "tienda": "Amazon",
+   "precio": 26.26,
+   "precio_antes": 49.99,
+   "grados": 140.92,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/S6Zk6/2064992_1/re/768x768/qt/60/2064992_1.jpg",
+   "detectado": 1794411053.9112785
+  },
+  {
+   "id": "2065993",
+   "tipo_hilo": "oferta",
+   "titulo": "HUAWEI FreeBuds SE 5 MAX, Blanco, Auriculares Cancelación Ruido,80h Batería",
+   "enlace": "https://www.chollometro.com/ofertas/huawei-freebuds-se-5-max-blanco-auriculares-cancelacion-ruido80h-bateria-2065993",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065993",
+   "tienda": "Amazon",
+   "precio": 49.0,
+   "precio_antes": 79.0,
+   "grados": 140.4,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/mZQfH/2065993_1/re/768x768/qt/60/2065993_1.jpg",
+   "detectado": 1794471638.3706505
+  },
+  {
+   "id": "2066507",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Gaming Razer BlackShark V2 X PlayStation Blanco (Drivers TriForce 50mm, Micrófono HyperClear, 240g, Jack 3,5mm)",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-gaming-razer-blackshark-v2-x-playstation-blanco-drivers-triforce-50mm-microfono-hyperclear-240g-jack-35mm-2066507",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066507",
+   "tienda": "El Corte Inglés",
+   "precio": 39.99,
+   "precio_antes": 59.99,
+   "grados": 138.53,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Um8Kn/2066507_1/re/768x768/qt/60/2066507_1.jpg",
+   "detectado": 1794495329.9890828
+  },
+  {
+   "id": "2065828",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Inalámbricos Logitech Zone Vibe 100 – Bluetooth 5.2, Micrófono con Cancelación de Ruido, 40 mm",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-inalambricos-logitech-zone-vibe-100-bluetooth-52-microfono-con-cancelacion-de-ruido-40-mm-2065828",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065828",
+   "tienda": "Amazon",
+   "precio": 66.29,
+   "precio_antes": 84.99,
+   "grados": 134.21,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/BOH4P/2065828_1/re/768x768/qt/60/2065828_1.jpg",
+   "detectado": 1794463838.0762348
+  },
+  {
+   "id": "2068603",
+   "tipo_hilo": "oferta",
+   "titulo": "Asus ROG Strix XG27AQWMG - Monitor 26.5\", Tandem WOLED, QHD, FreeSync, 280Hz",
+   "enlace": "https://www.chollometro.com/ofertas/asus-rog-strix-xg27aqwmg-monitor-265-tandem-woled-qhd-freesync-280hz-2068603",
+   "destino": "https://www.chollometro.com/visit/threadmain/2068603",
+   "tienda": "Neobyte",
+   "precio": 469.0,
+   "precio_antes": 524.0,
+   "grados": 130.09,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ci4Eo/2068603_1/re/768x768/qt/60/2068603_1.jpg",
+   "detectado": 1794640836.5873
+  },
+  {
+   "id": "2069122",
+   "tipo_hilo": "oferta",
+   "titulo": "Mando inalámbrico GameSir SuperNova T4n Pro (Hall Effect, 1000Hz, Base de carga) - PC, Switch, iOS y Android",
+   "enlace": "https://www.chollometro.com/ofertas/mando-gamesir-supernova-t4n-pro-inalambrico-azul-2069122",
+   "destino": "https://www.chollometro.com/visit/threadmain/2069122",
+   "tienda": "PcComponentes",
+   "precio": 39.99,
+   "precio_antes": 59.99,
+   "grados": 126.81,
+   "categorias": [
+    "mandos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/VdGZF/2069122_1/re/768x768/qt/60/2069122_1.jpg",
+   "detectado": 1794668136.1613774
+  },
+  {
+   "id": "2068853",
+   "tipo_hilo": "oferta",
+   "titulo": "Logitech G G733 Lightspeed Auriculares Inalámbricos con Micrófono",
+   "enlace": "https://www.chollometro.com/ofertas/logitech-g-g733-lightspeed-auriculares-inalambricos-con-microfono-2068853",
+   "destino": "https://www.chollometro.com/visit/threadmain/2068853",
+   "tienda": "Amazon",
+   "precio": 65.99,
+   "precio_antes": 129.0,
+   "grados": 125.93,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/tTQHv/2068853_1/re/768x768/qt/60/2068853_1.jpg",
+   "detectado": 1794651929.3478506
+  },
+  {
+   "id": "2068294",
+   "tipo_hilo": "oferta",
+   "titulo": "Logitech H390 auriculares USB-A con micrófono y controles en el cable",
+   "enlace": "https://www.chollometro.com/ofertas/logitech-h390-auriculares-usb-a-con-microfono-y-controles-en-el-cable-2068294",
+   "destino": "https://www.chollometro.com/visit/threadmain/2068294",
+   "tienda": "PcComponentes",
+   "precio": 19.99,
+   "precio_antes": 24.99,
+   "grados": 125.64,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/EhC7T/2068294_1/re/768x768/qt/60/2068294_1.jpg",
+   "detectado": 1794599136.2594035
+  },
+  {
+   "id": "2067534",
+   "tipo_hilo": "oferta",
+   "titulo": "Repetidor WiFi - TP-Link RE315, Doble banda, 1200 Mbps, MIMO 2x2, WPS, Punto de acceso",
+   "enlace": "https://www.chollometro.com/ofertas/repetidor-wifi-tp-link-re315-doble-banda-1200-mbps-mimo-2x2-wps-punto-de-acceso-2067534",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067534",
+   "tienda": "MediaMarkt",
+   "precio": 26.99,
+   "precio_antes": 34.99,
+   "grados": 124.56,
+   "categorias": [
+    "redes_y_wifi"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/3LExz/2067534_1/re/768x768/qt/60/2067534_1.jpg",
+   "detectado": 1794562529.6751392
+  },
+  {
+   "id": "2036687",
+   "tipo_hilo": "oferta",
+   "titulo": "HP OMEN Gaming PC i7-14700F, RTX 5070 Ti 16GB, 32GB DDR5, 1TB SSD GEN 4 NVME",
+   "enlace": "https://www.chollometro.com/ofertas/hp-omen-gaming-pc-i7-14700f-rtx-5070-ti-16gb-32gb-ddr5-1tb-ssd-gen-4-nvme-2036687",
+   "destino": "https://www.chollometro.com/visit/threadmain/2036687",
+   "tienda": "Notebooksbilliger",
+   "precio": 2199.0,
+   "grados": 123.7,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/G3cWy/2036687_1/re/768x768/qt/60/2036687_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2068127",
+   "tipo_hilo": "oferta",
+   "titulo": "beyerdynamic AVENTHO 100 - Auriculares inalámbricos",
+   "enlace": "https://www.chollometro.com/ofertas/beyerdynamic-aventho-100-auriculares-inalambricos-2068127",
+   "destino": "https://www.chollometro.com/visit/threadmain/2068127",
+   "tienda": "Amazon",
+   "precio": 149.0,
+   "precio_antes": 198.0,
+   "grados": 120.34,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/mGl6n/2068127_1/re/768x768/qt/60/2068127_1.jpg",
+   "detectado": 1794590729.121959
+  },
+  {
+   "id": "2068503",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Inalámbricos Bluetooth Sunstech Wavepods One True Wireless Negro (Estuche de Carga USB-C, Control Táctil, Manos Libres)",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-inalambricos-bluetooth-sunstech-wavepods-one-true-wireless-negro-estuche-de-carga-usb-c-control-tactil-manos-libres-2068503",
+   "destino": "https://www.chollometro.com/visit/threadmain/2068503",
+   "tienda": "Fnac",
+   "precio": 9.29,
+   "precio_antes": 24.99,
+   "grados": 120.27,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/7K3RH/2068503_1/re/768x768/qt/60/2068503_1.jpg",
+   "detectado": 1794614127.3470309
+  },
+  {
+   "id": "2062256",
+   "tipo_hilo": "oferta",
+   "titulo": "Konix Cargador USB-C para consola y accesorios Nintendo Switch 2 - Carga rápida 60 W - Cable de 1,5 m",
+   "enlace": "https://www.chollometro.com/ofertas/konix-cargador-usb-c-para-consola-y-accesorios-nintendo-switch-2-carga-rapida-60-w-cable-de-15-m-2062256",
+   "destino": "https://www.chollometro.com/visit/threadmain/2062256",
+   "tienda": "Amazon",
+   "precio": 19.3,
+   "grados": 119.81,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/0NTiU/2062256_1/re/768x768/qt/60/2062256_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2063474",
+   "tipo_hilo": "oferta",
+   "titulo": "GIGABYTE Aero X16 2WH Portátil Gaming – 16“, 165Hz WQXGA, Ryzen AI 9 HX 370, RTX 5070, 32GB DDR5, SSD Gen4 de 1TB, Win 11 Home",
+   "enlace": "https://www.chollometro.com/ofertas/gigabyte-aero-x16-2wh-portatil-gaming-16-165hz-wqxga-ryzen-ai-9-hx-370-rtx-5070-32gb-ddr5-ssd-gen4-de-1tb-win-11-home-2063474",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063474",
+   "tienda": "Amazon",
+   "precio": 1799.0,
+   "precio_antes": 2229.0,
+   "grados": 117.26,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Ot3rs/2063474_1/re/768x768/qt/60/2063474_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2039375",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares CMF by Nothing Buds 2 (ANC híbrido 48 dB, 55h batería, driver PMI 11mm, 6 micros HD, audio espacial, IP55, gris oscuro, Amazon)",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-cmf-by-nothing-buds-2-anc-hibrido-48-db-55h-bateria-driver-pmi-11mm-6-micros-hd-audio-espacial-ip55-gris-oscuro-amazon-2039375",
+   "destino": "https://www.chollometro.com/visit/threadmain/2039375",
+   "tienda": "Amazon",
+   "precio": 29.99,
+   "grados": 116.35,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/eSGa7/2039375_1/re/768x768/qt/60/2039375_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2066315",
+   "tipo_hilo": "oferta",
+   "titulo": "auriculares Shokz OpenDots ONE (E310)",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-shokz-opendots-one-e310-2066315",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066315",
+   "tienda": "Miravia",
+   "precio": 112.99,
+   "precio_antes": 159.0,
+   "grados": 116.26,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/tyYpc/2066315_1/re/768x768/qt/60/2066315_1.jpg",
+   "detectado": 1794485736.6218598
+  },
+  {
+   "id": "2034104",
+   "tipo_hilo": "oferta",
+   "titulo": "Glorlin Mini PC Ryzen 5 6600H, 16GB RAM 1TB NVMe SSD, 4K HDMI/DP/Type-C, WiFi 6 BT5.3 Dual LAN",
+   "enlace": "https://www.chollometro.com/ofertas/glorlin-mini-pc-ryzen-5-6600h-16gb-ram-1tb-nvme-ssd-4k-hdmidptype-c-wifi-6-bt53-dual-lan-2034104",
+   "destino": "https://www.chollometro.com/visit/threadmain/2034104",
+   "tienda": "Amazon",
+   "precio": 421.85,
+   "precio_antes": 550.0,
+   "grados": 114.41,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/dGfHZ/2034104_1/re/768x768/qt/60/2034104_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2067618",
+   "tipo_hilo": "oferta",
+   "titulo": "Victrix Gambit Dual Core Gamepad Gris",
+   "enlace": "https://www.chollometro.com/ofertas/victrix-gambit-dual-core-gamepad-gris-2067618",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067618",
+   "tienda": "PcComponentes",
+   "precio": 43.99,
+   "precio_antes": 59.99,
+   "grados": 113.89,
+   "categorias": [
+    "mandos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/cdhih/2067618_1/re/768x768/qt/60/2067618_1.jpg",
+   "detectado": 1794564329.0031228
+  },
+  {
+   "id": "2066136",
+   "tipo_hilo": "oferta",
+   "titulo": "OnePlus Buds Clip - Open Ear TWS, Doble Driver 11+9mm Dynaudio, BT 6.1, LHDC 5.0 Hi-Res, 6 Micrófonos, hasta 40h de autonomía - Auriculares",
+   "enlace": "https://www.chollometro.com/ofertas/oneplus-buds-clip-open-ear-tws-doble-driver-119mm-dynaudio-bt-61-lhdc-50-hi-res-6-microfonos-hasta-40h-de-autonomia-auriculares-2066136",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066136",
+   "tienda": "AliExpress",
+   "precio": 98.67,
+   "precio_antes": 149.0,
+   "codigo": "ESD1112",
+   "grados": 112.29,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/QEBLf/2066136_1/re/768x768/qt/60/2066136_1.jpg",
+   "detectado": 1794477930.3846302
+  },
+  {
+   "id": "2069084",
+   "tipo_hilo": "oferta",
+   "titulo": "Consola Nintendo Switch estándar con Mario Kart 8 Deluxe (Game Card)",
+   "enlace": "https://www.chollometro.com/ofertas/consola-nintendo-switch-estandar-con-mario-kart-8-deluxe-game-card-2069084",
+   "destino": "https://www.chollometro.com/visit/threadmain/2069084",
+   "tienda": "Carrefour",
+   "precio": 199.0,
+   "grados": 111.45,
+   "categorias": [
+    "nintendo"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/4dUcy/2069084_1/re/768x768/qt/60/2069084_1.jpg",
+   "detectado": 1794665136.443707
+  },
+  {
+   "id": "2067994",
+   "tipo_hilo": "oferta",
+   "titulo": "Bowers & Wilkins Px8 Auriculares inalámbricos con cancelación de Ruido, Bluetooth 5.0, Carga rápida",
+   "enlace": "https://www.chollometro.com/ofertas/bowers-wilkins-px8-auriculares-inalambricos-con-cancelacion-de-ruido-bluetooth-50-carga-rapida-2067994",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067994",
+   "tienda": "Amazon",
+   "precio": 324.5,
+   "precio_antes": 399.0,
+   "grados": 110.53,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/PITAs/2067994_1/re/768x768/qt/60/2067994_1.jpg",
+   "detectado": 1794584736.9560509
+  },
+  {
+   "id": "2066664",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor 49\" Iiyama Prolite XCB4994DQSU-B1 | 124 cm,Dual QHD (5120 × 1440), 1000R, HDMI, DP, USB Hub (USB v3.2 Gen 1, Type-C), HDR10, SUW",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-49-iiyama-prolite-xcb4994dqsu-b1-124-cm-49-329-1000r-hdmi-dp-usb-hub-usb-v32-gen-1-type-c-hdr10-ajuste-de-altura-2066664",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066664",
+   "tienda": "Amazon",
+   "precio": 495.04,
+   "precio_antes": 733.0,
+   "grados": 109.58,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/zKOUb/2066664_1/re/768x768/qt/60/2066664_1.jpg",
+   "detectado": 1794502527.7306585
+  },
+  {
+   "id": "2067718",
+   "tipo_hilo": "oferta",
+   "titulo": "Acer Aspire 3 32GB RAM 512GB SSD",
+   "enlace": "https://www.chollometro.com/ofertas/acer-aspire-3-32gb-ram-512gb-ssd-2067718",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067718",
+   "tienda": "Carrefour",
+   "precio": 649.0,
+   "precio_antes": 849.0,
+   "grados": 108.99,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/BvCyV/2067718_1/re/768x768/qt/60/2067718_1.jpg",
+   "fecha": 1794568782.0,
+   "detectado": 1794568837.7901149
+  },
+  {
+   "id": "2065084",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Ultrawide Curvo MSI PRO MP341CQ 34\" UWQHD (21:9, Panel VA 1500R, 100Hz, 1ms, Altavoces Integrados)",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-ultrawide-curvo-msi-pro-mp341cq-34-uwqhd-219-panel-va-1500r-100hz-1ms-altavoces-integrados-2065084",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065084",
+   "tienda": "Caseking",
+   "precio": 199.0,
+   "grados": 105.13,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/QN7Ua/2065084_1/re/768x768/qt/60/2065084_1.jpg",
+   "detectado": 1794413748.0640996
+  },
+  {
+   "id": "2065299",
+   "tipo_hilo": "oferta",
+   "titulo": "Soundcore Sleep A20: auriculares para dormir, Bluetooth 5.3 y hasta 80 h con estuche",
+   "enlace": "https://www.chollometro.com/ofertas/soundcore-sleep-a20-auriculares-para-dormir-bluetooth-53-y-hasta-80-h-con-estuche-2065299",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065299",
+   "tienda": "PowerPlanetOnline",
+   "precio": 88.95,
+   "precio_antes": 149.99,
+   "grados": 104.4,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/i3fyA/2065299_1/re/768x768/qt/60/2065299_1.jpg",
+   "detectado": 1794420637.462614
+  },
+  {
+   "id": "2066514",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares Inalámbricos Deportivos Open-Ear JVC HA-NP40T Negro (Diseño Abierto, Gancho Ergonómico, 24h Batería, IPX4, Bluetooth)",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-inalambricos-deportivos-open-ear-jvc-ha-np40t-negro-diseno-abierto-gancho-ergonomico-24h-bateria-ipx4-bluetooth-2066514",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066514",
+   "tienda": "LDLC",
+   "precio": 29.9,
+   "precio_antes": 46.5,
+   "grados": 104.27,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/cfsYN/2066514_1/re/768x768/qt/60/2066514_1.jpg",
+   "detectado": 1794495667.4961624
+  },
+  {
+   "id": "2063421",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil - Microsoft Surface Laptop Copilot+ PC, 13\" FHD, Qualcomm Snapdragon X Plus , 16GB RAM, 256GB SSD, Windows 11Home",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-microsoft-surface-laptop-copilot-pc-13-fhd-qualcomm-snapdragon-x-plus-16gb-ram-256gb-ssd-windows-11home-2063421",
+   "destino": "https://www.chollometro.com/visit/threadmain/2063421",
+   "tienda": "MediaMarkt",
+   "precio": 740.22,
+   "precio_antes": 1299.0,
+   "grados": 102.97,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/axpD0/2063421_1/re/768x768/qt/60/2063421_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2065092",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Ergonomico MSI PRO MP275PG 27\" Full HD (Panel IPS, 100Hz, 1ms, Peana Regulable en Altura, Altavoces)",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-ergonomico-msi-pro-mp275pg-27-full-hd-panel-ips-100hz-1ms-peana-regulable-en-altura-altavoces-2065092",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065092",
+   "tienda": "Caseking",
+   "precio": 99.0,
+   "precio_antes": 176.0,
+   "grados": 102.56,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/XRraP/2065092_1/re/768x768/qt/60/2065092_1.jpg",
+   "detectado": 1794413748.0640996
+  },
+  {
+   "id": "2065121",
+   "tipo_hilo": "oferta",
+   "titulo": "Professional Series - Soporte De Mesa Para Monitor Doble En Horizontal, Flexible Y Ajustable",
+   "enlace": "https://www.chollometro.com/ofertas/professional-series-soporte-de-mesa-para-monitor-doble-en-horizontal-flexible-y-ajustable-2065121",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065121",
+   "tienda": "Amazon",
+   "precio": 27.15,
+   "grados": 101.83,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/79pFz/2065121_1/re/768x768/qt/60/2065121_1.jpg",
+   "detectado": 1794414653.206253
+  },
+  {
+   "id": "2062796",
+   "tipo_hilo": "oferta",
+   "titulo": "Portátil gaming - Acer Nitro V 15-52-951T, 15.6\" Full-HD, Intel Core 9 270H, 16GB RAM, 1 TB SSD, GeForce RTX 5060, FreeDOS",
+   "enlace": "https://www.chollometro.com/ofertas/portatil-gaming-acer-nitro-v-15-52-951t-156-full-hd-intel-core-9-270h-16gb-ram-1-tb-ssd-geforce-rtx-5060-freedos-2062796",
+   "destino": "https://www.chollometro.com/visit/threadmain/2062796",
+   "tienda": "MediaMarkt",
+   "precio": 1130.22,
+   "precio_antes": 1749.0,
+   "codigo": "22% app",
+   "grados": 100.96,
+   "categorias": [
+    "portatiles_y_pc"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/zlZhu/2062796_1/re/768x768/qt/60/2062796_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2038377",
+   "tipo_hilo": "oferta",
+   "titulo": "ORICO All-Flash Caja para Discos Duros Raid de 5 Bahías, Compatible con SSD SATA de 2,5 Pulgadas admite SSD SATA y Discos Duros de 2,5 Pulg.",
+   "enlace": "https://www.chollometro.com/ofertas/orico-all-flash-caja-para-discos-duros-raid-de-5-bahias-compatible-con-ssd-sata-de-25-pulgadas-admite-ssd-sata-y-discos-duros-de-25-pulg-2038377",
+   "destino": "https://www.chollometro.com/visit/threadmain/2038377",
+   "tienda": "Amazon",
+   "precio": 170.99,
+   "precio_antes": 229.99,
+   "grados": 100.71,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ulCc0/2038377_1/re/768x768/qt/60/2038377_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2067434",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor FHD con acoplamiento USB-C ThinkVision T24D-48 de 24\"",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-fhd-con-acoplamiento-usb-c-thinkvision-t24d-48-de-24-2067434",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067434",
+   "tienda": "Lenovo",
+   "precio": 161.0,
+   "precio_antes": 279.0,
+   "grados": 99.25,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Dz8mm/2067434_1/re/768x768/qt/60/2067434_1.jpg",
+   "detectado": 1794559539.01655
+  },
+  {
+   "id": "2067662",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares de botón EPOS by Sennheiser GTW 270 True Wireless, Bluetooth 5.1 aptX, IPX5, hasta 20 h de batería, negro",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-de-boton-epos-by-sennheiser-gtw-270-true-wireless-bluetooth-51-aptx-ipx5-hasta-20-h-de-bateria-negro-2067662",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067662",
+   "tienda": "El Corte Inglés",
+   "precio": 49.9,
+   "precio_antes": 120.0,
+   "grados": 96.43,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/esCaj/2067662_1/re/768x768/qt/60/2067662_1.jpg",
+   "detectado": 1794566128.7230253
+  },
+  {
+   "id": "2066519",
+   "tipo_hilo": "oferta",
+   "titulo": "Monitor Gaming AOC 24G50F 23.8\" Full HD IPS 180Hz 0.5ms (Adaptive Sync, HDR10, Marcos Ultrafinos)",
+   "enlace": "https://www.chollometro.com/ofertas/monitor-gaming-aoc-24g50f-238-full-hd-ips-180hz-05ms-adaptive-sync-hdr10-marcos-ultrafinos-2066519",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066519",
+   "tienda": "Neobyte",
+   "precio": 78.9,
+   "precio_antes": 107.9,
+   "grados": 96.27,
+   "categorias": [
+    "monitores"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/IJdQR/2066519_1/re/768x768/qt/60/2066519_1.jpg",
+   "detectado": 1794495936.182867
+  },
+  {
+   "id": "2067126",
+   "tipo_hilo": "oferta",
+   "titulo": "Rogue Hearts (Android/IOS) / Recopilación APPS",
+   "enlace": "https://www.chollometro.com/ofertas/gratis-2067126",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067126",
+   "tienda": "Play Store",
+   "precio": 0.0,
+   "precio_antes": 1.0,
+   "grados": 94.5,
+   "categorias": [
+    "juegos_gratis"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/aG6tC/2067126_1/re/768x768/qt/60/2067126_1.jpg",
+   "detectado": 1794549036.1883705
+  },
+  {
+   "id": "2068133",
+   "tipo_hilo": "oferta",
+   "titulo": "XIAOMI Redmi Buds 8, auriculares inalámbricos, ANC 50 dB, 44 h, Verde Driver 11 mm, Hi-Res, reducción IA con 3 micrófonos, IP54",
+   "enlace": "https://www.chollometro.com/ofertas/xiaomi-redmi-buds-8-auriculares-inalambricos-anc-50-db-44-h-verde-driver-11-mm-hi-res-reduccion-ia-con-3-microfonos-ip54-2068133",
+   "destino": "https://www.chollometro.com/visit/threadmain/2068133",
+   "tienda": "Amazon",
+   "precio": 37.9,
+   "grados": 93.06,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/Dgs3Z/2068133_1/re/768x768/qt/60/2068133_1.jpg",
+   "detectado": 1794591058.4753256
+  },
+  {
+   "id": "2051303",
+   "tipo_hilo": "oferta",
+   "titulo": "SOYO S5 Air, Ryzen 5 7535HS, 16GB LPDDR5, 512GB NVME SSD",
+   "enlace": "https://www.chollometro.com/ofertas/soyo-s5-air-ryzen-5-7535hs-16gb-lpddr5-512gb-nvme-ssd-2051303",
+   "destino": "https://www.chollometro.com/visit/threadmain/2051303",
+   "tienda": "AliExpress",
+   "precio": 258.56,
+   "precio_antes": 405.65,
+   "codigo": "AEES39 o CHOLLOES39 + PAYPAL",
+   "grados": 91.58,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/V0BWn/2051303_1/re/768x768/qt/60/2051303_1.jpg",
+   "detectado": 1794521129.462913
+  },
+  {
+   "id": "2064488",
+   "tipo_hilo": "oferta",
+   "titulo": "ORICO Docking Station Magnética 10Gbps Con Carcasa M.2 2230 NVMe",
+   "enlace": "https://www.chollometro.com/ofertas/orico-docking-station-magnetica-10gbps-con-carcasa-m2-2230-nvme-2064488",
+   "destino": "https://www.chollometro.com/visit/threadmain/2064488",
+   "tienda": "Amazon",
+   "precio": 34.99,
+   "precio_antes": 65.0,
+   "codigo": "descuento al tramitar",
+   "grados": 91.33,
+   "categorias": [
+    "ssd_m_2_y_discos"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/t1pvn/2064488_1/re/768x768/qt/60/2064488_1.jpg",
+   "fecha": 1794392468.0,
+   "detectado": 1794652249.951933
+  },
+  {
+   "id": "2066616",
+   "tipo_hilo": "oferta",
+   "titulo": "¡OFERTAS EN ACCESORIOS MOZA RACING!",
+   "enlace": "https://www.chollometro.com/ofertas/ofertas-en-accesorios-moza-racing-2066616",
+   "destino": "https://www.chollometro.com/visit/threadmain/2066616",
+   "tienda": "Moza Racing",
+   "precio": 0.0,
+   "grados": 89.41,
+   "categorias": [
+    "juegos_gratis"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/RNtIZ/2066616_1/re/768x768/qt/60/2066616_1.jpg",
+   "detectado": 1794500730.1755443
+  },
+  {
+   "id": "2067665",
+   "tipo_hilo": "oferta",
+   "titulo": "Auriculares de diadema EPOS Adapt 660 ANC adaptativa, Bluetooth multipunto, dongle USB BTD 800, certificados Teams, 30 h, con funda, negro",
+   "enlace": "https://www.chollometro.com/ofertas/auriculares-de-diadema-epos-adapt-660-anc-adaptativa-bluetooth-multipunto-dongle-usb-btd-800-certificados-teams-30-h-con-funda-negro-2067665",
+   "destino": "https://www.chollometro.com/visit/threadmain/2067665",
+   "tienda": "El Corte Inglés",
+   "precio": 249.49,
+   "precio_antes": 499.0,
+   "grados": 87.34,
+   "categorias": [
+    "auriculares"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/ah99K/2067665_1/re/768x768/qt/60/2067665_1.jpg",
+   "detectado": 1794566437.6560898
+  },
+  {
+   "id": "2065479",
+   "tipo_hilo": "oferta",
+   "titulo": "Funda protectora rígida NACON NNS4000 para consola portátil (almacenamiento juegos, asa de transporte, Negra)",
+   "enlace": "https://www.chollometro.com/ofertas/funda-protectora-rigida-nacon-nns4000-para-consola-portatil-almacenamiento-juegos-asa-de-transporte-negra-2065479",
+   "destino": "https://www.chollometro.com/visit/threadmain/2065479",
+   "tienda": "Amazon",
+   "precio": 22.54,
+   "precio_antes": 34.71,
+   "grados": 86.83,
+   "categorias": [
+    "consolas_portatiles"
+   ],
+   "imagen": "https://static.chollometro.com/threads/raw/myKs8/2065479_1/re/768x768/qt/60/2065479_1.jpg",
+   "detectado": 1794425730.2452989
+  }
+ ]
+}
