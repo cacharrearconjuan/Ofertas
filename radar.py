@@ -1489,41 +1489,19 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Auditoría: ¿qué ofertas de almacenamiento hay en Chollometro y cuáles reconoce el radar?"""
-    cats_txt, globales, _ = leer_palabras()
-    cats = compilar_categorias(cats_txt)
-    sospecha = re.compile(r"(?<![a-z0-9])(ssd|nvme|m\.?2|hdd|disco|discos|\d+\s?tb|microsd|micro sd|sd card|tarjeta (de )?memoria|"
-                          r"pendrive|memoria usb|almacenamiento|nas|sata|990|980|870|sn\d{3,4}|t7|t9|t500|t700|t705|nv[23]|"
-                          r"barracuda|ironwolf|canvio|passport|firecuda|kingston|crucial|lexar|seagate|western digital|wd)(?![a-z0-9])")
-    try:
-        pag = descargar("https://www.chollometro.com/search?q=ssd").decode("utf-8", "replace")
-        for m in RE_VUE.finditer(pag):
-            for d in _recorrer(json.loads(html.unescape(m.group(2)))):
-                if d.get("threadId") and "temperature" in d:
-                    log("FECHAS " + str(d.get("threadId")) + " " + " | ".join(
-                        f"{k}={v}" for k, v in d.items() if re.search(r"(date|time|At$|published|created|updated)", k, re.I)))
-    except Exception as ex:  # noqa: BLE001
-        log(f"FECHAS error {ex}")
-    candidatas = ["https://www.chollometro.com/search?q=ssd", "https://www.chollometro.com/search/ofertas?q=ssd",
-                  "https://www.chollometro.com/grupo/almacenamiento", "https://www.chollometro.com/grupo/discos-duros",
-                  "https://www.chollometro.com/grupo/ssd", "https://www.chollometro.com/grupo/discos-duros-ssd",
-                  "https://www.chollometro.com/grupo/componentes-pc", "https://www.chollometro.com/grupo/informatica",
-                  "https://www.chollometro.com/nuevos?page=3", "https://www.chollometro.com/nuevos?page=5"]
-    vistos = {}
-    for url in cfg.get("paginas_listado", []) + candidatas:
+    """Prueba: ¿se puede leer el precio de Amazon desde aquí?"""
+    for asin in ("B0BXLWCLZN", "B0BXLXZYXQ", "B0CV7PGS46", "B0CBRTBSNV"):
+        url = f"https://www.amazon.es/dp/{asin}"
         try:
-            hilos = hilos_en_html(descargar(url, intentos=0).decode("utf-8", "replace"))
-            log(f"FUENTE {len(hilos):3} ofertas · {url}")
-            for h in hilos.values():
-                vistos.setdefault(h["id"], (url, h))
+            t = descargar(url, intentos=0).decode("utf-8", "replace")
+            titulo = re.search(r'id="productTitle"[^>]*>\s*([^<]+)', t)
+            precios = re.findall(r'class="a-offscreen">([^<]+)<', t)[:4]
+            ptp = re.search(r'"priceToPay"[\s\S]{0,400}?class="a-offscreen">([^<]+)<', t) or \
+                re.search(r'id="corePrice[^"]*"[\s\S]{0,1500}?class="a-offscreen">([^<]+)<', t)
+            log(f"AMZ {asin} {len(t)} bytes · captcha={'captcha' in t.lower()} · título={titulo.group(1).strip()[:60] if titulo else None}"
+                f" · core={ptp.group(1) if ptp else None} · offscreen={precios}")
         except Exception as ex:  # noqa: BLE001
-            log(f"FUENTE ERROR {ex} · {url}")
-    for hid, (url, h) in vistos.items():
-        t = normalizar(h.get("titulo"))
-        if sospecha.search(t):
-            c = clasificar(h, cats, cfg, None)
-            log(f"{'OK ' if 'ssd_m_2_y_discos' in c else 'NO '}| {str(h.get('grados')):>8}° | {str(h.get('grupo'))[:16]:16} | "
-                f"{url.split('chollometro.com')[-1][:22]:22} | {h.get('titulo','')[:80]}")
+            log(f"AMZ {asin} ERROR {ex}")
 
 
 def main() -> int:
