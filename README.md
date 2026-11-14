@@ -136,6 +136,14 @@ Al guardar se ejecuta **Comprobar palabras**. Si sale en **verde**, el fichero s
 
 ---
 
+## Vigilar el precio de productos concretos (`vigilar.txt`)
+
+Pega en `vigilar.txt` un enlace de Amazon por línea (opcional: ` | nombre`). La primera vez llega al grupo un «👀 Vigilando precio» con el precio actual; después, un **📉 BAJADA DE PRECIO** cada vez que baje de ese precio (y desde ahí, solo si baja todavía más). Se mira cada 30 minutos (`config.json → vigilar → cada_min`).
+
+El precio sale de la leyenda de la gráfica gratuita de Keepa, leída con OCR. Amazon bloquea a GitHub, así que no se puede leer directamente de Amazon. Se compara el más barato entre «vendido por Amazon» y «nuevo» (otros vendedores), y el aviso dice cuál es. Keepa no actualiza todos los productos al minuto, así que una bajada puede tardar algo en verse.
+
+---
+
 ## Que se ejecute solo de verdad (cron-job.org)
 
 La programación de GitHub (`schedule`) a veces tarda horas en arrancar en repositorios nuevos, y en horas punta se salta ejecuciones. Para que vaya como un reloj, lánzalo cada 10 minutos desde **cron-job.org**:
