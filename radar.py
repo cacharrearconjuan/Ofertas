@@ -1489,19 +1489,28 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Prueba: ¿se puede leer el precio de Amazon desde aquí?"""
+    """Prueba: leer el precio actual de la leyenda de la gráfica de Keepa con OCR."""
+    import subprocess
+    import tempfile
     for asin in ("B0BXLWCLZN", "B0BXLXZYXQ", "B0CV7PGS46", "B0CBRTBSNV"):
-        url = f"https://www.amazon.es/dp/{asin}"
-        try:
-            t = descargar(url, intentos=0).decode("utf-8", "replace")
-            titulo = re.search(r'id="productTitle"[^>]*>\s*([^<]+)', t)
-            precios = re.findall(r'class="a-offscreen">([^<]+)<', t)[:4]
-            ptp = re.search(r'"priceToPay"[\s\S]{0,400}?class="a-offscreen">([^<]+)<', t) or \
-                re.search(r'id="corePrice[^"]*"[\s\S]{0,1500}?class="a-offscreen">([^<]+)<', t)
-            log(f"AMZ {asin} {len(t)} bytes · captcha={'captcha' in t.lower()} · título={titulo.group(1).strip()[:60] if titulo else None}"
-                f" · core={ptp.group(1) if ptp else None} · offscreen={precios}")
-        except Exception as ex:  # noqa: BLE001
-            log(f"AMZ {asin} ERROR {ex}")
+        for extra in ("", "&width=1200&height=500"):
+            try:
+                img = descargar(keepa_grafica(asin) + extra, intentos=0)
+                with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
+                    f.write(img)
+                try:
+                    from PIL import Image
+                    im = Image.open(f.name)
+                    tam = im.size
+                    im = im.convert("L").resize((im.width * 3, im.height * 3))
+                    im.save(f.name)
+                except Exception:  # noqa: BLE001
+                    tam = None
+                txt = subprocess.run(["tesseract", f.name, "-", "--psm", "11"], capture_output=True, text=True).stdout
+                lineas = [x for x in txt.splitlines() if re.search(r"(amazon|new|nuevo|€|\d+[.,]\d\d)", x, re.I)]
+                log(f"OCR {asin} {extra or 'normal'} {tam} → {lineas[:8]}")
+            except Exception as ex:  # noqa: BLE001
+                log(f"OCR {asin} ERROR {ex}")
 
 
 def main() -> int:
