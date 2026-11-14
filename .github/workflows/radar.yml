@@ -35,7 +35,7 @@ jobs:
           python3 -m pip install --quiet --break-system-packages pillow || python3 -m pip install --quiet pillow || echo "Sin Pillow, se mandará solo la gráfica"
 
       - name: OCR (para leer precios de la gráfica de Keepa)
-        if: ${{ (inputs.modo || 'ronda') == 'explorar' }}
+        if: ${{ hashFiles('vigilar.txt') != '' }}
         run: |
           sudo apt-get install -y -qq tesseract-ocr > /dev/null 2>&1 || (sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr > /dev/null)
           tesseract --version | head -1

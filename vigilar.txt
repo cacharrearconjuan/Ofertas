@@ -1,0 +1,12 @@
+# ════════════════════════════════════════════════════════════════════
+#  PRODUCTOS VIGILADOS (Amazon)
+#  Pega un enlace de Amazon por línea (o solo el código ASIN).
+#  Opcional: detrás pon « | nombre» para que el aviso lo diga así.
+#  La primera vez te llega su precio actual; después, un aviso cada vez que BAJE.
+#  Para dejar de vigilar uno, borra su línea.
+# ════════════════════════════════════════════════════════════════════
+
+https://www.amazon.es/gp/product/B0BXLWCLZN
+https://www.amazon.es/gp/product/B0BXLXZYXQ
+https://www.amazon.es/gp/product/B0CV7PGS46
+https://www.amazon.es/gp/product/B0CBRTBSNV

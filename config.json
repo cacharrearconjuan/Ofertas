@@ -62,5 +62,9 @@
     "amazon_tag": "cacharrear0b-21"
   },
   "boton_fuente": false,
-  "_ayuda_boton_fuente": "false = los avisos no llevan botón ni enlaces de Chollometro/Ofertitas (para reenviarlos). true = lo llevan."
+  "_ayuda_boton_fuente": "false = los avisos no llevan botón ni enlaces de Chollometro/Ofertitas (para reenviarlos). true = lo llevan.",
+  "vigilar": {
+    "_ayuda": "Productos de vigilar.txt: cada cuántos minutos se mira su precio (leído de la gráfica de Keepa).",
+    "cada_min": 30
+  }
 }

@@ -746,6 +746,115 @@ def fotos_para(s: dict, cfg: dict) -> list:
     return fotos
 
 
+# --------------------------------------------------------------------------
+# Vigilancia de precios (vigilar.txt): precio actual leído de la gráfica de Keepa con OCR
+# --------------------------------------------------------------------------
+RUTA_VIGILAR = Path(os.environ.get("RADAR_VIGILAR", BASE / "vigilar.txt"))
+
+
+def leer_vigilar() -> list[dict]:
+    """Cada línea: enlace de Amazon o ASIN, y opcionalmente « | nombre»."""
+    salida = []
+    try:
+        lineas = RUTA_VIGILAR.read_text(encoding="utf-8").splitlines()
+    except FileNotFoundError:
+        return []
+    for linea in lineas:
+        linea = linea.strip()
+        if not linea or linea.startswith("#"):
+            continue
+        parte, _, nombre = linea.partition("|")
+        parte = parte.strip()
+        asin = extraer_asin(parte) or (parte.upper() if re.fullmatch(r"[A-Za-z0-9]{10}", parte) else None)
+        if asin and asin not in {v["asin"] for v in salida}:
+            salida.append({"asin": asin, "nombre": nombre.strip() or None})
+    return salida
+
+
+def _ocr(ruta: str, psm: str) -> str:
+    import subprocess
+    try:
+        return subprocess.run(["tesseract", ruta, "-", "--psm", psm], capture_output=True, text=True, timeout=60).stdout
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return ""
+
+
+def precio_keepa_ocr(asin: str) -> dict | None:
+    """Lee de la leyenda de la gráfica de Keepa el precio actual vendido por Amazon y el nuevo más barato."""
+    import tempfile
+    try:
+        from io import BytesIO
+        from PIL import Image
+        img = Image.open(BytesIO(descargar(keepa_grafica(asin) + "&width=1200&height=500", intentos=1)))
+    except Exception as ex:  # noqa: BLE001
+        log(f"  Vigilar {asin}: sin gráfica ({ex})")
+        return None
+    g = img.convert("L")
+    with tempfile.TemporaryDirectory() as tmp:
+        grande = f"{tmp}/g.png"
+        g.resize((g.width * 3, g.height * 3)).save(grande)
+        texto = _ocr(grande, "11")
+        cab = f"{tmp}/t.png"
+        g.crop((0, 0, g.width, max(20, int(g.height * 0.09)))).resize((g.width * 3, max(20, int(g.height * 0.09)) * 3)).save(cab)
+        titulo = " ".join(_ocr(cab, "7").split())
+    def buscar(etiqueta):
+        m = re.search(etiqueta + r"\W{0,6}€?\s?(\d{1,4}[.,]\d{2})", texto, re.I)
+        return a_numero(m.group(1)) if m else None
+    amazon, nuevo = buscar("amazon"), buscar("new")
+    if amazon is None and nuevo is None:
+        log(f"  Vigilar {asin}: no se pudo leer el precio (OCR: {texto[:120]!r})")
+        return None
+    return {"amazon": amazon, "nuevo": nuevo, "titulo": titulo[:120] or None, "grafica": img}
+
+
+def vigilar_precios(cfg: dict, estado: dict, silencioso: bool):
+    """Avisa cuando baja el precio de los productos de vigilar.txt respecto al que tenían al añadirlos."""
+    productos = leer_vigilar()
+    if not productos:
+        return
+    datos = estado.setdefault("precios", {})
+    cada = (cfg.get("vigilar") or {}).get("cada_min", 30) * 60
+    ahora = time.time()
+    tag = ((cfg.get("afiliados") or {}).get("amazon_tag") or "").strip()
+    for p in productos:
+        asin = p["asin"]
+        d = datos.setdefault(asin, {})
+        if ahora - d.get("comprobado", 0) < cada:
+            continue
+        r = precio_keepa_ocr(asin)
+        d["comprobado"] = ahora
+        if not r:
+            continue
+        nombre = p["nombre"] or d.get("nombre") or r["titulo"] or asin
+        d["nombre"] = nombre
+        actual = min(x for x in (r["amazon"], r["nuevo"]) if x)
+        quien = "🟠 vendido por Amazon" if r["amazon"] and actual == r["amazon"] else "🏪 otro vendedor (nuevo)"
+        enlace = f"https://www.amazon.es/dp/{asin}" + (f"?tag={urllib.parse.quote(tag)}" if tag else "")
+        btns = [[{"text": "🛒 Amazon", "url": enlace}], [{"text": "📈 Historial de precios (Keepa)", "url": keepa_enlace(asin)}]]
+        from io import BytesIO
+        buf = BytesIO()
+        r["grafica"].save(buf, "PNG")
+        if "referencia" not in d:          # primera vez: se apunta el precio de ahora
+            d["referencia"] = actual
+            d["minimo"] = actual
+            telegram(f"👀 <b>Vigilando precio</b>\n<b>{e(nombre)}</b>\n💶 <b>{formatear_precio(actual)}</b> ({quien})\n"
+                     f"Te aviso si baja de este precio.", silencioso, foto=[buf.getvalue()], botones=btns)
+            log(f"  Vigilar {asin}: referencia {actual}")
+            continue
+        d["ultimo"] = actual
+        if actual < d["referencia"] - 0.009:
+            pct = round((1 - actual / d["referencia"]) * 100)
+            ok = telegram(f"📉 <b>BAJADA DE PRECIO</b>  ·  −{pct}%\n<b>{e(nombre)}</b>\n"
+                          f"💶 <b>{formatear_precio(actual)}</b> <s>{formatear_precio(d['referencia'])}</s>\n{quien}",
+                          silencioso, foto=[buf.getvalue()], botones=btns)
+            if ok or not os.environ.get("TELEGRAM_TOKEN"):
+                d["referencia"] = actual   # la próxima vez avisa solo si baja todavía más
+            d["minimo"] = min(d.get("minimo", actual), actual)
+        log(f"  Vigilar {asin}: {actual} (referencia {d['referencia']})")
+    for asin in [a for a in datos if a not in {p["asin"] for p in productos}]:
+        datos.pop(asin)   # quitado de vigilar.txt
+
+
 def enriquecer_amazon(s: dict, cfg: dict):
     """Añade ASIN, enlaces y veredicto de Keepa a una oferta de Amazon."""
     if not es_amazon(s):
@@ -1422,6 +1531,11 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
     for hid in [h for h, t in avisados.items() if ahora - t > 30 * 86400]:
         avisados.pop(hid)
 
+    try:
+        vigilar_precios(cfg, estado, silencioso)
+    except Exception as ex:  # noqa: BLE001
+        log(f"Vigilancia de precios: error {ex}")
+
     estado["ultima_ronda"] = ahora
     guardar_json(RUTA_ESTADO, estado)
 
@@ -1489,28 +1603,9 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Prueba: leer el precio actual de la leyenda de la gráfica de Keepa con OCR."""
-    import subprocess
-    import tempfile
-    for asin in ("B0BXLWCLZN", "B0BXLXZYXQ", "B0CV7PGS46", "B0CBRTBSNV"):
-        for extra in ("", "&width=1200&height=500"):
-            try:
-                img = descargar(keepa_grafica(asin) + extra, intentos=0)
-                with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
-                    f.write(img)
-                try:
-                    from PIL import Image
-                    im = Image.open(f.name)
-                    tam = im.size
-                    im = im.convert("L").resize((im.width * 3, im.height * 3))
-                    im.save(f.name)
-                except Exception:  # noqa: BLE001
-                    tam = None
-                txt = subprocess.run(["tesseract", f.name, "-", "--psm", "11"], capture_output=True, text=True).stdout
-                lineas = [x for x in txt.splitlines() if re.search(r"(amazon|new|nuevo|€|\d+[.,]\d\d)", x, re.I)]
-                log(f"OCR {asin} {extra or 'normal'} {tam} → {lineas[:8]}")
-            except Exception as ex:  # noqa: BLE001
-                log(f"OCR {asin} ERROR {ex}")
+    """Prueba manual de la vigilancia de precios (no avisa)."""
+    for v in leer_vigilar():
+        log(f"VIGILAR {v['asin']} → {precio_keepa_ocr(v['asin'])}")
 
 
 def main() -> int:
