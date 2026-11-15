@@ -1603,45 +1603,40 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Prueba: dónde guarda Chollometro el veredicto de PrecioReal y si precioreal.com responde."""
-    hilos = hilos_en_html(descargar("https://www.chollometro.com/").decode("utf-8", "replace"))
-    vistos = 0
-    for hid, h in list(hilos.items())[:25]:
-        url = h.get("enlace")
-        if not url:
+    """Prueba: volcado de PrecioReal y del bloque priceComparison de ofertas de Amazon."""
+    import base64, gzip
+    for u in ("https://precioreal.com/oferta/amazon_b0cn1nfyz6/x", "https://precioreal.com/oferta/amazon_B0CV7PGS46/x"):
+        try:
+            b = descargar(u, intentos=0)
+            log(f"PRDUMP {u} " + base64.b64encode(gzip.compress(b)).decode())
+        except Exception as ex:  # noqa: BLE001
+            log(f"PRDUMP {u} ERROR {ex}")
+    hilos = {}
+    for p in ("https://www.chollometro.com/", "https://www.chollometro.com/nuevos", "https://www.chollometro.com/search?q=ssd"):
+        hilos.update(hilos_en_html(descargar(p).decode("utf-8", "replace")))
+    hechos = 0
+    for hid, h in hilos.items():
+        if "amazon" not in (h.get("tienda") or "").lower() or not h.get("enlace"):
             continue
         try:
-            t = descargar(url, intentos=0).decode("utf-8", "replace")
+            t = descargar(h["enlace"], intentos=0).decode("utf-8", "replace")
         except Exception as ex:  # noqa: BLE001
-            log(f"PR {hid} error {ex}")
             continue
-        n = t.count("PrecioReal") + t.count("precioreal")
-        if not n:
-            continue
-        vistos += 1
-        log(f"PR {hid} {h.get('tienda')} · {n} menciones · {h.get('titulo','')[:50]}")
-        for m in list(re.finditer(r"(?i)precioreal", t))[:3]:
-            log("   …" + re.sub(r"\s+", " ", t[max(0, m.start() - 300):m.start() + 500]) + "…")
-        for k in ("threadAdditionalInfo", "additionalInfo", "thread_additional_info", "priceHistory", "priceVerdict", "verdict"):
-            if k in t:
-                p = t.index(k)
-                log(f"   CLAVE {k}: " + re.sub(r"\s+", " ", t[p:p + 700]))
-        if vistos >= 3:
-            break
-    for u in ("https://precioreal.com/oferta/amazon_b0cn1nfyz6/x", "https://precioreal.com/",
-              "https://precioreal.com/api/product/amazon_b0cn1nfyz6"):
-        try:
-            req = urllib.request.Request(u, headers={"User-Agent": UA, "Accept": "text/html,application/json"})
-            with urllib.request.urlopen(req, timeout=20) as r:
-                b = r.read(400000).decode("utf-8", "replace")
-                log(f"PRWEB {u} → {r.status} {len(b)} bytes · next={('__NEXT_DATA__' in b)} · "
-                    f"api={sorted(set(re.findall(r'https?://[^\"\' ]*api[^\"\' ]{0,60}', b)))[:5]}")
-                for kw in ("Buen precio", "Mínimo histórico", "Precio habitual", "verdict", "median", "mediano"):
-                    if kw in b:
-                        p = b.index(kw)
-                        log(f"   {kw}: " + re.sub(r"\s+", " ", b[max(0, p - 200):p + 300]))
-        except Exception as ex:  # noqa: BLE001
-            log(f"PRWEB {u} → ERROR {ex}")
+        pcs = [t[m.start():m.start() + 400] for m in re.finditer(r'"priceComparison', t)]
+        otros = [re.sub(r"\s+", " ", t[max(0, m.start() - 150):m.start() + 350]) for m in
+                 re.finditer(r"(?i)mediano|m[ií]nimo hist|buen precio|precio habitual|thread_additional_info|precioreal\.com", t)][:4]
+        log(f"PRHILO {hid} {h.get('grados')}° {h.get('titulo','')[:60]}")
+        for x in pcs:
+            log("   PC " + x)
+        for x in otros:
+            log("   TX " + x)
+        if hechos == 0 and any('"enabled":true' in x for x in pcs):
+            log(f"PRDUMPHILO {hid} " + base64.b64encode(gzip.compress(t.encode())).decode())
+            hechos = 1
+        hechos += 0
+        if sum(1 for _ in ()) or len(otros) > 0:
+            pass
+    log("fin explorar")
 
 
 def main() -> int:
