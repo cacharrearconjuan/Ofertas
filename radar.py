@@ -1603,39 +1603,49 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Prueba: volcado de PrecioReal y del bloque priceComparison de ofertas de Amazon."""
+    """Prueba: API de PrecioReal y campos de la información adicional de Chollometro."""
     import base64, gzip
-    for u in ("https://precioreal.com/oferta/amazon_b0cn1nfyz6/x", "https://precioreal.com/oferta/amazon_B0CV7PGS46/x"):
-        try:
-            b = descargar(u, intentos=0)
-            log(f"PRDUMP {u} " + base64.b64encode(gzip.compress(b)).decode())
-        except Exception as ex:  # noqa: BLE001
-            log(f"PRDUMP {u} ERROR {ex}")
+    t = descargar("https://precioreal.com/oferta/amazon_b0cn1nfyz6/x").decode("utf-8", "replace")
+    for src in re.findall(r'<script[^>]*src="(/assets/[^"]+)"', t):
+        js = descargar("https://precioreal.com" + src).decode("utf-8", "replace")
+        log(f"PRJS {src} {len(js)}")
+        vistos = set()
+        for m in re.finditer(r'["`\'](/api/[^"`\']{0,80}|https?://[a-z0-9.-]*precioreal[^"`\']{0,80}|[^"`\'\s]{0,40}amazon_[^"`\']{0,60})["`\']', js):
+            if m.group(1) not in vistos:
+                vistos.add(m.group(1))
+                log("   EP " + m.group(1) + "  ::  " + re.sub(r"\s+", " ", js[max(0, m.start() - 120):m.end() + 120]))
+            if len(vistos) > 40:
+                break
+    try:
+        b = descargar("https://static.chollometro.com/thread_additional_info/raw/bkO2B/427707_1/fs/895x577/qt/65/427707_1.jpg", intentos=0)
+        log("PRIMG " + base64.b64encode(b).decode())
+    except Exception as ex:  # noqa: BLE001
+        log(f"PRIMG ERROR {ex}")
     hilos = {}
-    for p in ("https://www.chollometro.com/", "https://www.chollometro.com/nuevos", "https://www.chollometro.com/search?q=ssd"):
-        hilos.update(hilos_en_html(descargar(p).decode("utf-8", "replace")))
-    hechos = 0
+    for p in cfg.get("paginas_listado", []) + ["https://www.chollometro.com/hot", "https://www.chollometro.com/grupo/informatica"]:
+        try:
+            hilos.update(hilos_en_html(descargar(p).decode("utf-8", "replace")))
+        except Exception:  # noqa: BLE001
+            pass
+    n = 0
     for hid, h in hilos.items():
         if "amazon" not in (h.get("tienda") or "").lower() or not h.get("enlace"):
             continue
         try:
             t = descargar(h["enlace"], intentos=0).decode("utf-8", "replace")
-        except Exception as ex:  # noqa: BLE001
+        except Exception:  # noqa: BLE001
             continue
-        pcs = [t[m.start():m.start() + 400] for m in re.finditer(r'"priceComparison', t)]
-        otros = [re.sub(r"\s+", " ", t[max(0, m.start() - 150):m.start() + 350]) for m in
-                 re.finditer(r"(?i)mediano|m[ií]nimo hist|buen precio|precio habitual|thread_additional_info|precioreal\.com", t)][:4]
-        log(f"PRHILO {hid} {h.get('grados')}° {h.get('titulo','')[:60]}")
-        for x in pcs:
-            log("   PC " + x)
-        for x in otros:
-            log("   TX " + x)
-        if hechos == 0 and any('"enabled":true' in x for x in pcs):
-            log(f"PRDUMPHILO {hid} " + base64.b64encode(gzip.compress(t.encode())).decode())
-            hechos = 1
-        hechos += 0
-        if sum(1 for _ in ()) or len(otros) > 0:
-            pass
+        for d in _objetos_sueltos(t):
+            if str(d.get("threadId")) == hid and "additionalInfo" in d:
+                for a in d.get("additionalInfo") or []:
+                    if n < 2:
+                        log("PRAI " + json.dumps(a, ensure_ascii=False)[:1500])
+                    desc = a.get("description") or ""
+                    log(f"PRV {hid} {h.get('grados')}° · {re.findall(r'emoji--type-([a-z-]+)', desc)[:2]} · "
+                        f"{re.findall(r'<strong>(.*?)</strong>', desc)[:2]} · {re.sub(r'<[^>]+>', ' ', desc)[:160]!r}")
+                    n += 1
+                break
+        time.sleep(0.5)
     log("fin explorar")
 
 
