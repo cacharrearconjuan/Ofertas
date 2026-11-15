@@ -102,6 +102,8 @@ Al guardar se ejecuta **Comprobar palabras**. Si sale en **verde**, el fichero s
 ---
 
 ## Keepa: ¿es una rebaja de verdad?
+*(Hay un segundo comparador, PrecioReal: ver la sección siguiente.)*
+
 - Keepa **solo existe para Amazon**: en las ofertas de otras tiendas (AliExpress, MediaMarkt…) no sale.
 - **Sin cuenta ni clave** (gratis): las ofertas de Amazon llevan como foto la gráfica de precios de 90 días de Keepa y el botón **📈 Keepa**. Comprobado: la gráfica se descarga bien desde GitHub. Para verlo, lanza el modo **prueba**: además del mensaje de prueba, manda un ejemplo con una oferta real de Amazon.
 - **Con clave** (`KEEPA_API_KEY`, plan de pago de la API de Keepa): además sale un veredicto:
@@ -113,6 +115,29 @@ Al guardar se ejecuta **Comprobar palabras**. Si sale en **verde**, el fichero s
 - En `config.json` → `keepa`:
   - `rebaja_minima_pct`: el % que pides para el 🟢.
   - `descartar_falsas: true`: no te avisa de las 🔴.
+
+## PrecioReal: el segundo comparador
+
+PrecioReal es el comparador que usa ahora Chollometro. Funciona solo, **sin cuenta**, y en el aviso añade:
+
+- **Su veredicto**, cuando Chollometro lo tiene en la oferta: 🏆 *mínimo histórico*, 🟢 *buen precio* o *buen momento*. Además, debajo de la gráfica de Keepa, sale el medidor **barato · habitual · caro**. PrecioReal solo publica veredictos cuando el precio es bueno, así que si no aparece, no quiere decir que sea caro.
+- **Chollos anteriores** del mismo producto:
+  - 🏆 *más barato que en los chollos anteriores*, o
+  - 📉 *ya estuvo a 107,56 € (nov 2025)*.
+- **Otras tiendas**, solo si PrecioReal está seguro de que es el mismo modelo y capacidad:
+  - ⚠️ *más barato en MediaMarkt: 219 €*,
+  - 🟰 *mismo precio en…*, o
+  - ✅ *más barato que en…*.
+- El botón **📊 PrecioReal**, al lado de **📈 Keepa**. También en los avisos de `vigilar.txt` y en la web.
+
+Ojo: los botones de compra de la web de PrecioReal llevan su propio enlace de afiliado, no el tuyo. El tuyo va en el botón 🛒 Amazon del aviso.
+
+En `config.json` → `precioreal`:
+- `activo: false` lo quita todo.
+- `imagen: false` quita el medidor de la imagen.
+- `otras_tiendas: false` quita la comparación con otras tiendas.
+
+La parte de chollos anteriores y otras tiendas sale de la web de PrecioReal, que no tiene una API pública documentada. Si un día cambia, el aviso sigue llegando igual, solo que sin esas líneas.
 
 ---
 
@@ -191,3 +216,6 @@ Con `git pull` en el cron, lo que cambies en `palabras.txt` desde GitHub tambié
 - En repositorios públicos, GitHub desactiva las tareas programadas tras 60 días sin actividad. Cada ronda publica en `gh-pages`, que en principio cuenta como actividad. Si se desactivara, se reactiva con un clic en **Actions**.
 - Si en unas 2 horas no consigue leer Chollometro, el bot manda **un** aviso al grupo (como mucho uno al día).
 - Usa las fuentes públicas de Chollometro con moderación. No bajes la frecuencia de 10 minutos.
+- Si GitHub falla al recuperar el estado de la ronda anterior, esa ronda se para (sale en rojo en **Actions**) en vez de empezar de cero. Así no se repiten avisos ni el mensaje de «Radar en marcha». La siguiente ronda sigue con normalidad.
+- Justo antes de avisar, el bot vuelve a abrir la oferta en Chollometro. Si ya ha caducado, no avisa.
+- Los discos, SSD y tarjetas (microSD, «Game Drive»…) nunca se toman por juegos, aunque Chollometro los meta en el grupo de videojuegos.
