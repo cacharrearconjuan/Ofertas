@@ -1603,9 +1603,45 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Prueba manual de la vigilancia de precios (no avisa)."""
-    for v in leer_vigilar():
-        log(f"VIGILAR {v['asin']} → {precio_keepa_ocr(v['asin'])}")
+    """Prueba: dónde guarda Chollometro el veredicto de PrecioReal y si precioreal.com responde."""
+    hilos = hilos_en_html(descargar("https://www.chollometro.com/").decode("utf-8", "replace"))
+    vistos = 0
+    for hid, h in list(hilos.items())[:25]:
+        url = h.get("enlace")
+        if not url:
+            continue
+        try:
+            t = descargar(url, intentos=0).decode("utf-8", "replace")
+        except Exception as ex:  # noqa: BLE001
+            log(f"PR {hid} error {ex}")
+            continue
+        n = t.count("PrecioReal") + t.count("precioreal")
+        if not n:
+            continue
+        vistos += 1
+        log(f"PR {hid} {h.get('tienda')} · {n} menciones · {h.get('titulo','')[:50]}")
+        for m in list(re.finditer(r"(?i)precioreal", t))[:3]:
+            log("   …" + re.sub(r"\s+", " ", t[max(0, m.start() - 300):m.start() + 500]) + "…")
+        for k in ("threadAdditionalInfo", "additionalInfo", "thread_additional_info", "priceHistory", "priceVerdict", "verdict"):
+            if k in t:
+                p = t.index(k)
+                log(f"   CLAVE {k}: " + re.sub(r"\s+", " ", t[p:p + 700]))
+        if vistos >= 3:
+            break
+    for u in ("https://precioreal.com/oferta/amazon_b0cn1nfyz6/x", "https://precioreal.com/",
+              "https://precioreal.com/api/product/amazon_b0cn1nfyz6"):
+        try:
+            req = urllib.request.Request(u, headers={"User-Agent": UA, "Accept": "text/html,application/json"})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                b = r.read(400000).decode("utf-8", "replace")
+                log(f"PRWEB {u} → {r.status} {len(b)} bytes · next={('__NEXT_DATA__' in b)} · "
+                    f"api={sorted(set(re.findall(r'https?://[^\"\' ]*api[^\"\' ]{0,60}', b)))[:5]}")
+                for kw in ("Buen precio", "Mínimo histórico", "Precio habitual", "verdict", "median", "mediano"):
+                    if kw in b:
+                        p = b.index(kw)
+                        log(f"   {kw}: " + re.sub(r"\s+", " ", b[max(0, p - 200):p + 300]))
+        except Exception as ex:  # noqa: BLE001
+            log(f"PRWEB {u} → ERROR {ex}")
 
 
 def main() -> int:
