@@ -42,8 +42,25 @@ jobs:
 
       - name: Recuperar estado anterior (rama gh-pages)
         run: |
+          # Si GitHub falla al dar el estado, se para la ronda: empezar de cero repetiría avisos y mensajes.
           mkdir -p datos
-          if git fetch --depth=1 origin gh-pages 2>/dev/null; then
+          rc=1
+          for i in 1 2 3; do
+            rc=0; git ls-remote --exit-code --heads origin gh-pages > /dev/null 2>&1 || rc=$?
+            if [ "$rc" = 0 ] || [ "$rc" = 2 ]; then break; fi
+            sleep 5
+          done
+          if [ "$rc" = 2 ]; then
+            echo "Primera vez: todavía no hay rama gh-pages."
+          elif [ "$rc" != 0 ]; then
+            echo "::error::No se puede consultar la rama gh-pages; no sigo para no perder el estado."; exit 1
+          else
+            ok=0
+            for i in 1 2 3; do
+              if git fetch -q --depth=1 origin gh-pages; then ok=1; break; fi
+              sleep 5
+            done
+            if [ "$ok" != 1 ]; then echo "::error::No se pudo descargar el estado; no sigo."; exit 1; fi
             git show FETCH_HEAD:estado.json  > datos/estado.json  2>/dev/null || rm -f datos/estado.json
             git show FETCH_HEAD:ofertas.json > datos/ofertas.json 2>/dev/null || rm -f datos/ofertas.json
           fi
@@ -65,10 +82,12 @@ jobs:
           esac
 
       - name: Publicar web y estado
-        if: ${{ (inputs.modo || 'ronda') == 'ronda' }}
+        # También si el paso anterior falla: así no se repiten los avisos que sí llegaron a enviarse
+        if: ${{ always() && (inputs.modo || 'ronda') == 'ronda' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          if [ ! -f datos/estado.json ]; then echo "No hay estado que guardar."; exit 0; fi
           mkdir -p _site
           cp web/* _site/
           cp datos/estado.json datos/ofertas.json _site/ 2>/dev/null || true

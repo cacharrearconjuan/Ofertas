@@ -556,6 +556,10 @@ def hilos_en_html(texto: str) -> dict:
             if h:
                 previo = encontrados.get(h["id"], {})
                 encontrados[h["id"]] = {**previo, **{k: v for k, v in h.items() if v not in (None, "")}}
+            if d.get("threadId") is not None and isinstance(d.get("additionalInfo"), list):
+                pr = precioreal_desde_info(d["additionalInfo"])
+                if pr:
+                    encontrados.setdefault(str(d["threadId"]), {"id": str(d["threadId"])})["precioreal"] = pr
     return encontrados
 
 
@@ -568,11 +572,12 @@ def datos_de_pagina(url: str, hid: str) -> dict | None:
     texto = descargar(url).decode("utf-8", "replace")
     hilos = hilos_en_html(texto)
     d = hilos.get(hid)
-    if d is None:
+    if d is None or d.get("grados") is None:
         m = re.search(rf'"threadId"\s*:\s*"?{re.escape(hid)}"?[^{{}}]*?"temperature"\s*:\s*(-?\d+(?:\.\d+)?)', texto)
         if not m:
             m = RE_GRADOS_VISIBLES.search(texto)
-        d = {"id": hid, "grados": float(m.group(1))} if m else None
+        if m:
+            d = {**(d or {}), "id": hid, "grados": float(m.group(1))}
     if d is not None and not d.get("destino"):
         m = RE_ENLACE_TIENDA.search(texto) or RE_VISITA.search(texto)
         if m:
@@ -680,6 +685,164 @@ def keepa_veredicto(asin: str, precio_oferta: float | None, cfg_keepa: dict) -> 
     return {"texto": texto, "nivel": nivel, "media90": media, "minimo90": minimo, "rebaja": rebaja}
 
 
+# --------------------------------------------------------------------------
+# PrecioReal (el comparador de precios que usa Chollometro)
+# --------------------------------------------------------------------------
+PRECIOREAL = "https://precioreal.com"
+RE_PR_ID = re.compile(r"precioreal\.com/oferta/([a-z0-9]+_[a-z0-9-]+)", re.I)
+RE_PR_IMAGEN = re.compile(r'<img[^>]+src="(https://static\.chollometro\.com/thread_additional_info/[^"]+)"', re.I)
+MESES = ("ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic")
+
+
+def precioreal_desde_info(info) -> dict | None:
+    """Veredicto que PrecioReal deja en la «Información adicional» de la oferta en Chollometro
+    («Mínimo histórico», «Buen precio», «Buen momento»...), con su medidor barato/habitual/caro."""
+    for a in info if isinstance(info, list) else []:
+        desc = (a or {}).get("description") if isinstance(a, dict) else None
+        m = RE_PR_ID.search(desc or "")
+        if not m:
+            continue
+        titulo = re.search(r"<strong>(.*?)</strong>", desc, re.S)
+        img = RE_PR_IMAGEN.search(desc)
+        return {"id": m.group(1).lower(),
+                "veredicto": quitar_html(titulo.group(1)) if titulo else None,
+                "medidor": img.group(1) if img else None}
+    return None
+
+
+def _precioreal_json(ruta: str):
+    req = urllib.request.Request(PRECIOREAL + ruta, headers={"User-Agent": UA, "Accept": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            return json.loads(r.read())
+    except Exception as ex:  # noqa: BLE001
+        log(f"  PrecioReal {ruta[:70]}: {ex}")
+        return None
+
+
+def precioreal_datos(pr_id: str, hilo: str | None = None, otras_tiendas: bool = True) -> dict:
+    """API pública de la web de PrecioReal (sin cuenta): precios de los chollos anteriores del mismo
+    producto y su precio en otras tiendas. No está documentada: si cambia, el aviso sale igual sin esto."""
+    salida = {}
+    h = _precioreal_json(f"/api/community-history/{urllib.parse.quote(pr_id)}?offset=0") or {}
+    puntos = []
+    for p in h.get("points") or []:
+        if not isinstance(p, dict):
+            continue
+        q = p.get("quantity") if isinstance(p.get("quantity"), dict) else {}
+        precio = q.get("comparisonPrice") or p.get("price")
+        if not isinstance(precio, (int, float)) or precio <= 0:
+            continue
+        if hilo and (str(q.get("threadId")) == str(hilo) or p.get("seller") == f"chollometro_{hilo}"):
+            continue          # el propio chollo que se está avisando
+        puntos.append((precio, (p.get("timestamp") or 0) / 1000))
+    if puntos:
+        precio, cuando = min(puntos)
+        salida["min_anterior"], salida["min_anterior_fecha"], salida["chollos_anteriores"] = precio, cuando, len(puntos)
+    if otras_tiendas:
+        tienda_propia = pr_id.split("_", 1)[0]
+        c = _precioreal_json("/api/catalog/offer?" + urllib.parse.urlencode({"id": pr_id, "shop": tienda_propia})) or {}
+        prod = c.get("product") if isinstance(c.get("product"), dict) else {}
+        if prod.get("variantKnown"):       # solo si sabe que es el mismo modelo y capacidad
+            ofertas = [o for o in prod.get("offers") or [] if isinstance(o, dict) and o.get("available")
+                       and o.get("condition", "new") == "new" and isinstance(o.get("price"), (int, float))
+                       and o.get("shop") != tienda_propia and o.get("channel", "normal") == "normal"]
+            if ofertas:
+                o = min(ofertas, key=lambda o: o["price"] + (o.get("shipping") or 0))
+                salida["otra_tienda"] = {"tienda": o.get("shopName") or o.get("shop"),
+                                         "precio": round(o["price"] + (o.get("shipping") or 0), 2)}
+    return salida
+
+
+def enriquecer_precioreal(s: dict, cfg: dict):
+    """Junta el veredicto de PrecioReal (si Chollometro lo tiene) con los datos de su API."""
+    cfg_pr = cfg.get("precioreal") or {}
+    if cfg_pr.get("activo") is False:
+        return
+    pr = dict(s.get("precioreal") or {})
+    if not pr.get("id") and s.get("asin"):
+        pr["id"] = f"amazon_{s['asin'].lower()}"
+    if not pr.get("id"):
+        return
+    hilo = s.get("id") if str(s.get("id", "")).isdigit() else None
+    pr.update(precioreal_datos(pr["id"], hilo, cfg_pr.get("otras_tiendas", True)))
+    pr["enlace"] = f"{PRECIOREAL}/oferta/{pr['id']}"
+    s["precioreal"] = pr
+
+
+def _mes(ts: float) -> str:
+    try:
+        f = datetime.fromtimestamp(ts)
+        return f"{MESES[f.month - 1]} {f.year}"
+    except (ValueError, OSError, OverflowError):
+        return ""
+
+
+def precioreal_lineas(o: dict) -> list[str]:
+    pr = o.get("precioreal") or {}
+    lineas = []
+    v = (pr.get("veredicto") or "").strip()
+    if v:
+        n = normalizar(v)
+        emoji = "🏆" if "minimo" in n else "🟢" if ("buen" in n or "barato" in n) else "🔴" if "caro" in n else "🟡"
+        lineas.append(f"{emoji} PrecioReal: {v[:1].lower() + v[1:]}")
+    precio = o.get("precio")
+    if pr.get("min_anterior"):
+        minimo, cuando = pr["min_anterior"], _mes(pr.get("min_anterior_fecha") or 0)
+        n = pr.get("chollos_anteriores", 1)
+        if precio and precio < minimo - 0.009:
+            lineas.append(f"🏆 Más barato que en {'los ' + str(n) + ' chollos anteriores' if n > 1 else 'el chollo anterior'} "
+                          f"(mín. {formatear_precio(minimo)})")
+        elif precio and precio <= minimo + 0.009:
+            lineas.append(f"🟰 Igual que el mejor chollo anterior ({formatear_precio(minimo)})")
+        else:
+            lineas.append(f"📉 Ya estuvo a {formatear_precio(minimo)}" + (f" ({cuando})" if cuando else ""))
+    otra = pr.get("otra_tienda")
+    if otra and precio:
+        if otra["precio"] < precio - 0.5:
+            lineas.append(f"⚠️ Más barato en {otra['tienda']}: {formatear_precio(otra['precio'])}")
+        elif otra["precio"] <= precio + 0.5:
+            lineas.append(f"🟰 Mismo precio en {otra['tienda']}")
+        else:
+            lineas.append(f"✅ Más barato que en {otra['tienda']} ({formatear_precio(otra['precio'])})")
+    return lineas
+
+
+def recortar_medidor(datos: bytes) -> bytes | None:
+    """El medidor de PrecioReal trae mucho margen blanco: se queda solo con el veredicto y la barra."""
+    try:
+        from io import BytesIO
+        from PIL import Image
+        im = Image.open(BytesIO(datos)).convert("RGB")
+        w, h = im.size
+        im = im.crop((int(w * 0.04), int(h * 0.25), int(w * 0.935), int(h * 0.68)))
+        salida = BytesIO()
+        im.save(salida, "PNG", optimize=True)
+        return salida.getvalue()
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def repasar_pagina(s: dict):
+    """Justo antes de avisar abre la oferta: confirma que sigue activa y recoge el veredicto de PrecioReal."""
+    if not str(s.get("id", "")).isdigit() or not (s.get("enlace") or "").startswith(WEB):
+        return
+    try:
+        d = datos_de_pagina(s["enlace"], s["id"]) or {}
+    except urllib.error.HTTPError as ex:
+        if ex.code in (404, 410):
+            s["descartar"] = True
+        return
+    except Exception:  # noqa: BLE001
+        return
+    for k in CAMPOS_PAGINA:
+        if d.get(k) not in (None, ""):
+            s[k] = d[k]
+    for k in ("precio", "imagen"):
+        if s.get(k) in (None, "") and d.get(k) not in (None, ""):
+            s[k] = d[k]
+
+
 def completar_destino(s: dict):
     """Si no sabemos el enlace de la tienda, lo busca en la página de la oferta (una consulta por aviso)."""
     if s.get("destino"):
@@ -698,8 +861,9 @@ def completar_destino(s: dict):
             s[k] = d[k]
 
 
-def unir_imagenes(arriba: bytes, abajo: bytes, ancho: int = 800) -> bytes | None:
-    """Pone la foto del artículo encima de la gráfica de Keepa en una sola imagen (necesita Pillow)."""
+def unir_imagenes(*partes: bytes, ancho: int = 800) -> bytes | None:
+    """Pone una debajo de otra la foto del artículo, la gráfica de Keepa y el medidor de PrecioReal
+    en una sola imagen (necesita Pillow). La primera es la foto: se reduce sin estirarla."""
     try:
         from io import BytesIO
         from PIL import Image
@@ -714,13 +878,22 @@ def unir_imagenes(arriba: bytes, abajo: bytes, ancho: int = 800) -> bytes | None
                 fondo.paste(im, mask=im.split()[-1])
                 return fondo
             return im.convert("RGB")
-        foto, graf = abrir(arriba), abrir(abajo)
-        foto.thumbnail((ancho, 520))
-        graf = graf.resize((ancho, max(1, round(graf.height * ancho / graf.width))))
+        imagenes = []
+        for i, b in enumerate(p for p in partes if p):
+            im = abrir(b)
+            if i == 0:
+                im.thumbnail((ancho, 520))
+            else:
+                im = im.resize((ancho, max(1, round(im.height * ancho / im.width))))
+            imagenes.append(im)
+        if len(imagenes) < 2:
+            return None
         hueco = 12
-        lienzo = Image.new("RGB", (ancho, foto.height + hueco + graf.height), "white")
-        lienzo.paste(foto, ((ancho - foto.width) // 2, 0))
-        lienzo.paste(graf, (0, foto.height + hueco))
+        lienzo = Image.new("RGB", (ancho, sum(im.height for im in imagenes) + hueco * (len(imagenes) - 1)), "white")
+        y = 0
+        for im in imagenes:
+            lienzo.paste(im, ((ancho - im.width) // 2, y))
+            y += im.height + hueco
         salida = BytesIO()
         lienzo.save(salida, "PNG", optimize=True)
         return salida.getvalue()
@@ -730,19 +903,29 @@ def unir_imagenes(arriba: bytes, abajo: bytes, ancho: int = 800) -> bytes | None
 
 
 def fotos_para(s: dict, cfg: dict) -> list:
-    """Fotos a probar, por orden: artículo + gráfica de Keepa juntas, solo gráfica, solo artículo."""
-    fotos = [s.get("imagen")]
-    if s.get("asin") and (cfg.get("keepa") or {}).get("grafica", True):
-        grafica = keepa_grafica_bytes(s["asin"])
-        if grafica:
-            fotos.insert(0, grafica)
-            if s.get("imagen"):
-                try:
-                    unida = unir_imagenes(descargar(s["imagen"], intentos=1), grafica)
-                except Exception:  # noqa: BLE001
-                    unida = None
-                if unida:
-                    fotos.insert(0, unida)
+    """Fotos a probar, por orden: artículo + gráfica de Keepa + medidor de PrecioReal juntos,
+    luego combinaciones más sencillas y, al final, solo la foto del artículo."""
+    def bajar(url):
+        try:
+            return descargar(url, intentos=1)
+        except Exception:  # noqa: BLE001
+            return None
+    grafica = keepa_grafica_bytes(s["asin"]) if s.get("asin") and (cfg.get("keepa") or {}).get("grafica", True) else None
+    medidor = None
+    pr = s.get("precioreal") or {}
+    if pr.get("medidor") and (cfg.get("precioreal") or {}).get("imagen", True):
+        b = bajar(pr["medidor"])
+        medidor = recortar_medidor(b) if b else None
+    foto = bajar(s["imagen"]) if s.get("imagen") and (grafica or medidor) else None
+    fotos = []
+    for combo in ((foto, grafica, medidor), (foto, grafica), (grafica, medidor), (foto, medidor)):
+        if all(combo):
+            unida = unir_imagenes(*combo)
+            if unida:
+                fotos.append(unida)
+    if grafica:
+        fotos.append(grafica)
+    fotos.append(s.get("imagen"))
     return fotos
 
 
@@ -830,7 +1013,9 @@ def vigilar_precios(cfg: dict, estado: dict, silencioso: bool):
         actual = min(x for x in (r["amazon"], r["nuevo"]) if x)
         quien = "🟠 vendido por Amazon" if r["amazon"] and actual == r["amazon"] else "🏪 otro vendedor (nuevo)"
         enlace = f"https://www.amazon.es/dp/{asin}" + (f"?tag={urllib.parse.quote(tag)}" if tag else "")
-        btns = [[{"text": "🛒 Amazon", "url": enlace}], [{"text": "📈 Historial de precios (Keepa)", "url": keepa_enlace(asin)}]]
+        btns = [[{"text": "🛒 Amazon", "url": enlace}],
+                [{"text": "📈 Keepa", "url": keepa_enlace(asin)},
+                 {"text": "📊 PrecioReal", "url": f"{PRECIOREAL}/oferta/amazon_{asin.lower()}"}]]
         from io import BytesIO
         buf = BytesIO()
         r["grafica"].save(buf, "PNG")
@@ -942,9 +1127,28 @@ CATEGORIA_JUEGOS_GRATIS = {"id": "juegos_gratis", "nombre": "Juego gratis", "emo
                            "re_avisos": []}
 
 
+def _encaja(c: dict, texto: str) -> bool:
+    """¿El texto (ya normalizado) entra en la categoría c? (sin mirar precios)"""
+    if c["re_forzar"] and c["re_forzar"].search(texto):
+        return True
+    if not c["re_incluir"] or not c["re_incluir"].search(texto):
+        return False
+    if c["re_excluir"] and c["re_excluir"].search(texto):
+        return False
+    return not (c["re_necesita"] and not c["re_necesita"].search(texto))
+
+
+def es_almacenamiento(o: dict, cats) -> bool:
+    """Discos, SSD, M.2 y tarjetas nunca son juegos, aunque Chollometro los meta en el grupo Gaming
+    (p. ej. «SanDisk microSDXC para Switch» o «Seagate Game Drive para PS5»)."""
+    texto = normalizar(o.get("titulo"))
+    return any(_encaja(c, texto) for c in cats
+               if "ssd" in normalizar(c["nombre"]) or "disco" in normalizar(c["nombre"]))
+
+
 def clasificar(o: dict, cats, cfg, excluir_global) -> list[str]:
-    # Juegos de cualquier plataforma: solo si son gratis
-    if es_juego(o):
+    # Juegos de cualquier plataforma: solo si son gratis (el almacenamiento nunca cuenta como juego)
+    if es_juego(o) and not es_almacenamiento(o, cats):
         quiere = (cfg.get("juegos") or {}).get("avisar_gratis", True)
         return ["juegos_gratis"] if quiere and es_gratis(o) and \
             not (excluir_global and excluir_global.search(normalizar(o.get("titulo")))) else []
@@ -960,14 +1164,8 @@ def clasificar(o: dict, cats, cfg, excluir_global) -> list[str]:
     precio = o.get("precio")
     elegidas = []
     for c in cats:
-        forzada = bool(c["re_forzar"] and c["re_forzar"].search(texto))
-        if not forzada:
-            if not c["re_incluir"] or not c["re_incluir"].search(texto):
-                continue
-            if c["re_excluir"] and c["re_excluir"].search(texto):
-                continue
-            if c["re_necesita"] and not c["re_necesita"].search(texto):
-                continue
+        if not _encaja(c, texto):
+            continue
         if precio is not None and c["precio_max"] is not None and precio > c["precio_max"]:
             continue
         if precio is not None and c["precio_min"] is not None and precio < c["precio_min"]:
@@ -1044,15 +1242,28 @@ def _telegram_subir_foto(datos: dict, imagen: bytes) -> tuple[bool, str]:
     partes.append(f'--{limite}\r\nContent-Disposition: form-data; name="photo"; filename="oferta.png"\r\n'
                   f"Content-Type: image/png\r\n\r\n".encode() + imagen + b"\r\n")
     partes.append(f"--{limite}--\r\n".encode())
-    req = urllib.request.Request(f"{base}/bot{token}/sendPhoto", data=b"".join(partes),
-                                 headers={"Content-Type": f"multipart/form-data; boundary={limite}"})
-    try:
-        with urllib.request.urlopen(req, timeout=40) as r:
-            return bool(json.load(r).get("ok")), ""
-    except urllib.error.HTTPError as ex:
-        return False, f"{ex.code}: {ex.read().decode('utf-8', 'replace')[:200]}"
-    except (urllib.error.URLError, TimeoutError) as ex:
-        return False, str(ex)
+    cuerpo_envio = b"".join(partes)
+    err = "sin respuesta"
+    for _ in range(3):
+        req = urllib.request.Request(f"{base}/bot{token}/sendPhoto", data=cuerpo_envio,
+                                     headers={"Content-Type": f"multipart/form-data; boundary={limite}"})
+        try:
+            with urllib.request.urlopen(req, timeout=40) as r:
+                return bool(json.load(r).get("ok")), ""
+        except urllib.error.HTTPError as ex:
+            cuerpo = ex.read().decode("utf-8", "replace")
+            if ex.code == 429:          # demasiados mensajes: Telegram dice cuánto esperar
+                try:
+                    espera = json.loads(cuerpo)["parameters"]["retry_after"]
+                except (KeyError, ValueError):
+                    espera = 10
+                time.sleep(espera + 1)
+                continue
+            return False, f"{ex.code}: {cuerpo[:200]}"
+        except (urllib.error.URLError, TimeoutError) as ex:
+            err = str(ex)
+            time.sleep(5)
+    return False, err
 
 
 def telegram(texto: str, silencioso: bool = False, foto: str | bytes | list | None = None,
@@ -1121,6 +1332,7 @@ def mensaje(o: dict, cats_por_id: dict) -> str:
         lineas.append(f"🏷️ Código: <code>{e(o['codigo'])}</code>")
     if o.get("keepa_veredicto"):
         lineas.append(e(o["keepa_veredicto"]["texto"]))
+    lineas += [e(x) for x in precioreal_lineas(o)]
     lineas += [e(a) for a in o.get("advertencias", [])]
     if etiquetas:
         lineas.append(f"<i>{e(etiquetas)}</i>")
@@ -1138,8 +1350,13 @@ def botones(o: dict) -> list:
     if (o.get("destino") or "").startswith("http") and (MOSTRAR_BOTON_FUENTE or not _es_de_la_fuente(o["destino"])):
         fila.append({"text": f"🛒 {o.get('tienda') or 'Tienda'}"[:30], "url": o["destino"]})
     filas = [fila] if fila else []
+    comparadores = []
     if o.get("keepa"):
-        filas.append([{"text": "📈 Historial de precios (Keepa)", "url": o["keepa"]}])
+        comparadores.append({"text": "📈 Keepa", "url": o["keepa"]})
+    if (o.get("precioreal") or {}).get("enlace"):
+        comparadores.append({"text": "📊 PrecioReal", "url": o["precioreal"]["enlace"]})
+    if comparadores:
+        filas.append(comparadores)
     return filas
 
 
@@ -1174,11 +1391,11 @@ def guardar_json(ruta: Path, datos):
 
 CAMPOS_WEB = ("id", "afiliado", "fuente", "descuento", "tipo_hilo", "titulo", "enlace", "destino", "tienda", "precio", "precio_antes", "codigo",
               "grados", "categorias", "imagen", "fecha", "detectado", "avisado", "advertencias",
-              "asin", "keepa", "keepa_veredicto")
+              "asin", "keepa", "keepa_veredicto", "precioreal", "precioreal_lineas")
 
 
 def para_web(o: dict) -> dict:
-    o = {**o, "tipo_hilo": tipo_hilo(o)}
+    o = {**o, "tipo_hilo": tipo_hilo(o), "precioreal_lineas": precioreal_lineas(o)}
     return {k: o.get(k) for k in CAMPOS_WEB if o.get(k) not in (None, "", [])}
 
 
@@ -1227,7 +1444,7 @@ def leer_fuentes_extra(cfg, cats, excluir_global, avisados: dict, recientes: lis
             o["precio"] = o.get("precio") or precio_en_texto(o["titulo"])
             o["tienda"] = o.get("tienda") or adivinar_tienda(" ".join(o.get("cats_rss", [])), o["titulo"]) \
                 or nombre
-            gratis_juego = es_juego(o) and es_gratis(o)
+            gratis_juego = es_juego(o) and es_gratis(o) and not es_almacenamiento(o, cats)
             if not gratis_juego and (o["descuento"] or 0) < minimo:
                 continue
             o["categorias"] = clasificar(o, cats, cfg, excluir_global)
@@ -1273,7 +1490,28 @@ def destino_desde_pagina(o: dict):
             o["imagen"] = m.group(1)
 
 
-CAMPOS_PAGINA = ("grados", "tienda", "caducada", "tipo", "es_cupon", "destino", "codigo", "precio_antes", "grupo")
+CAMPOS_PAGINA = ("grados", "tienda", "caducada", "tipo", "es_cupon", "destino", "codigo", "precio_antes", "grupo",
+                 "precioreal")
+
+
+def estimar_fechas(ofertas: dict):
+    """Las búsquedas de Chollometro no traen la fecha de publicación y mezclan ofertas de hace semanas.
+    Como el número de oferta va en orden, la fecha se estima con las que sí la traen (portada y nuevos)."""
+    pares = sorted((int(h), o["fecha"]) for h, o in ofertas.items() if str(h).isdigit() and o.get("fecha"))
+    if len(pares) < 10:
+        return
+    n = len(pares)
+    mx, my = sum(p[0] for p in pares) / n, sum(p[1] for p in pares) / n
+    var = sum((p[0] - mx) ** 2 for p in pares)
+    if not var:
+        return
+    pendiente = sum((p[0] - mx) * (p[1] - my) for p in pares) / var   # segundos por número de oferta
+    if pendiente <= 0:
+        return
+    for h, o in ofertas.items():
+        if str(h).isdigit() and not o.get("fecha"):
+            o["fecha"] = min(time.time(), my + pendiente * (int(h) - mx))
+            o["fecha_estimada"] = True
 
 
 def descubrir(cfg) -> tuple[dict, int, int, int]:
@@ -1312,6 +1550,7 @@ def descubrir(cfg) -> tuple[dict, int, int, int]:
         except Exception as ex:  # noqa: BLE001
             fallos += 1
             log(f"Listado {url}: ERROR {ex}")
+    estimar_fechas(ofertas)
     for o in ofertas.values():
         if o.get("precio") is None:
             o["precio"] = precio_en_texto(o.get("titulo", ""))
@@ -1344,10 +1583,12 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
     for hid, o in ofertas.items():
         if hid in avisados:
             continue
-        if no_es_oferta(o, cfg):
+        if no_es_oferta(o, cfg) or o.get("caducada"):
+            seguimiento.pop(hid, None)
             continue
         max_h = cfg.get("max_antiguedad_horas")
         if max_h and o.get("fecha") and ahora - o["fecha"] > max_h * 3600:
+            seguimiento.pop(hid, None)
             continue
         elegidas = clasificar(o, cats, cfg, excluir_global)
         if not elegidas:
@@ -1442,8 +1683,10 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
                 log(f"  error: {ex}")
         log(f"Pasarían el mínimo: {len(listas)}")
         for s in listas[:3]:
+            repasar_pagina(s)
             completar_destino(s)
             enriquecer_amazon(s, cfg)
+            enriquecer_precioreal(s, cfg)
             log("\n" + mensaje({**s, "advertencias": advertencias(s, cats)}, cats_por_id))
             log(f"  botones: {botones(s)}")
         return 0
@@ -1488,8 +1731,14 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             if s.get("fuente"):
                 destino_desde_pagina(s)
             else:
+                repasar_pagina(s)
+                if s.get("caducada") or s.get("descartar"):
+                    log(f"  {s['id']}: ya no está activa en Chollometro; no se avisa")
+                    seguimiento.pop(s["id"], None)
+                    continue
                 completar_destino(s)
             enriquecer_amazon(s, cfg)
+            enriquecer_precioreal(s, cfg)
             if s.get("destino") and _es_de_la_fuente(s["destino"]) and not MOSTRAR_BOTON_FUENTE:
                 s["destino"] = destino_real(s["destino"]) or s["destino"]
             veredicto = (s.get("keepa_veredicto") or {}).get("nivel")
@@ -1506,6 +1755,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
                 avisados[s["id"]] = ahora
                 destacadas[s["id"]] = para_web(s)
                 seguimiento.pop(s["id"], None)
+                guardar_json(RUTA_ESTADO, estado)   # si algo falla después, no se repite el aviso
                 if not sin_telegram:
                     time.sleep(3)  # Telegram limita los mensajes por minuto en grupos
         log(f"Avisos enviados: {enviados}")
@@ -1563,14 +1813,22 @@ def ejemplo_amazon(cfg, cats):
     if not amazon:
         log("Ahora mismo no hay ofertas de Amazon en portada para el ejemplo.")
         return
-    s = dict(amazon[0])
+    s = None
+    for o in amazon[:8]:            # mejor uno que tenga veredicto de PrecioReal, para verlo todo
+        o = dict(o)
+        repasar_pagina(o)
+        if s is None or (o.get("precioreal") and not s.get("precioreal")):
+            s = o
+        if s.get("precioreal"):
+            break
     s["categorias"] = clasificar(s, cats, cfg, None)
     completar_destino(s)
     enriquecer_amazon(s, cfg)
+    enriquecer_precioreal(s, cfg)
     fotos = fotos_para(s, cfg)
     texto = "🧪 <b>EJEMPLO</b> (no es un aviso real)\n" + mensaje(s, {c["id"]: c for c in cats})
     ok = telegram(texto, foto=fotos, botones=botones(s))
-    log(f"Ejemplo de Amazon con Keepa ({s.get('asin')}): {'enviado' if ok else 'no enviado'}")
+    log(f"Ejemplo de Amazon ({s.get('asin')} · PrecioReal {s.get('precioreal')}): {'enviado' if ok else 'no enviado'}")
 
 
 def revisar_palabras(cats_txt, globales, problemas):
@@ -1603,23 +1861,9 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Prueba: API interna de PrecioReal."""
-    for pid in ("amazon_b0cn1nfyz6", "amazon_b0cv7pgs46", "amazon_b0bxlwclzn"):
-        for u in (f"https://precioreal.com/api/catalog/offer?id={pid}&shop=amazon",
-                  f"https://precioreal.com/api/catalog/offer?id={pid}&shop=amazon&amazon_async=1",
-                  f"https://precioreal.com/api/community-history/{pid}?offset=0"):
-            try:
-                req = urllib.request.Request(u, headers={"User-Agent": UA, "Accept": "application/json",
-                                                         "Referer": "https://precioreal.com/oferta/" + pid})
-                with urllib.request.urlopen(req, timeout=25) as r:
-                    b = r.read().decode("utf-8", "replace")
-                log(f"PRAPI {u} → {len(b)} :: {b[:3000]}")
-            except urllib.error.HTTPError as ex:
-                log(f"PRAPI {u} → HTTP {ex.code} {ex.read()[:300]!r}")
-            except Exception as ex:  # noqa: BLE001
-                log(f"PRAPI {u} → ERROR {ex}")
-            time.sleep(1)
-    log("fin explorar")
+    """Oculto: manda solo el aviso de ejemplo (para revisar cómo se ve)."""
+    cats_txt, _, _ = leer_palabras()
+    ejemplo_amazon(cfg, compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)])
 
 
 def main() -> int:

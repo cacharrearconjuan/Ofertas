@@ -49,7 +49,7 @@ cargador, base de carga, estacion de carga, soporte, ssd, nvme, disco duro, lect
 game pass, gamepass, eshop, teclado, raton, monitor, silla, amiibo, figura, funda, protector
 cable, adaptador, dock, grip, camara, mochila, alfombrilla, lector, steam deck, rog ally, legion go, msi claw
 router, televisor, smart tv, barra de sonido, altavoz, microfono, webcam, bateria, power bank, pack consola
-disipador, m.2, memoria, ventilador, refrigeracion, carcasa, skin, pegatina, estuche, bolsa, maleta
+disipador, m.2, microsd, microsdxc, micro sd, sdxc, game drive, memoria, ventilador, refrigeracion, carcasa, skin, pegatina, estuche, bolsa, maleta
 fundas, kit, accesorios, accesorio, hub, mando a distancia, gafas, capturadora, stream deck
 
 
@@ -78,7 +78,8 @@ necesita: controller, gamepad, 8bitdo, gamesir, scuf, elite, steam, android, iph
 # Todos los SSD: M.2 NVMe, M.2 SATA, 2,5", externos, portátiles, mSATA
 ssd, ssds, nvme, m.2, msata, estado solido, unidad de estado solido
 disco duro, discos duros, hdd, disco externo, ssd externo
-microsd, micro sd, tarjeta sd, tarjeta de memoria, pendrive, memoria usb
+microsd, micro sd, microsdxc, microsdhc, micro sdxc, micro sdhc, microsd express, sdxc, sdhc
+tarjeta sd, tarjeta de memoria, pendrive, memoria usb, game drive
 samsung t7, samsung t9, sandisk extreme, crucial x9, crucial x10, wd black
 # Modelos que muchas veces no dicen "SSD" ni "disco" en el título
 990 pro, 990 evo, 980 pro, 980 evo, 970 evo, 870 evo, 870 qvo, 9100 pro, samsung pro plus, samsung evo plus, samsung evo select

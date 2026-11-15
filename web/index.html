@@ -176,11 +176,13 @@ function pintar(){
         </div>
         ${o.codigo ? `<div class="meta" style="margin-top:6px">🏷️ Código: <span class="codigo">${esc(o.codigo)}</span></div>` : ""}
         ${k ? `<div class="keepa ${esc(k.nivel)}">${esc(k.texto)}</div>` : ""}
+        ${(o.precioreal_lineas||[]).map(t => `<div class="keepa">${esc(t)}</div>`).join("")}
         ${(o.advertencias||[]).map(a => `<div class="aviso">${esc(a)}</div>`).join("")}
         <div class="acciones">
           <a class="boton" href="${esc(o.enlace)}" target="_blank" rel="noopener">🔥 Chollometro</a>
           ${tienda ? `<a class="boton" href="${esc(tienda)}" target="_blank" rel="noopener">🛒 ${esc(o.tienda || "Tienda")}</a>` : ""}
           ${o.keepa ? `<a class="boton" href="${esc(o.keepa)}" target="_blank" rel="noopener">📈 Keepa</a>` : ""}
+          ${o.precioreal && o.precioreal.enlace ? `<a class="boton" href="${esc(o.precioreal.enlace)}" target="_blank" rel="noopener">📊 PrecioReal</a>` : ""}
         </div>
       </div></article>`;
   }).join("");
