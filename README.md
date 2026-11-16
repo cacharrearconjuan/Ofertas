@@ -157,7 +157,22 @@ La parte de chollos anteriores y otras tiendas sale de la web de PrecioReal, que
 ## Juegos y otras fuentes
 
 - **Juegos:** los de cualquier plataforma (PS5, PS4, Switch, Xbox, PC…) **no avisan nunca, salvo que sean gratis** (🎁 Juego gratis). Las consolas y los accesorios sí avisan: se distinguen porque llevan alguna palabra de la sección `[🕹️ No son juegos]` de `palabras.txt` (consola, mando, auriculares…). Si un accesorio se quedara fuera por error, añade allí su palabra. Para no recibir ni los gratis: `config.json` → `juegos` → `avisar_gratis: false`.
-- **Otras fuentes** (`config.json` → `fuentes_extra`): **Ofertitas** y **HardZone**. No tienen votos, así que el criterio es otro: tienen que encajar con tus palabras y llevar **al menos un 20 % de descuento** (`descuento_minimo`). Salen marcadas con 🏷️ −XX % y el nombre de la fuente. Si una oferta ya llegó desde otra fuente, no se repite. La primera vez que se lee una fuente nueva no se avisa de nada, para no inundar el grupo. Para apagar una: `"activa": false`.
+- **Juegos gratis:** no cuentan como tales las recopilaciones de rebajas, aunque Chollometro las ponga a 0 €. Tampoco cuentan las apps gratis del Play Store o del App Store que no son juegos.
+- **Otras fuentes** (`config.json` → `fuentes_extra`): **Ofertitas** y **HardZone**.
+  - No tienen votos, así que el criterio es otro: tienen que encajar con tus palabras y llevar **al menos un 20 % de descuento** (`descuento_minimo`).
+  - Salen marcadas con 🏷️ −XX % y el nombre de la fuente.
+  - Ofertitas enlaza a Amazon a través de su propia web (`ofertitas.es/tienda/?asin=…`). El bot saca de ahí el producto y pone el botón de Amazon con **tu** etiqueta. Si la oferta ya no existe o no tiene enlace a la tienda, no se avisa.
+  - La primera vez que se lee una fuente nueva no se avisa de nada, para no inundar el grupo.
+  - Para apagar una: `"activa": false`.
+- **Sin repetidos:** no se vuelve a avisar del mismo producto de Amazon (mismo ASIN) en 3 días, venga de la fuente que venga, salvo que esté al menos un 3 % más barato. Entre webs distintas también se comparan los títulos: capacidad, modelo y variante tienen que coincidir. Por ejemplo, «Toshiba Canvio 4TB» es el mismo producto en Chollometro y en Ofertitas, pero «SanDisk Extreme» y «SanDisk Ultra» no.
+- **Nintendo:** la categoría está apagada y Nintendo queda fuera también de mandos, auriculares, saldo, consolas portátiles y monitores. Las tarjetas microSD «para Switch» siguen llegando, porque son almacenamiento.
+- **Merchandising:** huchas, lámparas, figuras, tazas, camisetas… de videojuegos quedan fuera siempre (sección `[⛔ Excluir siempre]` de `palabras.txt`).
+
+## Tu enlace de Amazon Afiliados
+
+- El botón 🛒 Amazon de cada aviso va a `https://www.amazon.es/dp/ASIN?tag=cacharrear0b-21`. Ese `tag` es tu ID de afiliado: es lo mismo que lleva el enlace que te da Amazon, solo que sin los parámetros extra (`linkCode`, `linkId`, `ref`…).
+- **Para ver en tus informes qué viene del radar:** en la Central de Afiliados, entra en **Gestionar ID de seguimiento** y crea uno nuevo (Amazon le añade `-21` al final). Luego cámbialo en `config.json` → `afiliados` → `amazon_tag`. Las ganancias van a la misma cuenta, pero en los informes puedes filtrar por ese ID.
+- Para comprobar un enlace, la Central de Afiliados tiene un **verificador de enlaces**.
 
 ---
 
