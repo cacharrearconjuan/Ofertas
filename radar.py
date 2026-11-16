@@ -1136,12 +1136,19 @@ TIENDAS_SOFTWARE = {"play store", "google play", "app store", "apple", "microsof
                     "epic games store", "steam", "gog", "gog.com", "prime gaming", "ubisoft", "ubisoft store", "ea",
                     "humble bundle", "itch.io", "norton", "mcafee", "kaspersky", "bitdefender", "avast", "nordvpn",
                     "surfshark", "adobe", "amazon luna", "xbox", "playstation store"}
-RE_GRUPO_SOFTWARE = re.compile(r"aplicacion|software|antivirus|vpn|videojuego|(^|-)juegos?(-|$)")
+# Pruebas gratis de suscripciones (Spotify, Netflix, Audible, Game Pass...): también las quiere
+RE_SUSCRIPCION = re.compile(r"(?<![a-z0-9])(spotify|netflix|disney\+?|hbo|max|prime video|amazon prime|prime|audible|"
+                            r"kindle unlimited|music unlimited|apple music|apple tv|apple one|youtube premium|"
+                            r"youtube music|dazn|movistar|filmin|skyshowtime|crunchyroll|deezer|tidal|atresplayer|"
+                            r"mitele plus|rakuten|game pass|ps plus|playstation plus|ea play|ubisoft\+?|geforce now|"
+                            r"suscripcion|suscripciones|premium|meses gratis|mes gratis|dias gratis|prueba gratis|"
+                            r"prueba gratuita|periodo de prueba)(?![a-z0-9])")
+RE_GRUPO_SOFTWARE = re.compile(r"aplicacion|software|antivirus|vpn|videojuego|(^|-)juegos?(-|$)|suscripcion|streaming")
 RE_NINTENDO = re.compile(r"(?<![a-z0-9])(nintendo|switch|joy-?con|amiibo)(?![a-z0-9])")
 
 
 def es_app_o_juego_gratis(o: dict) -> bool:
-    """¿Es un juego, una app o un programa gratis? Con los grupos de la página de la oferta en Chollometro
+    """¿Es un juego, una app, un programa o una prueba de suscripción gratis? Con los grupos de la página de la oferta en Chollometro
     («Totalmente gratis», «Aplicaciones Android», «Antivirus», «Juegos gratis»...) se decide por ellos;
     en los listados solo hay el grupo principal, así que se usan el título y la tienda."""
     titulo = RE_ENVIO_GRATIS.sub(" ", normalizar(o.get("titulo")))
@@ -1153,11 +1160,11 @@ def es_app_o_juego_gratis(o: dict) -> bool:
         return gratis and any(RE_GRUPO_SOFTWARE.search(g) and "mesa" not in g for g in grupos)
     if not es_gratis(o):
         return False
-    return bool(RE_SOFTWARE.search(titulo) or normalizar(o.get("tienda")) in TIENDAS_SOFTWARE
-                or o.get("grupo") == GRUPO_GAMING)
+    return bool(RE_SOFTWARE.search(titulo) or RE_SUSCRIPCION.search(titulo)
+                or normalizar(o.get("tienda")) in TIENDAS_SOFTWARE or o.get("grupo") == GRUPO_GAMING)
 
 
-CATEGORIA_JUEGOS_GRATIS = {"id": "juegos_gratis", "nombre": "Juego o app gratis", "emoji": "🎁", "activo": True,
+CATEGORIA_JUEGOS_GRATIS = {"id": "juegos_gratis", "nombre": "Gratis: juego, app o suscripción", "emoji": "🎁", "activo": True,
                            "incluir": [], "excluir": [], "forzar": [], "avisos": [], "necesita": [],
                            "grados": None, "precio_max": None, "precio_min": None, "tema": None,
                            "re_incluir": None, "re_excluir": None, "re_forzar": None, "re_necesita": None,
