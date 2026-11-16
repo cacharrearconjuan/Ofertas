@@ -1949,9 +1949,25 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Oculto: manda solo el aviso de ejemplo (para revisar cómo se ve)."""
+    """Oculto: datos de unas ofertas concretas (para revisar cómo las clasifica el bot)."""
+    import os
     cats_txt, _, _ = leer_palabras()
-    ejemplo_amazon(cfg, compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)])
+    cats = compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)]
+    for hid in (os.environ.get("HILOS") or "1950577 2071047").split():
+        for url in (f"{WEB}/share-deal-from-app/{hid}", f"{WEB}/ofertas/x-{hid}"):
+            try:
+                t = descargar(url, intentos=0).decode("utf-8", "replace")
+            except Exception as ex:  # noqa: BLE001
+                log(f"HILO {hid} {url} ERROR {ex}")
+                continue
+            d = hilos_en_html(t).get(hid) or {}
+            log(f"HILO {hid} · {d.get('titulo')} · {d.get('tienda')} · precio={d.get('precio')} · grupo={d.get('grupo')} · "
+                f"tipo={d.get('tipo')} · {d.get('grados')}° · es_juego={es_juego(d)} · es_gratis={es_gratis(d)} · "
+                f"categorias={clasificar(d, cats, cfg, None)}")
+            for k in ("mainGroup", "groups", "threadGroup"):
+                for m in list(re.finditer(rf'"{k}"', t))[:1]:
+                    log(f"   {k}: " + re.sub(r"\s+", " ", t[m.start():m.start() + 400]))
+            break
 
 
 def main() -> int:
