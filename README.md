@@ -156,8 +156,12 @@ La parte de chollos anteriores y otras tiendas sale de la web de PrecioReal, que
 
 ## Juegos y otras fuentes
 
-- **Juegos:** los de cualquier plataforma (PS5, PS4, Switch, Xbox, PC…) **no avisan nunca, salvo que sean gratis** (🎁 Juego gratis). Las consolas y los accesorios sí avisan: se distinguen porque llevan alguna palabra de la sección `[🕹️ No son juegos]` de `palabras.txt` (consola, mando, auriculares…). Si un accesorio se quedara fuera por error, añade allí su palabra. Para no recibir ni los gratis: `config.json` → `juegos` → `avisar_gratis: false`.
-- **Juegos gratis:** no cuentan como tales las recopilaciones de rebajas, aunque Chollometro las ponga a 0 €. Tampoco cuentan las apps gratis del Play Store o del App Store que no son juegos.
+- **Juegos:** los de cualquier plataforma (PS5, PS4, Switch, Xbox, PC…) **no avisan nunca, salvo que sean gratis** (🎁 Juego o app gratis). Las consolas y los accesorios sí avisan: se distinguen porque llevan alguna palabra de la sección `[🕹️ No son juegos]` de `palabras.txt` (consola, mando, auriculares…). Si un accesorio se quedara fuera por error, añade allí su palabra. Para no recibir ni los gratis: `config.json` → `juegos` → `avisar_gratis: false`.
+- **🎁 Juegos y apps gratis:** llegan los juegos gratis y también las apps y programas gratis, como las apps de pago gratis del Play Store o «1 año GRATIS de Norton 360».
+  - En los listados de Chollometro solo hay el grupo principal, así que el bot los detecta por el título y la tienda.
+  - Justo antes de avisar abre la oferta y lo confirma con los grupos de Chollometro («Totalmente gratis», «Aplicaciones Android», «Aplicaciones y software», «Antivirus», «Juegos gratis»…).
+  - No cuentan las recopilaciones de rebajas, aunque Chollometro las ponga a 0 €, ni las muestras gratis, ni los regalos de bancos, ni las pruebas de Spotify y similares (no son apps ni programas).
+  - Nada de Nintendo, tampoco gratis.
 - **Otras fuentes** (`config.json` → `fuentes_extra`): **Ofertitas** y **HardZone**.
   - No tienen votos, así que el criterio es otro: tienen que encajar con tus palabras y llevar **al menos un 20 % de descuento** (`descuento_minimo`).
   - Salen marcadas con 🏷️ −XX % y el nombre de la fuente.

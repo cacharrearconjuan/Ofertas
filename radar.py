@@ -513,6 +513,8 @@ def _hilo_desde_json(d: dict) -> dict | None:
         "tipo": str(tipo).lower() if tipo else None,
         "es_cupon": bool(d.get("isVoucher") or d.get("voucherCode")) and precio is None,
         "grupo": (d.get("mainGroup") or {}).get("threadGroupUrlName") if isinstance(d.get("mainGroup"), dict) else None,
+        "grupos": [g["threadGroupUrlName"] for g in d["groups"] if isinstance(g, dict) and g.get("threadGroupUrlName")]
+        if isinstance(d.get("groups"), list) and d["groups"] else None,
     }
 
 
@@ -1113,24 +1115,49 @@ PRECIO_MIN_CONSOLA = 120
 
 RE_NO_ES_GRATIS = re.compile(r"(?<![a-z0-9])(recopil\w*|rebaj\w*|descuentos?|ofertas|hasta|desde|seleccion|"
                              r"black friday|cyber monday|\d{1,2}\s?%)(?![a-z0-9])")
-TIENDAS_DE_APPS = ("play store", "google play", "app store")
-RE_JUEGO = re.compile(r"(?<![a-z0-9])(juegos?|games?|videojuegos?)(?![a-z0-9])")
 
 
 def es_gratis(o: dict) -> bool:
-    """Gratis de verdad. Las recopilaciones de rebajas también salen a 0 € en Chollometro, y las apps
-    gratis de Android/iPhone no son juegos."""
+    """Gratis de verdad. Las recopilaciones de rebajas también salen a 0 € en Chollometro."""
     if (o.get("precio") or 0) > 0:          # "actualización gratis", "envío gratis"... pero cuesta dinero
         return False
     titulo = RE_ENVIO_GRATIS.sub(" ", normalizar(o.get("titulo")))
-    if any(t in normalizar(o.get("tienda")) for t in TIENDAS_DE_APPS) and not RE_JUEGO.search(titulo):
-        return False
     if RE_GRATIS.search(titulo):
         return True
     return o.get("precio") == 0 and tipo_hilo(o) == "oferta" and not RE_NO_ES_GRATIS.search(titulo)
 
 
-CATEGORIA_JUEGOS_GRATIS = {"id": "juegos_gratis", "nombre": "Juego gratis", "emoji": "🎁", "activo": True,
+# Juegos y apps/programas gratis (p. ej. «1 Año GRATIS de Norton 360», apps de pago gratis en Play Store)
+RE_SOFTWARE = re.compile(r"(?<![a-z0-9])(apps?|aplicacion(es)?|android|ios|iphone|ipad|software|programa|licencia|"
+                         r"antivirus|vpn|windows|macos|norton|mcafee|kaspersky|bitdefender|avast|eset|nordvpn|surfshark|"
+                         r"protonvpn|office|microsoft 365|adobe|juegos?|videojuegos?|steam|epic games|gog|prime gaming|"
+                         r"ubisoft|play store|google play|app store)(?![a-z0-9])")
+TIENDAS_SOFTWARE = {"play store", "google play", "app store", "apple", "microsoft store", "microsoft", "epic games",
+                    "epic games store", "steam", "gog", "gog.com", "prime gaming", "ubisoft", "ubisoft store", "ea",
+                    "humble bundle", "itch.io", "norton", "mcafee", "kaspersky", "bitdefender", "avast", "nordvpn",
+                    "surfshark", "adobe", "amazon luna", "xbox", "playstation store"}
+RE_GRUPO_SOFTWARE = re.compile(r"aplicacion|software|antivirus|vpn|videojuego|(^|-)juegos?(-|$)")
+RE_NINTENDO = re.compile(r"(?<![a-z0-9])(nintendo|switch|joy-?con|amiibo)(?![a-z0-9])")
+
+
+def es_app_o_juego_gratis(o: dict) -> bool:
+    """¿Es un juego, una app o un programa gratis? Con los grupos de la página de la oferta en Chollometro
+    («Totalmente gratis», «Aplicaciones Android», «Antivirus», «Juegos gratis»...) se decide por ellos;
+    en los listados solo hay el grupo principal, así que se usan el título y la tienda."""
+    titulo = RE_ENVIO_GRATIS.sub(" ", normalizar(o.get("titulo")))
+    if RE_NINTENDO.search(titulo):            # nada de Nintendo, ni gratis
+        return False
+    grupos = [normalizar(g) for g in (o.get("grupos") or [])]
+    if grupos:
+        gratis = "gratis" in grupos or ((o.get("precio") or 0) == 0 and bool(RE_GRATIS.search(titulo)))
+        return gratis and any(RE_GRUPO_SOFTWARE.search(g) and "mesa" not in g for g in grupos)
+    if not es_gratis(o):
+        return False
+    return bool(RE_SOFTWARE.search(titulo) or normalizar(o.get("tienda")) in TIENDAS_SOFTWARE
+                or o.get("grupo") == GRUPO_GAMING)
+
+
+CATEGORIA_JUEGOS_GRATIS = {"id": "juegos_gratis", "nombre": "Juego o app gratis", "emoji": "🎁", "activo": True,
                            "incluir": [], "excluir": [], "forzar": [], "avisos": [], "necesita": [],
                            "grados": None, "precio_max": None, "precio_min": None, "tema": None,
                            "re_incluir": None, "re_excluir": None, "re_forzar": None, "re_necesita": None,
@@ -1158,9 +1185,9 @@ def es_almacenamiento(o: dict, cats) -> bool:
 
 def clasificar(o: dict, cats, cfg, excluir_global) -> list[str]:
     # Juegos de cualquier plataforma: solo si son gratis (el almacenamiento nunca cuenta como juego)
+    quiere_gratis = (cfg.get("juegos") or {}).get("avisar_gratis", True)
     if es_juego(o) and not es_almacenamiento(o, cats):
-        quiere = (cfg.get("juegos") or {}).get("avisar_gratis", True)
-        return ["juegos_gratis"] if quiere and es_gratis(o) and \
+        return ["juegos_gratis"] if quiere_gratis and es_app_o_juego_gratis(o) and \
             not (excluir_global and excluir_global.search(normalizar(o.get("titulo")))) else []
     texto = " ".join([o.get("titulo", ""), " ".join(o.get("cats_rss", []))])
     if cfg.get("buscar_en_descripcion"):
@@ -1181,6 +1208,8 @@ def clasificar(o: dict, cats, cfg, excluir_global) -> list[str]:
         if precio is not None and c["precio_min"] is not None and precio < c["precio_min"]:
             continue
         elegidas.append(c["id"])
+    if quiere_gratis and "juegos_gratis" not in elegidas and es_app_o_juego_gratis(o):
+        elegidas.append("juegos_gratis")
     return elegidas
 
 
@@ -1568,7 +1597,7 @@ def destino_desde_pagina(o: dict):
 
 
 CAMPOS_PAGINA = ("grados", "tienda", "caducada", "tipo", "es_cupon", "destino", "codigo", "precio_antes", "grupo",
-                 "precioreal")
+                 "precioreal", "grupos")
 
 
 def estimar_fechas(ofertas: dict):
@@ -1818,6 +1847,13 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
                     log(f"  {s['id']}: ya no está activa en Chollometro; no se avisa")
                     seguimiento.pop(s["id"], None)
                     continue
+                if s.get("grupos"):     # con los grupos de la página se confirma (sobre todo los gratis)
+                    s["categorias"] = clasificar(s, cats, cfg, excluir_global)
+                    if not s["categorias"]:
+                        log(f"  {s['id']}: vista la oferta, no encaja (grupos: {', '.join(s['grupos'])}); no se avisa")
+                        avisados[s["id"]] = ahora
+                        seguimiento.pop(s["id"], None)
+                        continue
                 completar_destino(s)
             enriquecer_amazon(s, cfg)
             enriquecer_precioreal(s, cfg)
@@ -1949,28 +1985,9 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Oculto: grupos de Chollometro de ofertas gratis (página de la oferta y listados)."""
-    for hid in ("1950577", "2071047"):
-        t = descargar(f"{WEB}/share-deal-from-app/{hid}", intentos=0).decode("utf-8", "replace")
-        for d in _objetos_sueltos(t):
-            if str(d.get("threadId")) == hid and isinstance(d.get("groups"), list):
-                log(f"GRUPOS {hid}: " + ", ".join(f"{g.get('threadGroupUrlName')}={g.get('threadGroupName')}"
-                                                for g in d["groups"] if isinstance(g, dict)))
-                log(f"   claves: {sorted(d.keys())[:80]}")
-                break
-    for p in ("https://www.chollometro.com/", "https://www.chollometro.com/grupo/gratis", "https://www.chollometro.com/nuevos"):
-        try:
-            t = descargar(p).decode("utf-8", "replace")
-        except Exception as ex:  # noqa: BLE001
-            log(f"LISTA {p} ERROR {ex}")
-            continue
-        hilos = hilos_en_html(t)
-        con = sum(1 for _ in re.finditer(r'"groups"', t))
-        log(f"LISTA {p}: {len(hilos)} hilos · apariciones de groups={con}")
-        for m in list(re.finditer(r'"threadGroupUrlName":"([^"]+)"', t))[:0]:
-            pass
-        for hid, h in list(hilos.items())[:12]:
-            log(f"   {hid} {h.get('grupo')} · {h.get('precio')} · {h.get('tienda')} · {h.get('titulo','')[:60]}")
+    """Oculto: manda solo el aviso de ejemplo (para revisar cómo se ve)."""
+    cats_txt, _, _ = leer_palabras()
+    ejemplo_amazon(cfg, compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)])
 
 
 def main() -> int:
