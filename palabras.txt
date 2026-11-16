@@ -38,6 +38,9 @@
 # Ejemplos (quita la # para activarlos):
 # reacondicionado
 # segunda mano
+# Merchandising (huchas, lámparas, figuras... de videojuegos):
+hucha, alcancia, salero, pimentero, lampara, figura, figuras, funko, peluche, lego
+taza, camiseta, sudadera, llavero, poster, puzzle, calcetines, pijama, disfraz
 
 
 [🕹️ No son juegos]
@@ -58,6 +61,8 @@ fundas, kit, accesorios, accesorio, hub, mando a distancia, gafas, capturadora, 
 # llevar además una palabra de consola o accesorio (línea "necesita").
 ps5, ps4, playstation 5, playstation 4, playstation portal, ps portal
 ps vr2, psvr2, ps plus, playstation plus
+# Nada de Nintendo
+-nintendo, -switch 2, -switch oled, -switch lite, -joy-con, -joycon, -amiibo
 necesita: consola, consolas, slim, ps5 pro, ps4 pro, ps5 digital, edicion digital, digital edition, portal, vr2, psvr2
 necesita: ps plus, playstation plus, suscripcion, lector, unidad de disco, 1tb, 2tb, 825gb
 necesita: base de carga, estacion de carga, cargador, volante, camara, pack consola, bundle
@@ -69,6 +74,8 @@ joy-con, joycon, pro controller, 8bitdo, gamesir, scuf, xbox elite
 -mando a distancia, -mando de garaje, -mando garaje, -mando universal
 -mando para tv, -mando tv, -mando de la tele, -mando aire acondicionado, -mando de aire
 -smart tv, -televisor, -dron, -drone, -ventilador, -lampara, -techo, -persiana, -toldo, -calefactor
+# Nada de Nintendo
+-nintendo, -switch 2, -switch oled, -switch lite, -joy-con, -joycon, -amiibo
 # Solo mandos de juego: el título tiene que llevar alguna de estas
 necesita: ps5, ps4, playstation, xbox, switch, nintendo, pc, gaming, gamer, dualsense, dualshock, joy-con, joycon
 necesita: controller, gamepad, 8bitdo, gamesir, scuf, elite, steam, android, iphone, movil, consola, inalambrico para
@@ -150,6 +157,9 @@ aviso: select, stick hd => ⚠️ Ojo: los modelos nuevos con Vega OS (4K Select
 
 
 [🍄 Nintendo]
+# Apagada: no quieres nada de Nintendo (ni consolas, ni mandos, ni accesorios).
+# Las tarjetas microSD «para Switch» siguen llegando por SSD, M.2 y discos.
+apagada
 nintendo switch, switch 2, switch oled, nintendo, joy-con, amiibo
 -mando a distancia, -lego, -peluche, -camiseta, -taza, -calcetines, -pijama
 
@@ -162,17 +172,23 @@ xbox, xbox series, game pass, gamepass
 steam deck, rog ally, legion go, msi claw, consola portatil, retroid
 anbernic, ayaneo, miyoo, ayn thor, ayn odin, consola retro
 re:consola.{0,25}portatil
+# Nada de Nintendo
+-nintendo, -switch 2, -switch oled, -switch lite, -joy-con, -joycon, -amiibo
 
 
 [💳 Saldo y suscripciones]
 tarjeta playstation, saldo psn, psn, tarjeta regalo playstation
-tarjeta xbox, tarjeta nintendo, eshop, tarjeta steam, saldo steam
+tarjeta xbox, tarjeta steam, saldo steam
+# Nada de Nintendo
+-nintendo, -switch 2, -switch oled, -switch lite, -joy-con, -joycon, -amiibo, -eshop
 
 
 [🖥️ Monitores]
 monitor, monitores, monitor gaming
 -monitor de bebe, -vigilabebes, -monitor cardiaco, -monitor de actividad
 -monitor de presion, -tensiometro, -frecuencia cardiaca, -temperatura, -humedad, -garmin
+# Nada de Nintendo
+-nintendo, -switch 2, -switch oled, -switch lite, -joy-con, -joycon, -amiibo
 # Solo pantallas: el título tiene que llevar alguna de estas
 necesita: hz, pulgadas, qhd, fhd, full hd, uhd, 4k, 2k, oled, qd-oled, woled, ips, curvo, ultrawide, gaming
 necesita: re:\d{2}([.,]\d)?\s*("|”|'')
@@ -190,6 +206,8 @@ rtx, radeon, tarjeta grafica, geforce, re:\brtx\s?50\d0\b
 [🎧 Auriculares]
 auriculares, auricular, headset, cascos gaming, pulse 3d, pulse elite, pulse explore
 airpods, galaxy buds, sony wh, sony wf
+# Nada de Nintendo
+-nintendo, -switch 2, -switch oled, -switch lite, -joy-con, -joycon, -amiibo
 
 
 [📡 Redes y wifi]

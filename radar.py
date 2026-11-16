@@ -1111,13 +1111,23 @@ def es_juego(o: dict) -> bool:
 PRECIO_MIN_CONSOLA = 120
 
 
+RE_NO_ES_GRATIS = re.compile(r"(?<![a-z0-9])(recopil\w*|rebaj\w*|descuentos?|ofertas|hasta|desde|seleccion|"
+                             r"black friday|cyber monday|\d{1,2}\s?%)(?![a-z0-9])")
+TIENDAS_DE_APPS = ("play store", "google play", "app store")
+RE_JUEGO = re.compile(r"(?<![a-z0-9])(juegos?|games?|videojuegos?)(?![a-z0-9])")
+
+
 def es_gratis(o: dict) -> bool:
-    if o.get("precio") == 0 and tipo_hilo(o) == "oferta":
-        return True
+    """Gratis de verdad. Las recopilaciones de rebajas también salen a 0 € en Chollometro, y las apps
+    gratis de Android/iPhone no son juegos."""
     if (o.get("precio") or 0) > 0:          # "actualización gratis", "envío gratis"... pero cuesta dinero
         return False
     titulo = RE_ENVIO_GRATIS.sub(" ", normalizar(o.get("titulo")))
-    return bool(RE_GRATIS.search(titulo))
+    if any(t in normalizar(o.get("tienda")) for t in TIENDAS_DE_APPS) and not RE_JUEGO.search(titulo):
+        return False
+    if RE_GRATIS.search(titulo):
+        return True
+    return o.get("precio") == 0 and tipo_hilo(o) == "oferta" and not RE_NO_ES_GRATIS.search(titulo)
 
 
 CATEGORIA_JUEGOS_GRATIS = {"id": "juegos_gratis", "nombre": "Juego gratis", "emoji": "🎁", "activo": True,
@@ -1408,6 +1418,10 @@ RE_ENLACE_OTRAS = re.compile(r'href=["\'](https?://(?:[a-z]+\.)?(?:amazon\.es|am
                              r's\.click\.aliexpress\.com|pccomponentes\.com|mediamarkt\.es|elcorteingles\.es)[^"\']*)', re.I)
 
 
+RE_TIENDA_CON_ASIN = re.compile(r'href=["\']https?://(?:www\.)?ofertitas\.es/[^"\']*[?&](?:amp;)?asin=([A-Z0-9]{10})(?![A-Z0-9])',
+                                re.I)
+
+
 def descuento_en_texto(texto: str) -> int | None:
     m = RE_DESCUENTO.search(texto or "")
     return int(next(g for g in m.groups() if g)) if m else None
@@ -1416,6 +1430,43 @@ def descuento_en_texto(texto: str) -> int | None:
 def parecido(a: str, b: str) -> float:
     from difflib import SequenceMatcher
     return SequenceMatcher(None, normalizar(a), normalizar(b)).ratio()
+
+
+PALABRAS_VACIAS = set("""de del la el los las un una por para con sin y o en a al solo oferta ofertas precio envio gratis
+    disco duro discos ssd externo externa interno interna portatil tarjeta memoria nuevo nueva color negro blanco
+    pack unidad unidades version modelo edicion euros eur""".split())
+
+
+VARIANTES = set("""extreme ultra pro plus evo select max mini lite portable slim shield go play high endurance
+    elite prime basic basics red blue black green purple gold one touch expansion barracuda ironwolf canvio""".split())
+
+
+def _huella(titulo: str) -> tuple[set, set, set]:
+    """(capacidades, códigos de modelo, palabras) de un título, sin precios ni relleno."""
+    t = normalizar(titulo)
+    t = re.sub(r"\d+(?:[.,]\d+)?\s*(?:€|eur\b|euros?)|\(?[-−]\s?\d{1,2}\s?%\)?", " ", t)
+    t = re.sub(r"(\d+(?:[.,]\d+)?)\s+(tb|gb)\b", r"\1\2", t)
+    palabras = {p for p in re.findall(r"[a-z0-9]+", t) if p not in PALABRAS_VACIAS and len(p) > 1}
+    capacidades = {p for p in palabras if re.fullmatch(r"\d+(?:[.,]\d+)?(tb|gb)", p)}
+    modelos = {p for p in palabras - capacidades if re.search(r"\d", p) and re.search(r"[a-z]", p)}
+    return capacidades, modelos, palabras
+
+
+def mismo_producto(a: str, b: str) -> bool:
+    """¿Dos títulos de webs distintas son el mismo producto? («Disco duro Toshiba Canvio 4TB» y
+    «Disco duro Toshiba Canvio de 4 TB por sólo 147,99€») Capacidad y modelo tienen que coincidir."""
+    if parecido(a, b) >= 0.85:
+        return True
+    ca, ma, pa = _huella(a)
+    cb, mb, pb = _huella(b)
+    if (ca or cb) and ca != cb:
+        return False
+    corto, largo, mc, ml = (pa, pb, ma, mb) if len(pa) <= len(pb) else (pb, pa, mb, ma)
+    if mc and ml and not (mc & ml):
+        return False
+    if len(corto) < 2 or (pa ^ pb) & VARIANTES:     # «Extreme» frente a «Ultra», «P3» frente a «P3 Plus»
+        return False
+    return len(corto & largo) / len(corto) >= 0.75
 
 
 def leer_fuentes_extra(cfg, cats, excluir_global, avisados: dict, recientes: list[str], iniciadas: dict):
@@ -1453,7 +1504,7 @@ def leer_fuentes_extra(cfg, cats, excluir_global, avisados: dict, recientes: lis
                 o["categorias"] = [c for c in o["categorias"] if c in solo]
             if not o["categorias"]:
                 continue
-            if any(parecido(o["titulo"], t) >= 0.85 for t in recientes):
+            if any(mismo_producto(o["titulo"], t) for t in recientes):
                 log(f"  {nombre}: «{o['titulo'][:50]}» ya avisada por otra fuente")
                 avisados[o["id"]] = time.time()
                 continue
@@ -1466,23 +1517,49 @@ def leer_fuentes_extra(cfg, cats, excluir_global, avisados: dict, recientes: lis
     return salida, silenciosas
 
 
+def ya_avisado_mismo_asin(s: dict, destacadas: dict, ahora: float) -> str | None:
+    """Mismo producto de Amazon avisado en los últimos 3 días (desde otra fuente o en otro chollo).
+    Solo se vuelve a avisar si ahora está al menos un 3 % más barato."""
+    asin = s.get("asin")
+    if not asin:
+        return None
+    for d in destacadas.values():
+        if d.get("id") == s.get("id") or d.get("asin") != asin or ahora - (d.get("avisado") or 0) > 72 * 3600:
+            continue
+        antes, ahora_precio = d.get("precio"), s.get("precio")
+        if antes and ahora_precio and ahora_precio < antes * 0.97:
+            continue
+        return d.get("id")
+    return None
+
+
 def destino_desde_pagina(o: dict):
     """En fuentes externas, busca en su página el enlace a la tienda (para el botón y Keepa)."""
     if o.get("destino") or not (o.get("enlace") or "").startswith("http"):
         return
     try:
         texto = descargar(o["enlace"], intentos=0).decode("utf-8", "replace")
+    except urllib.error.HTTPError as ex:
+        if ex.code in (404, 410):          # la han retirado
+            o["descartar"] = True
+        return
     except Exception:  # noqa: BLE001
         return
+    # Ofertitas (nov. 2026) enlaza a Amazon con su propia redirección: ofertitas.es/tienda/?asin=XXXXXXXXXX.
+    # El primero es el del producto; los siguientes son otras ofertas de la barra lateral.
+    m = RE_TIENDA_CON_ASIN.search(texto)
+    if m:
+        o["destino"] = f"https://www.amazon.es/dp/{m.group(1).upper()}"
+        o["tienda"] = "Amazon"
     # En la página hay muchos enlaces (anuncios de Prime, otras ofertas...): solo vale el del producto.
     # Amazon: el primero que lleve ASIN (/dp/...) o un enlace corto amzn.to; otras tiendas: el primero de producto.
-    enlaces = [html.unescape(m.group(1)) for m in RE_ENLACE_OTRAS.finditer(texto)]
+    enlaces = [html.unescape(m.group(1)) for m in RE_ENLACE_OTRAS.finditer(texto)] if not o.get("destino") else []
     amazon = [u for u in enlaces if "amazon." in u or "amzn." in u or "a.co/" in u]
     elegido = next((u for u in amazon if extraer_asin(u)), None) \
         or next((u for u in amazon if re.search(r"//(amzn\.(to|eu)|a\.co)/", u)), None)
     if not elegido and not amazon:
         elegido = next((u for u in enlaces if re.search(r"/item/\d+|s\.click\.aliexpress|\.html|/p/|/producto", u)), None)
-    if elegido:
+    if elegido and not o.get("destino"):
         o["destino"] = elegido
     if not o.get("imagen"):
         m = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', texto)
@@ -1730,6 +1807,11 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             s["advertencias"] = advertencias(s, cats)
             if s.get("fuente"):
                 destino_desde_pagina(s)
+                if s.get("descartar") or not (s.get("destino") or "").startswith("http"):
+                    log(f"  {s['id']}: {'ya no está en ' + s['fuente'] if s.get('descartar') else 'sin enlace a la tienda'}"
+                        f"; no se avisa")
+                    avisados[s["id"]] = ahora
+                    continue
             else:
                 repasar_pagina(s)
                 if s.get("caducada") or s.get("descartar"):
@@ -1741,6 +1823,12 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
             enriquecer_precioreal(s, cfg)
             if s.get("destino") and _es_de_la_fuente(s["destino"]) and not MOSTRAR_BOTON_FUENTE:
                 s["destino"] = destino_real(s["destino"]) or s["destino"]
+            previo = ya_avisado_mismo_asin(s, destacadas, ahora)
+            if previo:
+                log(f"  {s['id']}: es el mismo producto que {previo}, avisado hace menos de 3 días; no se repite")
+                avisados[s["id"]] = ahora
+                seguimiento.pop(s["id"], None)
+                continue
             veredicto = (s.get("keepa_veredicto") or {}).get("nivel")
             if cfg_keepa.get("descartar_falsas") and veredicto == "rojo":
                 log(f"  {s['id']}: Keepa dice que no es rebaja; no se avisa")
@@ -1861,28 +1949,9 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Oculto: muestra dónde ponen el enlace de la tienda las fuentes extra."""
-    for f in cfg.get("fuentes_extra", []):
-        items = list(leer_rss(descargar(f["url"])))[:3]
-        for o in items:
-            log(f"EXTRA {f.get('nombre')} · {o['titulo'][:70]} · {o['enlace']}")
-            hrefs = re.findall(r'href=["\']([^"\']+)', html.unescape(o.get("descripcion") or ""))
-            log("   RSS hrefs: " + " | ".join(h[:120] for h in hrefs if "ofertitas" not in h and "hardzone" not in h)[:900])
-            try:
-                t = descargar(o["enlace"], intentos=0).decode("utf-8", "replace")
-            except Exception as ex:  # noqa: BLE001
-                log(f"   página ERROR {ex}")
-                continue
-            vistos = []
-            for m in re.finditer(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.{0,80})', t, re.S):
-                u = html.unescape(m.group(1))
-                if re.search(r"amazon|amzn|a\.co/|/go/|/out|/visit|redirect|goto|tienda|/ir/|clk|click", u, re.I) and u not in vistos:
-                    vistos.append(u)
-                    log("   A " + u[:200] + "  ::  " + re.sub(r"\s+|<[^>]+>", " ", m.group(2))[:60])
-                if len(vistos) >= 12:
-                    break
-            for m in list(re.finditer(r"(?i)comprar|ver oferta|ir a la oferta|ir a la tienda", t))[:3]:
-                log("   CTX " + re.sub(r"\s+", " ", t[max(0, m.start() - 300):m.start() + 120]))
+    """Oculto: manda solo el aviso de ejemplo (para revisar cómo se ve)."""
+    cats_txt, _, _ = leer_palabras()
+    ejemplo_amazon(cfg, compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)])
 
 
 def main() -> int:
