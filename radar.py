@@ -1949,25 +1949,28 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Oculto: datos de unas ofertas concretas (para revisar cómo las clasifica el bot)."""
-    import os
-    cats_txt, _, _ = leer_palabras()
-    cats = compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)]
-    for hid in (os.environ.get("HILOS") or "1950577 2071047").split():
-        for url in (f"{WEB}/share-deal-from-app/{hid}", f"{WEB}/ofertas/x-{hid}"):
-            try:
-                t = descargar(url, intentos=0).decode("utf-8", "replace")
-            except Exception as ex:  # noqa: BLE001
-                log(f"HILO {hid} {url} ERROR {ex}")
-                continue
-            d = hilos_en_html(t).get(hid) or {}
-            log(f"HILO {hid} · {d.get('titulo')} · {d.get('tienda')} · precio={d.get('precio')} · grupo={d.get('grupo')} · "
-                f"tipo={d.get('tipo')} · {d.get('grados')}° · es_juego={es_juego(d)} · es_gratis={es_gratis(d)} · "
-                f"categorias={clasificar(d, cats, cfg, None)}")
-            for k in ("mainGroup", "groups", "threadGroup"):
-                for m in list(re.finditer(rf'"{k}"', t))[:1]:
-                    log(f"   {k}: " + re.sub(r"\s+", " ", t[m.start():m.start() + 400]))
-            break
+    """Oculto: grupos de Chollometro de ofertas gratis (página de la oferta y listados)."""
+    for hid in ("1950577", "2071047"):
+        t = descargar(f"{WEB}/share-deal-from-app/{hid}", intentos=0).decode("utf-8", "replace")
+        for d in _objetos_sueltos(t):
+            if str(d.get("threadId")) == hid and isinstance(d.get("groups"), list):
+                log(f"GRUPOS {hid}: " + ", ".join(f"{g.get('threadGroupUrlName')}={g.get('threadGroupName')}"
+                                                for g in d["groups"] if isinstance(g, dict)))
+                log(f"   claves: {sorted(d.keys())[:80]}")
+                break
+    for p in ("https://www.chollometro.com/", "https://www.chollometro.com/grupo/gratis", "https://www.chollometro.com/nuevos"):
+        try:
+            t = descargar(p).decode("utf-8", "replace")
+        except Exception as ex:  # noqa: BLE001
+            log(f"LISTA {p} ERROR {ex}")
+            continue
+        hilos = hilos_en_html(t)
+        con = sum(1 for _ in re.finditer(r'"groups"', t))
+        log(f"LISTA {p}: {len(hilos)} hilos · apariciones de groups={con}")
+        for m in list(re.finditer(r'"threadGroupUrlName":"([^"]+)"', t))[:0]:
+            pass
+        for hid, h in list(hilos.items())[:12]:
+            log(f"   {hid} {h.get('grupo')} · {h.get('precio')} · {h.get('tienda')} · {h.get('titulo','')[:60]}")
 
 
 def main() -> int:
