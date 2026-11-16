@@ -1861,9 +1861,28 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Oculto: manda solo el aviso de ejemplo (para revisar cómo se ve)."""
-    cats_txt, _, _ = leer_palabras()
-    ejemplo_amazon(cfg, compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)])
+    """Oculto: muestra dónde ponen el enlace de la tienda las fuentes extra."""
+    for f in cfg.get("fuentes_extra", []):
+        items = list(leer_rss(descargar(f["url"])))[:3]
+        for o in items:
+            log(f"EXTRA {f.get('nombre')} · {o['titulo'][:70]} · {o['enlace']}")
+            hrefs = re.findall(r'href=["\']([^"\']+)', html.unescape(o.get("descripcion") or ""))
+            log("   RSS hrefs: " + " | ".join(h[:120] for h in hrefs if "ofertitas" not in h and "hardzone" not in h)[:900])
+            try:
+                t = descargar(o["enlace"], intentos=0).decode("utf-8", "replace")
+            except Exception as ex:  # noqa: BLE001
+                log(f"   página ERROR {ex}")
+                continue
+            vistos = []
+            for m in re.finditer(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.{0,80})', t, re.S):
+                u = html.unescape(m.group(1))
+                if re.search(r"amazon|amzn|a\.co/|/go/|/out|/visit|redirect|goto|tienda|/ir/|clk|click", u, re.I) and u not in vistos:
+                    vistos.append(u)
+                    log("   A " + u[:200] + "  ::  " + re.sub(r"\s+|<[^>]+>", " ", m.group(2))[:60])
+                if len(vistos) >= 12:
+                    break
+            for m in list(re.finditer(r"(?i)comprar|ver oferta|ir a la oferta|ir a la tienda", t))[:3]:
+                log("   CTX " + re.sub(r"\s+", " ", t[max(0, m.start() - 300):m.start() + 120]))
 
 
 def main() -> int:
