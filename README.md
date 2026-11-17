@@ -80,6 +80,8 @@ Al minuto estará en **https://cacharrearconjuan.github.io/Ofertas/**. En el mó
 
 ## Añadir o quitar palabras
 
+> **Mínimo de grados por categoría:** `💻 Portátiles` tiene `grados: 500`, así que solo avisa de portátiles con 500° o más. Los PC de sobremesa y mini PC van aparte, en `🖥️ PC de sobremesa y mini PC`, con el mínimo general (200°). Si una oferta entra en dos categorías y una tiene un mínimo más alto que el general, manda ese (un «portátil + auriculares de regalo» también espera a 500°).
+
 Abre **`palabras.txt`** en GitHub → **lápiz** → cambia → **Commit changes**. Se aplica en la siguiente ronda.
 
 Así es una categoría. Las líneas marcadas como «opcional» **no están puestas** en tu fichero: ahora mismo todas las categorías usan el mínimo general de **200°** y **no tienen límite de precio**.

@@ -1287,9 +1287,14 @@ def clasificar(o: dict, cats, cfg, excluir_global) -> list[str]:
 
 
 def umbral(o: dict, cats_por_id: dict, minimo_global: float) -> float:
-    """El mínimo de grados de una oferta es el más bajo de sus categorías."""
-    valores = [cats_por_id[c]["grados"] if cats_por_id[c]["grados"] is not None else minimo_global
-               for c in o.get("categorias", []) if c in cats_por_id]
+    """El mínimo de grados de una oferta es el más bajo de sus categorías, salvo que alguna tenga un mínimo
+    propio MÁS ALTO que el general (p. ej. portátiles a 500°): entonces manda ese, para que un
+    «portátil + auriculares de regalo» no se cuele a 200° por la categoría de auriculares."""
+    cats = [cats_por_id[c] for c in o.get("categorias", []) if c in cats_por_id]
+    estrictos = [c["grados"] for c in cats if c["grados"] is not None and c["grados"] > minimo_global]
+    if estrictos:
+        return max(estrictos)
+    valores = [c["grados"] if c["grados"] is not None else minimo_global for c in cats]
     return min(valores) if valores else minimo_global
 
 

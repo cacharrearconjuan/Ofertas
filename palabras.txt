@@ -119,9 +119,10 @@ aviso: sata => ℹ️ SSD SATA: perfecto para PC, portátil o como disco externo
 aviso: ps5 => ℹ️ Para la ranura de la PS5: NVMe PCIe 4.0, 5.500 MB/s o más y con disipador.
 
 
-[💻 Portátiles y PC]
-portatil, portatiles, laptop, ultrabook, ordenador, ordenadores, sobremesa
-mini pc, minipc, macbook, chromebook, pc gaming, torre gaming, all in one
+[💻 Portátiles]
+# Solo te avisa de portátiles con 500° o más
+grados: 500
+portatil, portatiles, laptop, ultrabook, macbook, chromebook
 # Modelos que a veces no llevan la palabra "portátil" en el título
 ideapad, thinkpad, thinkbook, lenovo legion, lenovo loq, lenovo yoga, vivobook, zenbook
 rog zephyrus, hp victus, hp omen, hp pavilion, hp envy, elitebook
@@ -130,9 +131,11 @@ dell inspiron, dell xps, galaxy book, surface laptop, matebook, magicbook
 re:(tuf gaming|tuf) [af]\d\d
 re:rog strix (g|scar)\s?\d*
 -legion go, -rog ally
+# Los de sobremesa van en su propia categoría
+-sobremesa, -torre, -tower, -mini pc, -minipc, -all in one, -mac mini, -imac
 # "portátil" también es adjetivo (irrigador portátil, altavoz portátil...): además de la palabra,
 # el título tiene que parecer un ordenador (empezar por Portátil/Ordenador o llevar RAM, procesador, pulgadas...)
-necesita: re:^(portatil|ordenador|laptop|mini ?pc|pc gaming|sobremesa|torre|all in one)
+necesita: re:^(portatil|ordenador portatil|laptop)
 necesita: ram, ddr4, ddr5, ssd, intel, ryzen, core i3, core i5, core i7, core i9, core ultra, celeron
 necesita: snapdragon, pulgadas, rtx, geforce, radeon, windows, chromebook, macbook, ultrabook
 necesita: ideapad, thinkpad, thinkbook, lenovo legion, lenovo loq, lenovo yoga, vivobook, zenbook, rog zephyrus
@@ -150,6 +153,19 @@ necesita: re:\d{1,2}([.,]\d)?\s*("|”|pulg)
 -altavoz portatil, -bateria portatil, -power bank, -aire acondicionado
 -nevera portatil, -proyector portatil, -impresora portatil, -ventilador portatil
 -consola portatil, -monitor portatil, -radio portatil, -barbacoa, -consola, -consolas, -monitor, -monitores
+
+[🖥️ PC de sobremesa y mini PC]
+ordenador, ordenadores, sobremesa, mini pc, minipc, pc gaming, torre gaming, all in one, mac mini, imac
+lenovo legion tower, legion tower, hp omen 35l, hp omen 45l
+# Los portátiles van en su propia categoría (a 500°)
+-portatil, -portatiles, -laptop, -ultrabook, -macbook, -chromebook
+necesita: re:^(ordenador|mini ?pc|pc gaming|sobremesa|torre|all in one|mac mini|imac)
+necesita: ram, ddr4, ddr5, ssd, intel, ryzen, core i3, core i5, core i7, core i9, core ultra, celeron
+necesita: snapdragon, rtx, geforce, radeon, windows, apple m1, apple m2, apple m3, apple m4, chip m4
+necesita: re:\bm[1-5]( pro| max| ultra)?\b
+# Accesorios
+-para ordenador, -para pc, -mochila, -funda, -soporte, -alfombrilla, -cargador, -pegatina, -mesa para
+-silla, -escritorio, -consola, -consolas, -monitor, -monitores, -teclado, -raton
 
 
 [📺 Fire TV]
