@@ -773,9 +773,10 @@ def enriquecer_precioreal(s: dict, cfg: dict):
 
 
 def _mes(ts: float) -> str:
+    """Fecha corta: «21 nov 2025»."""
     try:
         f = datetime.fromtimestamp(ts)
-        return f"{MESES[f.month - 1]} {f.year}"
+        return f"{f.day} {MESES[f.month - 1]} {f.year}"
     except (ValueError, OSError, OverflowError):
         return ""
 
@@ -798,7 +799,7 @@ def precioreal_lineas(o: dict) -> list[str]:
         elif precio and precio <= minimo + 0.009:
             lineas.append(f"🟰 Igual que el mejor chollo anterior ({formatear_precio(minimo)})")
         else:
-            lineas.append(f"📉 Ya estuvo a {formatear_precio(minimo)}" + (f" ({cuando})" if cuando else ""))
+            lineas.append(f"📉 Ya estuvo a {formatear_precio(minimo)}" + (f" el {cuando}" if cuando else ""))
     otra = pr.get("otra_tienda")
     if otra and precio:
         if otra["precio"] < precio - 0.5:
@@ -808,6 +809,70 @@ def precioreal_lineas(o: dict) -> list[str]:
         else:
             lineas.append(f"✅ Más barato que en {otra['tienda']} ({formatear_precio(otra['precio'])})")
     return lineas
+
+
+# --------------------------------------------------------------------------
+# Discos: precio por TB
+# --------------------------------------------------------------------------
+RE_CAPACIDAD = re.compile(r"(?<![\d.,])(\d{1,4}(?:[.,]\d{1,2})?)\s?(tb|gb)(?![a-z0-9])")
+RE_CAPACIDAD_PACK = re.compile(r"(?<![a-z0-9])(\d{1,2})\s?(?:x|uds?\.?\s?de|unidades de)\s?"
+                               r"(\d{1,4}(?:[.,]\d{1,2})?)\s?(tb|gb)(?![a-z0-9])")
+
+
+def _a_tb(valor: str, unidad: str) -> float | None:
+    try:
+        x = float(valor.replace(",", "."))
+    except ValueError:
+        return None
+    return x if unidad == "tb" else x / 1000
+
+
+def capacidad_tb(titulo: str) -> float | None:
+    """Capacidad en TB sacada del título («2TB», «512 GB», «Pack 2 x 4TB»). Si el título trae varias
+    capacidades distintas (opciones, RAM + disco...), no se inventa: devuelve None."""
+    t = normalizar(titulo)
+    m = RE_CAPACIDAD_PACK.search(t)
+    if m:
+        n, cap = int(m.group(1)), _a_tb(m.group(2), m.group(3))
+        return round(n * cap, 3) if cap and 1 < n <= 12 else None
+    caps = {c for c in (_a_tb(v, u) for v, u in RE_CAPACIDAD.findall(t)) if c and 0.03 <= c <= 40}
+    return caps.pop() if len(caps) == 1 else None
+
+
+def es_de_discos(o: dict) -> bool:
+    return any("ssd" in c or "disco" in c for c in o.get("categorias", []))
+
+
+def euros_por_tb(o: dict) -> float | None:
+    if o.get("eur_tb"):
+        return o["eur_tb"]
+    if not es_de_discos(o) or not o.get("precio"):
+        return None
+    cap = capacidad_tb(o.get("titulo", ""))
+    return round(o["precio"] / cap, 2) if cap else None
+
+
+# --------------------------------------------------------------------------
+# Errores de precio
+# --------------------------------------------------------------------------
+RE_ERROR_PRECIO = re.compile(r"(?<![a-z0-9])(errore?s? de precio|posible error|fallo de precio|precio erroneo|"
+                             r"bug de precio|error en el precio|price error|price mistake|preisfehler)(?![a-z0-9])")
+
+
+def error_en_titulo(o: dict) -> bool:
+    return bool(RE_ERROR_PRECIO.search(normalizar(o.get("titulo"))))
+
+
+def marcar_error_de_precio(s: dict):
+    """⚠️ si el título lo dice o si el precio es la mitad (o menos) del mejor chollo anterior."""
+    if error_en_titulo(s):
+        s["error_precio"] = True
+        return
+    pr, precio = s.get("precioreal") or {}, s.get("precio")
+    if precio and pr.get("min_anterior") and precio <= pr["min_anterior"] * 0.5:
+        s["error_precio"] = True
+    if precio and s.get("precio_antes") and s.get("fuente") == "Radar €/TB" and precio <= s["precio_antes"] * 0.5:
+        s["error_precio"] = True
 
 
 def recortar_medidor(datos: bytes) -> bytes | None:
@@ -994,10 +1059,11 @@ def precio_keepa_ocr(asin: str) -> dict | None:
 
 def vigilar_precios(cfg: dict, estado: dict, silencioso: bool):
     """Avisa cuando baja el precio de los productos de vigilar.txt respecto al que tenían al añadirlos."""
-    productos = leer_vigilar()
-    if not productos:
-        return
+    productos = productos_vigilados(estado)
     datos = estado.setdefault("precios", {})
+    if not productos:
+        datos.clear()
+        return
     cada = (cfg.get("vigilar") or {}).get("cada_min", 30) * 60
     ahora = time.time()
     tag = ((cfg.get("afiliados") or {}).get("amazon_tag") or "").strip()
@@ -1251,6 +1317,45 @@ def en_silencio(cfg) -> bool:
     return (desde <= ahora < hasta) if desde <= hasta else (ahora >= desde or ahora < hasta)
 
 
+ULTIMO_ENVIO: dict = {}     # message_id del último aviso enviado (para marcarlo luego como agotado)
+
+
+def _apuntar_envio(respuesta: dict, foto: bool):
+    res = respuesta.get("result") if isinstance(respuesta, dict) else None
+    if isinstance(res, dict) and res.get("message_id"):
+        ULTIMO_ENVIO.clear()
+        ULTIMO_ENVIO.update({"message_id": res["message_id"], "foto": foto})
+
+
+def telegram_api(metodo: str, datos: dict) -> tuple[bool, str, dict]:
+    """Igual que _telegram_llamar, pero devuelve también la respuesta de Telegram."""
+    token = os.environ.get("TELEGRAM_TOKEN")
+    base = os.environ.get("TELEGRAM_API", "https://api.telegram.org")
+    url = f"{base}/bot{token}/{metodo}"
+    err = "sin respuesta"
+    for _ in range(3):
+        req = urllib.request.Request(url, data=json.dumps(datos).encode(),
+                                     headers={"Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=25) as r:
+                resp = json.load(r)
+                return bool(resp.get("ok")), "", resp
+        except urllib.error.HTTPError as ex:
+            cuerpo = ex.read().decode("utf-8", "replace")
+            if ex.code == 429:
+                try:
+                    espera = json.loads(cuerpo)["parameters"]["retry_after"]
+                except (KeyError, ValueError):
+                    espera = 10
+                time.sleep(espera + 1)
+                continue
+            return False, f"{ex.code}: {cuerpo[:300]}", {}
+        except (urllib.error.URLError, TimeoutError) as ex:
+            err = str(ex)
+            time.sleep(5)
+    return False, err, {}
+
+
 def _telegram_llamar(metodo: str, datos: dict) -> tuple[bool, str]:
     token = os.environ.get("TELEGRAM_TOKEN")
     base = os.environ.get("TELEGRAM_API", "https://api.telegram.org")
@@ -1260,7 +1365,10 @@ def _telegram_llamar(metodo: str, datos: dict) -> tuple[bool, str]:
                                      headers={"Content-Type": "application/json"})
         try:
             with urllib.request.urlopen(req, timeout=25) as r:
-                return bool(json.load(r).get("ok")), ""
+                resp = json.load(r)
+                if metodo in ("sendMessage", "sendPhoto"):
+                    _apuntar_envio(resp, metodo == "sendPhoto")
+                return bool(resp.get("ok")), ""
         except urllib.error.HTTPError as ex:
             cuerpo = ex.read().decode("utf-8", "replace")
             if ex.code == 429:
@@ -1295,7 +1403,9 @@ def _telegram_subir_foto(datos: dict, imagen: bytes) -> tuple[bool, str]:
                                      headers={"Content-Type": f"multipart/form-data; boundary={limite}"})
         try:
             with urllib.request.urlopen(req, timeout=40) as r:
-                return bool(json.load(r).get("ok")), ""
+                resp = json.load(r)
+                _apuntar_envio(resp, True)
+                return bool(resp.get("ok")), ""
         except urllib.error.HTTPError as ex:
             cuerpo = ex.read().decode("utf-8", "replace")
             if ex.code == 429:          # demasiados mensajes: Telegram dice cuánto esperar
@@ -1325,6 +1435,7 @@ def telegram(texto: str, silencioso: bool = False, foto: str | bytes | list | No
         base["message_thread_id"] = tema
     if botones:
         base["reply_markup"] = {"inline_keyboard": botones}
+    ULTIMO_ENVIO.clear()
     for f in ([foto] if isinstance(foto, (str, bytes)) else (foto or [])):
         if not f or len(texto) > 1024:
             continue
@@ -1365,7 +1476,10 @@ def mensaje(o: dict, cats_por_id: dict) -> str:
     else:
         medida = (f"🏷️ <b>−{o['descuento']}%</b>" if o.get("descuento") else "🏷️") + \
             f" · <i>{e(o.get('fuente', ''))}</i>"
-    lineas = [f"{cabecera_tienda(o)}  ·  {medida}", f"<b>{e(o['titulo'])}</b>"]
+    lineas = [f"{cabecera_tienda(o)}  ·  {medida}"]
+    if o.get("error_precio"):
+        lineas.append("⚠️ <b>¿ERROR DE PRECIO?</b> Suelen durar poco")
+    lineas.append(f"<b>{e(o['titulo'])}</b>")
     precio = ""
     if o.get("precio") is not None:
         precio = f"💶 <b>{formatear_precio(o['precio'])}</b>"
@@ -1374,6 +1488,9 @@ def mensaje(o: dict, cats_por_id: dict) -> str:
             precio += f" <s>{formatear_precio(o['precio_antes'])}</s> (−{pct}%)"
     if precio:
         lineas.append(precio)
+    eur_tb = euros_por_tb(o)
+    if eur_tb:
+        lineas.append(f"💾 {formatear_precio(eur_tb)}/TB")
     if o.get("codigo"):
         lineas.append(f"🏷️ Código: <code>{e(o['codigo'])}</code>")
     if o.get("keepa_veredicto"):
@@ -1431,17 +1548,17 @@ def cargar_json(ruta: Path, defecto):
 def guardar_json(ruta: Path, datos):
     ruta.parent.mkdir(parents=True, exist_ok=True)
     tmp = ruta.with_suffix(".tmp")
-    tmp.write_text(json.dumps(datos, ensure_ascii=False, indent=1), encoding="utf-8")
+    tmp.write_text(json.dumps(datos, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     tmp.replace(ruta)
 
 
 CAMPOS_WEB = ("id", "afiliado", "fuente", "descuento", "tipo_hilo", "titulo", "enlace", "destino", "tienda", "precio", "precio_antes", "codigo",
               "grados", "categorias", "imagen", "fecha", "detectado", "avisado", "advertencias",
-              "asin", "keepa", "keepa_veredicto", "precioreal", "precioreal_lineas")
+              "asin", "keepa", "keepa_veredicto", "precioreal", "precioreal_lineas", "eur_tb", "error_precio")
 
 
 def para_web(o: dict) -> dict:
-    o = {**o, "tipo_hilo": tipo_hilo(o), "precioreal_lineas": precioreal_lineas(o)}
+    o = {**o, "tipo_hilo": tipo_hilo(o), "precioreal_lineas": precioreal_lineas(o), "eur_tb": euros_por_tb(o)}
     return {k: o.get(k) for k in CAMPOS_WEB if o.get(k) not in (None, "", [])}
 
 
@@ -1672,11 +1789,410 @@ def descubrir(cfg) -> tuple[dict, int, int, int]:
     return ofertas, fuentes, fallos, fallos_rss
 
 
+# --------------------------------------------------------------------------
+# Radar €/TB: todo el almacenamiento de Amazon.es (storagediskprices.com), cada hora
+# --------------------------------------------------------------------------
+TECNOLOGIAS_RADAR = ("hdd", "ssd", "nvme", "microsd")
+RE_NO_ES_DISCO = re.compile(r"(?<![a-z0-9])(carcasa|carcasas|caja|cajas|enclosure|dock|docking|estacion de acoplamiento|"
+                            r"adaptador|bahia|bahias|servidor|cinta|cintas|tape|lto|ultrium|cartucho|duplicador|"
+                            r"clonador|lector|cable|rack|funda|estuche|reacondicionado|renovado)(?![a-z0-9])")
+
+
+def titulo_corto(t: str, maximo: int = 110) -> str:
+    """Los títulos de Amazon son kilométricos: se cortan por una palabra, con «…»."""
+    t = re.sub(r"\s+", " ", t or "").strip()
+    if len(t) <= maximo:
+        return t
+    corte = t[:maximo].rsplit(" ", 1)[0].rstrip(",;:-–|(")
+    return corte + "…"
+
+
+def _celda(fila: str, etiqueta: str) -> str:
+    m = re.search(rf'data-label="{etiqueta}"[^>]*>(.*?)</td>', fila, re.S)
+    return html.unescape(re.sub(r"<[^>]+>", " ", m.group(1))).strip() if m else ""
+
+
+def leer_storagediskprices(texto: str) -> list[dict]:
+    """Filas de la tabla: ASIN, título, capacidad (TB), precio, tecnología y si es usado."""
+    salida = []
+    for fila in re.findall(r'<tr><td class="prod".*?</tr>', texto, re.S):
+        m = re.search(r'href="https?://www\.amazon\.es/dp/([A-Z0-9]{10})', fila)
+        tit = re.search(r'<a [^>]*title="([^"]+)"', fila)
+        if not m or not tit:
+            continue
+        cap = re.match(r"([\d.,]+)\s*(TB|GB)", _celda(fila, "Capacidad"), re.I)
+        salida.append({
+            "asin": m.group(1),
+            "titulo": html.unescape(tit.group(1)),
+            "cap": _a_tb(cap.group(1), cap.group(2).lower()) if cap else None,
+            "precio": a_numero(_celda(fila, "Precio").replace("€", "")),
+            "tec": _celda(fila, "Tecnología"),
+            "usado": "badge-cond" in fila,
+        })
+    return salida
+
+
+def _vale_para_radar(p: dict, cats, excluir_global, precio_min: float) -> bool:
+    titulo = normalizar(p["titulo"])
+    if p["usado"] or not p["precio"] or p["precio"] < precio_min or not p["cap"]:
+        return False
+    if normalizar(p["tec"]).split(" ")[0] not in TECNOLOGIAS_RADAR or "sas" in normalizar(p["tec"]):
+        return False
+    if RE_NO_ES_DISCO.search(titulo) or (excluir_global and excluir_global.search(titulo)):
+        return False
+    cap_titulo = capacidad_tb(p["titulo"])         # la del título tiene que cuadrar (descarta carcasas «hasta 24TB»)
+    if not cap_titulo or abs(cap_titulo - p["cap"]) > p["cap"] * 0.1:
+        return False
+    return es_almacenamiento({"titulo": p["titulo"]}, cats)
+
+
+def radar_eurtb(cfg, estado, cats, excluir_global, silencioso, destacadas, avisados, cats_por_id) -> int:
+    conf = cfg.get("radar_eurtb") or {}
+    if not conf.get("activo") or not conf.get("url"):
+        return 0
+    st = estado.setdefault("radar_eurtb", {"ultima": 0, "p": {}})
+    ahora = time.time()
+    if ahora - st.get("ultima", 0) < conf.get("cada_min", 60) * 60 - 30:
+        return 0
+    st["ultima"] = ahora
+    try:
+        filas = leer_storagediskprices(descargar(conf["url"]).decode("utf-8", "replace"))
+    except Exception as ex:  # noqa: BLE001
+        log(f"Radar €/TB: no se pudo leer ({ex})")
+        return 0
+    hoy = str(int(ahora // 86400))
+    precio_min = float(conf.get("precio_minimo", 15))
+    bajada = float(conf.get("bajada_minima", 15)) / 100
+    dias_min = int(conf.get("dias_minimos", 2))
+    id_discos = next((c["id"] for c in cats if "ssd" in c["id"] or "disco" in c["id"]), "ssd_m_2_y_discos")
+    productos, candidatos, validos = st.setdefault("p", {}), [], 0
+    for p in filas:
+        if not _vale_para_radar(p, cats, excluir_global, precio_min):
+            continue
+        validos += 1
+        d = productos.setdefault(p["asin"], {"h": {}})
+        d["vis"] = ahora
+        h = d["h"]
+        antes = {k: v for k, v in h.items() if k != hoy}
+        h[hoy] = min(h.get(hoy, p["precio"]), p["precio"])
+        for k in sorted(h)[:-8]:
+            h.pop(k)
+        if len(antes) < dias_min:
+            continue
+        valores = sorted(antes.values())
+        ref = valores[len(valores) // 2]
+        precio = p["precio"]
+        if precio <= ref * (1 - bajada) and precio < min(valores) - 0.009 and \
+                (not d.get("av") or precio < d["av"] * 0.97 or ahora - d.get("avt", 0) > 7 * 86400):
+            candidatos.append((1 - precio / ref, p, ref, d))
+    for asin in [a for a, d in productos.items() if ahora - d.get("vis", 0) > 8 * 86400]:
+        productos.pop(asin)
+    log(f"Radar €/TB: {len(filas)} productos, {validos} discos vigilados, {len(candidatos)} bajadas")
+    enviados = 0
+    for caida, p, ref, d in sorted(candidatos, key=lambda x: -x[0])[: conf.get("max_avisos_por_ronda", 3)]:
+        s = {"id": f"eurtb-{p['asin']}-{hoy}", "fuente": "Radar €/TB", "titulo": titulo_corto(p["titulo"]), "tienda": "Amazon",
+             "precio": p["precio"], "precio_antes": round(ref, 2), "descuento": round(caida * 100),
+             "destino": f"https://www.amazon.es/dp/{p['asin']}", "categorias": [id_discos],
+             "eur_tb": round(p["precio"] / p["cap"], 2), "detectado": ahora}
+        if s["id"] in avisados:
+            continue
+        enriquecer_amazon(s, cfg)
+        enriquecer_precioreal(s, cfg)
+        marcar_error_de_precio(s)
+        if ya_avisado_mismo_asin(s, destacadas, ahora):
+            log(f"  Radar €/TB {p['asin']}: ya avisado hace poco")
+            d["av"], d["avt"] = p["precio"], ahora
+            continue
+        if telegram(mensaje(s, cats_por_id), silencioso, foto=fotos_para(s, cfg), botones=botones(s),
+                    tema=tema_de(s, cats_por_id, cfg)) or not os.environ.get("TELEGRAM_TOKEN"):
+            enviados += 1
+            s["avisado"] = ahora
+            avisados[s["id"]] = ahora
+            destacadas[s["id"]] = para_web(s)
+            apuntar_semana(estado, s)
+            d["av"], d["avt"] = p["precio"], ahora
+            guardar_json(RUTA_ESTADO, estado)
+            time.sleep(3)
+    return enviados
+
+
+# --------------------------------------------------------------------------
+# Keepa: tus seguimientos de precio, por RSS (cuenta gratuita de Keepa)
+# --------------------------------------------------------------------------
+RE_ASIN_KEEPA = re.compile(r"product/\d+-([A-Z0-9]{10})")
+
+
+def keepa_rss(cfg, estado, silencioso, destacadas, avisados, cats_por_id) -> int:
+    url = (os.environ.get("KEEPA_RSS") or "").strip()
+    if not url:
+        return 0
+    st = estado.setdefault("keepa_rss", {"vistos": [], "iniciado": False})
+    try:
+        items = list(leer_rss(descargar(url)))
+    except Exception as ex:  # noqa: BLE001
+        log(f"Keepa RSS: no se pudo leer ({ex})")
+        return 0
+    vistos = set(st["vistos"])
+    nuevos = [it for it in items if (it["guid"] or it["enlace"] or it["titulo"]) not in vistos]
+    st["vistos"] = (st["vistos"] + [it["guid"] or it["enlace"] or it["titulo"] for it in nuevos])[-300:]
+    if not st.get("iniciado"):
+        st["iniciado"] = True
+        log(f"Keepa RSS: primera lectura, {len(items)} entradas guardadas sin avisar")
+        return 0
+    enviados = 0
+    for it in nuevos[:5]:
+        desc = html.unescape(it.get("descripcion") or "")
+        texto = f"{it['titulo']} {quitar_html(desc)}"
+        asin = extraer_asin(it["enlace"]) or extraer_asin(desc)
+        if not asin:
+            m = RE_ASIN_KEEPA.search(it["enlace"] + " " + desc)
+            asin = m.group(1) if m else None
+        s = {"id": f"keepa-{asin or slug(it['titulo'])[:40]}-{int(time.time())}", "fuente": "Keepa",
+             "titulo": it["titulo"] or (asin or "Producto de Amazon"), "tienda": "Amazon",
+             "precio": precio_en_texto(it["titulo"]) or precio_en_texto(quitar_html(desc)),
+             "destino": f"https://www.amazon.es/dp/{asin}" if asin else it["enlace"], "categorias": []}
+        if asin:
+            enriquecer_amazon(s, cfg)
+            enriquecer_precioreal(s, cfg)
+        resumen = re.sub(r"\s+", " ", quitar_html(desc)).strip()
+        cuerpo = mensaje(s, cats_por_id).replace("🏷️ · <i>Keepa</i>", "🔔 <b>Tu seguimiento de Keepa</b>", 1)
+        if resumen and resumen not in it["titulo"]:
+            cuerpo += f"\n<i>{e(resumen[:200])}</i>"
+        if telegram(cuerpo, silencioso, foto=[keepa_grafica_bytes(asin)] if asin else None, botones=botones(s)):
+            enviados += 1
+            time.sleep(3)
+    log(f"Keepa RSS: {len(items)} entradas, {len(nuevos)} nuevas, {enviados} avisos")
+    return enviados
+
+
+# --------------------------------------------------------------------------
+# Avisos que caducan: se marcan como «❌ Ya no está disponible»
+# --------------------------------------------------------------------------
+def apuntar_mensaje(estado: dict, s: dict, texto: str, botones_: list):
+    """Guarda lo justo para poder editar luego el aviso (no se guarda el chat: el estado es público)."""
+    if not ULTIMO_ENVIO.get("message_id") or not (s.get("enlace") or "").startswith("http"):
+        return
+    estado.setdefault("mensajes", {})[s["id"]] = {
+        "m": ULTIMO_ENVIO["message_id"], "f": ULTIMO_ENVIO.get("foto", False), "t": texto, "b": botones_,
+        "e": s["enlace"], "fu": s.get("fuente"), "ts": time.time(), "chk": time.time()}
+
+
+def marcar_agotadas(estado: dict, ofertas: dict, cfg: dict) -> int:
+    chat = os.environ.get("TELEGRAM_CHAT_ID")
+    msgs = estado.setdefault("mensajes", {})
+    ahora, revisadas, editadas = time.time(), 0, 0
+    for hid, m in list(msgs.items()):
+        if ahora - m.get("ts", 0) > 72 * 3600:
+            msgs.pop(hid)
+            continue
+        agotada = bool((ofertas.get(hid) or {}).get("caducada"))
+        if not agotada and revisadas < 6 and ahora - m.get("chk", 0) > 2 * 3600:
+            revisadas += 1
+            m["chk"] = ahora
+            try:
+                if m.get("fu"):
+                    descargar(m["e"], intentos=0)
+                else:
+                    agotada = bool((datos_de_pagina(m["e"], hid) or {}).get("caducada"))
+            except urllib.error.HTTPError as ex:
+                agotada = ex.code in (404, 410)
+            except Exception:  # noqa: BLE001
+                pass
+        if not agotada or not chat:
+            continue
+        lineas = ["❌ <b>YA NO ESTÁ DISPONIBLE</b>"] + m["t"].split("\n")
+        while m.get("f") and len("\n".join(lineas)) > 1024 and len(lineas) > 3:
+            lineas.pop()      # quita líneas enteras del final (categorías...) para no romper el HTML
+        datos = {"chat_id": chat, "message_id": m["m"], "parse_mode": "HTML",
+                 "reply_markup": {"inline_keyboard": m.get("b") or []}}
+        datos["caption" if m.get("f") else "text"] = "\n".join(lineas)
+        ok, err, _ = telegram_api("editMessageCaption" if m.get("f") else "editMessageText", datos)
+        if ok:
+            editadas += 1
+        else:
+            log(f"  No se pudo marcar {hid} como agotada ({err[:100]})")
+        msgs.pop(hid)
+    if editadas:
+        log(f"Avisos marcados como agotados: {editadas}")
+    return editadas
+
+
+# --------------------------------------------------------------------------
+# Comandos por Telegram: /vigilar, /dejar, /lista, /ayuda
+# --------------------------------------------------------------------------
+AYUDA_COMANDOS = ("🤖 <b>Comandos del radar</b>\n"
+                  "/vigilar <i>enlace de Amazon</i> [nombre] → vigilo su precio y te aviso si baja\n"
+                  "/lista → lo que estoy vigilando\n"
+                  "/dejar <i>número o enlace</i> → dejo de vigilarlo\n"
+                  "Por privado también vale mandarme solo el enlace.")
+RE_URL = re.compile(r"https?://\S+")
+
+
+def productos_vigilados(estado: dict) -> list[dict]:
+    quitados = set(estado.get("vigilar_quitados", []))
+    lista = [p for p in leer_vigilar() if p["asin"] not in quitados]
+    for p in estado.get("vigilar_extra", []):
+        if p["asin"] not in {x["asin"] for x in lista}:
+            lista.append({"asin": p["asin"], "nombre": p.get("nombre")})
+    return lista
+
+
+def _asin_de_texto(texto: str) -> str | None:
+    for u in RE_URL.findall(texto):
+        asin = extraer_asin(u) or extraer_asin(seguir_redirecciones(u))
+        if asin:
+            return asin
+    m = re.search(r"(?<![A-Z0-9])(B0[A-Z0-9]{8})(?![A-Z0-9])", texto.upper())
+    return m.group(1) if m else None
+
+
+def atender_comandos(estado: dict) -> int:
+    grupo = os.environ.get("TELEGRAM_CHAT_ID")
+    if not os.environ.get("TELEGRAM_TOKEN") or not grupo:
+        return 0
+    datos = {"timeout": 0, "allowed_updates": ["message"]}
+    if estado.get("tg_offset"):
+        datos["offset"] = estado["tg_offset"] + 1
+    ok, err, resp = telegram_api("getUpdates", datos)
+    if not ok:
+        log(f"Comandos: no se pudieron leer ({err[:120]})")
+        return 0
+    atendidos = 0
+    for upd in resp.get("result", []):
+        estado["tg_offset"] = max(estado.get("tg_offset", 0), upd.get("update_id", 0))
+        msg = upd.get("message") or {}
+        texto = (msg.get("text") or "").strip()
+        chat = msg.get("chat") or {}
+        if not texto:
+            continue
+        privado = chat.get("type") == "private"
+        palabra = texto.split()[0].split("@")[0].lower() if texto.startswith("/") else ""
+        if palabra not in ("/vigilar", "/dejar", "/lista", "/ayuda", "/start") and not (privado and RE_URL.search(texto)):
+            continue
+        if str(chat.get("id")) != str(grupo):          # por privado: solo admins del grupo
+            okm, _, r = telegram_api("getChatMember", {"chat_id": grupo, "user_id": (msg.get("from") or {}).get("id")})
+            if not okm or (r.get("result") or {}).get("status") not in ("creator", "administrator"):
+                continue
+        respuesta = responder_comando(estado, palabra or "/vigilar", texto)
+        destino = {"chat_id": chat.get("id"), "text": respuesta, "parse_mode": "HTML",
+                   "reply_parameters": {"message_id": msg.get("message_id"), "allow_sending_without_reply": True}}
+        if msg.get("message_thread_id") and msg.get("is_topic_message"):
+            destino["message_thread_id"] = msg["message_thread_id"]
+        telegram_api("sendMessage", destino)
+        atendidos += 1
+    if atendidos:
+        log(f"Comandos atendidos: {atendidos}")
+    return atendidos
+
+
+def responder_comando(estado: dict, palabra: str, texto: str) -> str:
+    extra = estado.setdefault("vigilar_extra", [])
+    quitados = estado.setdefault("vigilar_quitados", [])
+    lista = productos_vigilados(estado)
+    precios = estado.get("precios", {})
+    if palabra in ("/ayuda", "/start"):
+        return AYUDA_COMANDOS
+    if palabra == "/lista":
+        if not lista:
+            return "No estoy vigilando nada. Usa /vigilar con un enlace de Amazon."
+        filas = []
+        for i, p in enumerate(lista, 1):
+            d = precios.get(p["asin"], {})
+            ref = f" · {formatear_precio(d['referencia'])}" if d.get("referencia") else " · (aún sin precio)"
+            filas.append(f"{i}. {e(p.get('nombre') or d.get('nombre') or p['asin'])}{ref}")
+        return "👀 <b>Vigilando</b>\n" + "\n".join(filas) + "\n\nPara quitar uno: /dejar número"
+    partes = texto.split(None, 1)
+    resto = (partes[1] if len(partes) > 1 else "") if texto.startswith("/") else texto
+    if palabra == "/dejar":
+        objetivo = None
+        if resto.strip().isdigit() and 1 <= int(resto.strip()) <= len(lista):
+            objetivo = lista[int(resto.strip()) - 1]["asin"]
+        else:
+            objetivo = _asin_de_texto(resto)
+        if not objetivo or objetivo not in {p["asin"] for p in lista}:
+            return "No lo encuentro en la lista. Mira los números con /lista."
+        estado["vigilar_extra"] = [p for p in extra if p["asin"] != objetivo]
+        if objetivo in {p["asin"] for p in leer_vigilar()} and objetivo not in quitados:
+            quitados.append(objetivo)
+        return f"🗑️ Dejo de vigilar {e(objetivo)}."
+    asin = _asin_de_texto(resto)
+    if not asin:
+        return "No he encontrado un producto de Amazon en el mensaje. Ejemplo: /vigilar https://www.amazon.es/dp/B0CV7PGS46"
+    if asin in {p["asin"] for p in lista}:
+        return f"Ya lo estoy vigilando ({e(asin)})."
+    nombre = re.sub(r"\s+", " ", RE_URL.sub(" ", resto)).strip() or None
+    if asin in quitados:
+        quitados.remove(asin)
+    if asin not in {p["asin"] for p in productos_vigilados(estado)}:
+        extra.append({"asin": asin, "nombre": nombre})
+    return f"✅ Vigilo {e(nombre or asin)}. En unos minutos te mando su precio de ahora y te aviso si baja."
+
+
+# --------------------------------------------------------------------------
+# Resumen semanal
+# --------------------------------------------------------------------------
+def apuntar_semana(estado: dict, s: dict):
+    estado.setdefault("semana", []).append({
+        "ts": time.time(), "t": (s.get("titulo") or "")[:90], "c": s.get("categorias", []), "g": s.get("grados"),
+        "p": s.get("precio"), "d": s.get("destino") if (s.get("destino") or "").startswith("http") else None,
+        "e": euros_por_tb(s), "ti": s.get("tienda")})
+    estado["semana"] = [x for x in estado["semana"] if time.time() - x["ts"] < 8 * 86400]
+
+
+def resumen_semanal(cfg: dict, estado: dict, cats_por_id: dict) -> bool:
+    conf = cfg.get("resumen_semanal") or {}
+    if not conf.get("activo") or ZoneInfo is None or not os.environ.get("TELEGRAM_CHAT_ID"):
+        return False
+    local = datetime.now(ZoneInfo("Europe/Madrid"))
+    semana = local.strftime("%G-%V")
+    if local.weekday() != int(conf.get("dia", 6)) or local.hour < int(conf.get("hora", 20)) \
+            or estado.get("resumen_enviado") == semana:
+        return False
+    avisos = [x for x in estado.get("semana", []) if time.time() - x["ts"] < 7 * 86400]
+    estado["resumen_enviado"] = semana
+    if not avisos:
+        return False
+    def enlace(x):
+        t = e(x["t"][:70])
+        return f'<a href="{html.escape(x["d"], quote=True)}">{t}</a>' if x.get("d") else t
+    from collections import Counter
+    por_cat = Counter(c for x in avisos for c in x["c"] if c in cats_por_id)
+    lineas = [f"📊 <b>Resumen de la semana</b> · {len(avisos)} avisos"]
+    if por_cat:
+        lineas.append(" · ".join(f"{cats_por_id[c]['emoji']} {n}" for c, n in por_cat.most_common(8)))
+    top = sorted((x for x in avisos if x.get("g")), key=lambda x: -x["g"])[:5]
+    if top:
+        lineas.append("\n🔥 <b>Los más votados</b>")
+        lineas += [f"• {enlace(x)} — {formatear_precio(x['p']) if x.get('p') is not None else ''} · {int(x['g'])}°"
+                   for x in top]
+    discos = sorted((x for x in avisos if x.get("e")), key=lambda x: x["e"])[:3]
+    if discos:
+        lineas.append("\n💾 <b>Mejor precio por TB</b>")
+        lineas += [f"• {enlace(x)} — {formatear_precio(x['e'])}/TB ({formatear_precio(x['p'])})" for x in discos]
+    datos = {"chat_id": os.environ["TELEGRAM_CHAT_ID"], "text": "\n".join(lineas), "parse_mode": "HTML",
+             "link_preview_options": {"is_disabled": True}}
+    if os.environ.get("TELEGRAM_THREAD_ID"):
+        datos["message_thread_id"] = int(os.environ["TELEGRAM_THREAD_ID"])
+    ok, err, _ = telegram_api("sendMessage", datos)
+    log(f"Resumen semanal: {'enviado' if ok else 'ERROR ' + err[:100]}")
+    return ok
+
+
 def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
     ahora = time.time()
     cats_por_id = {c["id"]: c for c in cats}
     minimo = float(cfg.get("grados_minimos", 200))
     cfg_keepa = cfg.get("keepa") or {}
+    cfg_err = cfg.get("errores_de_precio") or {}
+
+    def umbral_de(s: dict) -> float:
+        """Mínimo de grados de la oferta. Vía rápida: los errores de precio de tus categorías (no los gratis)
+        avisan antes, porque suelen durar minutos."""
+        u = umbral(s, cats_por_id, minimo)
+        if cfg_err.get("via_rapida") and error_en_titulo(s) and \
+                any(c != "juegos_gratis" for c in s.get("categorias", [])):
+            u = min(u, float(cfg_err.get("grados_minimos", 100)))
+        return u
 
     primera = not RUTA_ESTADO.exists()
     estado = cargar_json(RUTA_ESTADO, {})
@@ -1725,7 +2241,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
     cada = cfg.get("recomprobar_cada_min", 30) * 60
     pendientes = sorted((s for s in seguimiento.values()
                          if s.get("enlace") and ahora - s.get("comprobado", 0) >= cada
-                         and (s.get("grados") or 0) < umbral(s, cats_por_id, minimo)),
+                         and (s.get("grados") or 0) < umbral_de(s)),
                         key=lambda s: s.get("comprobado", 0))
     limite = 3 if diagnostico else cfg.get("max_consultas_por_ronda", 40)
     leidas = intentadas = 0
@@ -1761,7 +2277,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
 
     # 3) Elegir las que ya pasan el mínimo
     listas = sorted((s for s in seguimiento.values()
-                     if (s.get("grados") or 0) >= umbral(s, cats_por_id, minimo)
+                     if (s.get("grados") or 0) >= umbral_de(s)
                      and not s.get("caducada") and not s.get("descartar")),
                     key=lambda s: -s["grados"])
 
@@ -1864,6 +2380,7 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
                 completar_destino(s)
             enriquecer_amazon(s, cfg)
             enriquecer_precioreal(s, cfg)
+            marcar_error_de_precio(s)
             if s.get("destino") and _es_de_la_fuente(s["destino"]) and not MOSTRAR_BOTON_FUENTE:
                 s["destino"] = destino_real(s["destino"]) or s["destino"]
             previo = ya_avisado_mismo_asin(s, destacadas, ahora)
@@ -1879,13 +2396,16 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
                 seguimiento.pop(s["id"], None)
                 continue
             fotos = fotos_para(s, cfg)
-            if telegram(mensaje(s, cats_por_id), silencioso, foto=fotos, botones=botones(s),
+            texto_aviso, botones_aviso = mensaje(s, cats_por_id), botones(s)
+            if telegram(texto_aviso, silencioso, foto=fotos, botones=botones_aviso,
                         tema=tema_de(s, cats_por_id, cfg)) or sin_telegram:
                 enviados += 1
                 s["avisado"] = ahora
                 avisados[s["id"]] = ahora
                 destacadas[s["id"]] = para_web(s)
                 seguimiento.pop(s["id"], None)
+                apuntar_mensaje(estado, s, texto_aviso, botones_aviso)
+                apuntar_semana(estado, s)
                 guardar_json(RUTA_ESTADO, estado)   # si algo falla después, no se repite el aviso
                 if not sin_telegram:
                     time.sleep(3)  # Telegram limita los mensajes por minuto en grupos
@@ -1912,10 +2432,22 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
     for hid in [h for h, t in avisados.items() if ahora - t > 30 * 86400]:
         avisados.pop(hid)
 
-    try:
-        vigilar_precios(cfg, estado, silencioso)
-    except Exception as ex:  # noqa: BLE001
-        log(f"Vigilancia de precios: error {ex}")
+    extras_ronda = (
+        ("Radar €/TB", lambda: radar_eurtb(cfg, estado, cats, excluir_global, silencioso, destacadas, avisados,
+                                           cats_por_id)),
+        ("Keepa RSS", lambda: keepa_rss(cfg, estado, silencioso, destacadas, avisados, cats_por_id)),
+        ("Agotadas", lambda: marcar_agotadas(estado, ofertas, cfg)),
+        ("Comandos", lambda: atender_comandos(estado)),
+        ("Vigilancia de precios", lambda: vigilar_precios(cfg, estado, silencioso)),
+        ("Resumen semanal", lambda: resumen_semanal(cfg, estado, cats_por_id)),
+    )
+    for nombre_extra, tarea in extras_ronda:
+        if primera and nombre_extra in ("Agotadas", "Resumen semanal"):
+            continue
+        try:
+            tarea()
+        except Exception as ex:  # noqa: BLE001
+            log(f"{nombre_extra}: error {ex}")
 
     estado["ultima_ronda"] = ahora
     guardar_json(RUTA_ESTADO, estado)
@@ -1992,14 +2524,9 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Oculto: estructura de storagediskprices y del RSS de Compradicción."""
-    import base64, gzip
-    for u in ("https://storagediskprices.com/es", "https://www.compradiccion.com/index.xml"):
-        try:
-            b = descargar(u, intentos=0)
-            log(f"DUMP {u} " + base64.b64encode(gzip.compress(b)).decode())
-        except Exception as ex:  # noqa: BLE001
-            log(f"DUMP {u} ERROR {ex}")
+    """Oculto: manda solo el aviso de ejemplo (para revisar cómo se ve)."""
+    cats_txt, _, _ = leer_palabras()
+    ejemplo_amazon(cfg, compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)])
 
 
 def main() -> int:

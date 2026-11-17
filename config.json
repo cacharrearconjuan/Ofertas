@@ -18,7 +18,8 @@
     "https://www.chollometro.com/search?q=disco+duro",
     "https://www.chollometro.com/search?q=nvme",
     "https://www.chollometro.com/search?q=m.2",
-    "https://www.chollometro.com/search?q=microsd"
+    "https://www.chollometro.com/search?q=microsd",
+    "https://www.chollometro.com/search?q=error+de+precio"
   ],
   "tiendas_permitidas": [],
   "temas_por_tienda": {
@@ -57,6 +58,27 @@
     }
   ],
   "_ayuda_fuentes_extra": "Webs sin votos: avisan si encajan con palabras.txt y tienen al menos descuento_minimo %. 'activa': false para apagar una. 'solo_categorias': lista de ids de categoría que se aceptan de esa fuente (p. ej. ssd_m_2_y_discos).",
+  "errores_de_precio": {
+    "_ayuda": "Los avisos de posibles errores de precio llevan ⚠️. Vía rápida: si el título dice que es un error de precio y es de tus categorías (no gratis), avisa desde estos grados en vez de 200. Para quitarla: via_rapida false.",
+    "via_rapida": true,
+    "grados_minimos": 100
+  },
+  "radar_eurtb": {
+    "_ayuda": "Vigila cada hora todo el almacenamiento de Amazon.es (storagediskprices.com) y avisa cuando un disco baja de golpe: al menos bajada_minima % por debajo de su precio de los últimos días y su precio más bajo desde que se vigila.",
+    "activo": true,
+    "url": "https://storagediskprices.com/es",
+    "cada_min": 60,
+    "bajada_minima": 15,
+    "dias_minimos": 3,
+    "precio_minimo": 15,
+    "max_avisos_por_ronda": 3
+  },
+  "resumen_semanal": {
+    "_ayuda": "Resumen de la semana el domingo (dia 6) a las 20:00 (hora de Madrid).",
+    "activo": true,
+    "dia": 6,
+    "hora": 20
+  },
   "precioreal": {
     "_ayuda": "PrecioReal (el comparador de Chollometro): veredicto, chollos anteriores y precio en otras tiendas. Sin cuenta.",
     "activo": true,

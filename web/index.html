@@ -164,11 +164,12 @@ function pintar(){
     return `<article class="tarjeta">
       <div class="foto">${icono}${o.imagen ? `<img src="${esc(o.imagen)}" alt="" loading="lazy" onerror="this.remove()">` : ""}</div>
       <div>
-        <div class="titulo"><a href="${esc(o.enlace)}" target="_blank" rel="noopener">${esc(o.titulo)}</a></div>
+        <div class="titulo"><a href="${esc(o.enlace || tienda || "#")}" target="_blank" rel="noopener">${o.error_precio ? "⚠️ " : ""}${esc(o.titulo)}</a></div>
         <div class="meta">
           ${o.grados != null ? `<span class="grados ${caliente?"":"frio"}">${Math.round(o.grados)}°</span>` : ""}
           ${o.precio != null ? `<span class="precio">${precio(o.precio)}</span>` : ""}
           ${o.precio_antes ? `<span class="antes">${precio(o.precio_antes)}</span>` : ""}
+          ${o.eur_tb ? `<span>💾 ${precio(o.eur_tb)}/TB</span>` : ""}
           ${o.tipo_hilo === "cupon" ? `<span>🎟️ Cupón</span>` : ""}
           ${o.tienda ? `<span>${/amazon/i.test(o.tienda) ? "🟠" : /aliexpress/i.test(o.tienda) ? "🔴" : "🏪"} ${esc(o.tienda)}</span>` : ""}
           <span>${(o.categorias||[]).map(c => emojis[c]||"").join(" ")}</span>
@@ -179,7 +180,7 @@ function pintar(){
         ${(o.precioreal_lineas||[]).map(t => `<div class="keepa">${esc(t)}</div>`).join("")}
         ${(o.advertencias||[]).map(a => `<div class="aviso">${esc(a)}</div>`).join("")}
         <div class="acciones">
-          <a class="boton" href="${esc(o.enlace)}" target="_blank" rel="noopener">🔥 Chollometro</a>
+          ${o.enlace ? `<a class="boton" href="${esc(o.enlace)}" target="_blank" rel="noopener">${o.fuente ? "📰 " + esc(o.fuente) : "🔥 Chollometro"}</a>` : ""}
           ${tienda ? `<a class="boton" href="${esc(tienda)}" target="_blank" rel="noopener">🛒 ${esc(o.tienda || "Tienda")}</a>` : ""}
           ${o.keepa ? `<a class="boton" href="${esc(o.keepa)}" target="_blank" rel="noopener">📈 Keepa</a>` : ""}
           ${o.precioreal && o.precioreal.enlace ? `<a class="boton" href="${esc(o.precioreal.enlace)}" target="_blank" rel="noopener">📊 PrecioReal</a>` : ""}

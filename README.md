@@ -186,6 +186,61 @@ Pega en `vigilar.txt` un enlace de Amazon por línea (opcional: ` | nombre`). La
 
 El precio sale de la leyenda de la gráfica gratuita de Keepa, leída con OCR. Amazon bloquea a GitHub, así que no se puede leer directamente de Amazon. Se compara el más barato entre «vendido por Amazon» y «nuevo» (otros vendedores), y el aviso dice cuál es. Keepa no actualiza todos los productos al minuto, así que una bajada puede tardar algo en verse.
 
+### Desde Telegram, sin tocar ficheros
+
+Escribe en el grupo (o al bot por privado, si eres administradora del grupo):
+
+| Comando | Qué hace |
+|---|---|
+| `/vigilar enlace-de-Amazon nombre` | Lo vigila. Vale cualquier enlace de Amazon, también los cortos de la app (`link.amazon`, `amzn.eu`). El nombre es opcional. |
+| `/lista` | Lo que se está vigilando, numerado, con su precio de referencia. |
+| `/dejar 2` | Deja de vigilar el número 2 de la lista. También vale el enlace. |
+| `/ayuda` | La lista de comandos. |
+
+Por privado basta con mandarle el enlace. Lo que añades o quitas así se guarda con el estado del radar. `vigilar.txt` sigue funcionando igual.
+
+### Con tu cuenta de Keepa (más fiable que leer la gráfica)
+
+Keepa es gratis para compradores y puede mandar tus alertas de precio a un **feed RSS**. El radar lo lee y las publica en el grupo (🔔 *Tu seguimiento de Keepa*, con tu botón de Amazon). Los pasos:
+
+1. Crea una cuenta gratuita en keepa.com.
+2. En la página de un producto de Keepa (o desde su app), pulsa **Seguir producto** y pon el precio que quieres.
+3. En los ajustes de notificaciones de Keepa, activa **RSS** y copia la dirección del feed.
+4. En GitHub → **Settings → Secrets and variables → Actions → New repository secret**, crea `KEEPA_RSS` y pega esa dirección.
+
+La primera lectura del feed se guarda sin avisar; a partir de ahí llega cada alerta nueva. No pegues la dirección en ningún sitio público: es personal.
+
+---
+
+## 💾 Radar €/TB (todo el almacenamiento de Amazon)
+
+Una vez por hora el radar lee storagediskprices.com/es: todos los discos duros, SSD, NVMe y microSD de Amazon.es, con su precio y su €/TB.
+
+- **Qué vigila:** solo discos de verdad. Quedan fuera carcasas, cajas, NAS, cintas, artículos usados o reacondicionados y SAS, y la capacidad del título tiene que cuadrar.
+- **Cuándo avisa:** cuando un disco baja al menos un **15 %** respecto a su precio de los últimos días **y** marca su precio más bajo desde que se vigila. Llega como *🏷️ −XX % · Radar €/TB*.
+- **Arranque:** necesita **3 días** de historial antes de avisar. Así no confunde una subida pasajera con una bajada.
+- **Sin repetidos:** no repite el mismo disco si ya se avisó hace poco, venga de donde venga.
+
+Todos los avisos de discos llevan ahora el **precio por TB** (💾 49,50 €/TB), también los de Chollometro.
+
+Se ajusta en `config.json` → `radar_eurtb`: `bajada_minima`, `dias_minimos`, `precio_minimo`, `max_avisos_por_ronda` y `activo: false` para apagarlo.
+
+## ⚠️ Errores de precio
+
+- **La marca.** Un aviso lleva **⚠️ ¿ERROR DE PRECIO?** si el título lo dice («error de precio», «posible error»…) o si el precio es la mitad, o menos, del mejor chollo anterior del producto (según PrecioReal).
+- **Vía rápida.** Los errores de precio de tus categorías avisan desde **100°** en vez de 200°, porque suelen durar minutos. Los gratis no entran en la vía rápida.
+  - Para quitarla: `config.json` → `errores_de_precio` → `via_rapida: false`.
+  - Para cambiar el mínimo: `grados_minimos`.
+- **Búsqueda propia.** El radar busca también «error de precio» en Chollometro.
+
+## Avisos que caducan
+
+Cuando una oferta de la que ya se avisó deja de estar disponible, el mensaje del grupo cambia a **❌ YA NO ESTÁ DISPONIBLE**. Funciona con las ofertas de Chollometro y con las de las fuentes extra, durante 3 días. Los botones se mantienen. Los mensajes que ya hayas reenviado a otro grupo no cambian.
+
+## Resumen semanal
+
+Los domingos a las 20:00 llega **📊 Resumen de la semana**: número de avisos por categoría, los 5 más votados y los discos con mejor precio por TB. Se cambia en `config.json` → `resumen_semanal` (día: 0 = lunes … 6 = domingo).
+
 ---
 
 ## Que se ejecute solo de verdad (cron-job.org)
@@ -238,3 +293,4 @@ Con `git pull` en el cron, lo que cambies en `palabras.txt` desde GitHub tambié
 - Si GitHub falla al recuperar el estado de la ronda anterior, esa ronda se para (sale en rojo en **Actions**) en vez de empezar de cero. Así no se repiten avisos ni el mensaje de «Radar en marcha». La siguiente ronda sigue con normalidad.
 - Justo antes de avisar, el bot vuelve a abrir la oferta en Chollometro. Si ya ha caducado, no avisa.
 - Los discos, SSD y tarjetas (microSD, «Game Drive»…) nunca se toman por juegos, aunque Chollometro los meta en el grupo de videojuegos.
+- En la categoría de discos, palabras como «iPad», «MacBook», «tablet» o «cámara» solo descartan la oferta si son el producto, no cuando son compatibles. «Disco duro externo para PC, Mac, iPad» entra; «Tablet de 128GB» no.
