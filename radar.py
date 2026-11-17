@@ -1992,9 +1992,14 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Oculto: manda solo el aviso de ejemplo (para revisar cómo se ve)."""
-    cats_txt, _, _ = leer_palabras()
-    ejemplo_amazon(cfg, compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)])
+    """Oculto: estructura de storagediskprices y del RSS de Compradicción."""
+    import base64, gzip
+    for u in ("https://storagediskprices.com/es", "https://www.compradiccion.com/index.xml"):
+        try:
+            b = descargar(u, intentos=0)
+            log(f"DUMP {u} " + base64.b64encode(gzip.compress(b)).decode())
+        except Exception as ex:  # noqa: BLE001
+            log(f"DUMP {u} ERROR {ex}")
 
 
 def main() -> int:
