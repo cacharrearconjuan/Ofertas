@@ -237,6 +237,12 @@ Se ajusta en `config.json` → `radar_eurtb`: `bajada_minima`, `dias_minimos`, `
   - Para cambiar el mínimo: `grados_minimos`.
 - **Búsqueda propia.** El radar busca también «error de precio» en Chollometro.
 
+## Sin avisos repetidos por culpa de Telegram
+
+- **Foto:** el bot descarga la foto del artículo y la sube él mismo. Antes le pasaba el enlace a Telegram, que tenía que descargarla de la web de la tienda; si esa web iba lenta, Telegram no contestaba a tiempo, el bot creía que había fallado y mandaba el aviso otra vez.
+- **Si Telegram no contesta a tiempo:** antes de reintentar, el bot comprueba si el aviso llegó de todas formas. Lo hace mirando si alguno de los mensajes posteriores al último que mandó tiene ya exactamente los mismos botones. Si es así, no lo repite.
+- **Último mensaje:** el número del último mensaje que mandó el bot se guarda en el estado (`ultimo_msg_id`).
+
 ## Avisos que caducan
 
 Cuando una oferta de la que ya se avisó deja de estar disponible, el mensaje del grupo cambia a **❌ YA NO ESTÁ DISPONIBLE**. Funciona con las ofertas de Chollometro y con las de las fuentes extra, durante 3 días. Los botones se mantienen. Los mensajes que ya hayas reenviado a otro grupo no cambian.

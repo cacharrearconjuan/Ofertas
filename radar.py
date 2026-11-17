@@ -1344,6 +1344,21 @@ def en_silencio(cfg) -> bool:
 
 
 ULTIMO_ENVIO: dict = {}     # message_id del último aviso enviado (para marcarlo luego como agotado)
+# Mayor message_id que ha mandado el bot al grupo. Sirve para comprobar, si Telegram tarda en contestar,
+# si el mensaje llegó de todas formas (y no mandarlo dos veces). Se guarda en el estado como «ultimo_msg_id».
+ULTIMO_ID: dict = {"m": 0}
+TG_ESPERA = 60              # segundos esperando la respuesta de Telegram
+TG_ESPERA_SUBIDA = 90       # al subir una imagen
+
+
+def _es_del_grupo(datos: dict) -> bool:
+    return str(datos.get("chat_id")) == str(os.environ.get("TELEGRAM_CHAT_ID"))
+
+
+def _anotar_id(datos: dict, respuesta: dict):
+    res = respuesta.get("result") if isinstance(respuesta, dict) else None
+    if isinstance(res, dict) and isinstance(res.get("message_id"), int) and _es_del_grupo(datos):
+        ULTIMO_ID["m"] = max(ULTIMO_ID["m"], res["message_id"])
 
 
 def _apuntar_envio(respuesta: dict, foto: bool):
@@ -1353,99 +1368,159 @@ def _apuntar_envio(respuesta: dict, foto: bool):
         ULTIMO_ENVIO.update({"message_id": res["message_id"], "foto": foto})
 
 
-def telegram_api(metodo: str, datos: dict) -> tuple[bool, str, dict]:
-    """Igual que _telegram_llamar, pero devuelve también la respuesta de Telegram."""
-    token = os.environ.get("TELEGRAM_TOKEN")
+def _tg_url(metodo: str) -> str:
     base = os.environ.get("TELEGRAM_API", "https://api.telegram.org")
-    url = f"{base}/bot{token}/{metodo}"
+    return f"{base}/bot{os.environ.get('TELEGRAM_TOKEN')}/{metodo}"
+
+
+def _tg_simple(metodo: str, datos: dict) -> tuple[bool, str]:
+    """Una sola llamada, sin reintentos. Devuelve (ok, descripción del error)."""
+    req = urllib.request.Request(_tg_url(metodo), data=json.dumps(datos).encode(),
+                                 headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=20) as r:
+            resp = json.load(r)
+            return bool(resp.get("ok")), resp.get("description", "")
+    except urllib.error.HTTPError as ex:
+        try:
+            return False, json.loads(ex.read().decode("utf-8", "replace")).get("description", str(ex.code))
+        except ValueError:
+            return False, str(ex.code)
+    except Exception as ex:  # noqa: BLE001
+        return False, f"sin respuesta ({ex})"
+
+
+def _ya_llego(datos: dict, foto: bool) -> bool:
+    """Telegram no contestó a tiempo: ¿llegó el mensaje igualmente? Se mira en los mensajes del grupo
+    posteriores al último que mandó el bot, «poniéndoles» los mismos botones del aviso: Telegram responde
+    «message is not modified» solo si ese mensaje ya es justo este aviso. Los que no son del bot
+    («can't be edited») no se tocan. Sin botones o sin saber el último mensaje no se puede mirar."""
+    markup = datos.get("reply_markup")
+    if not markup or not ULTIMO_ID["m"] or not _es_del_grupo(datos):
+        return False
+    time.sleep(3)
+    vacios = 0
+    for mid in range(ULTIMO_ID["m"] + 1, ULTIMO_ID["m"] + 31):
+        ok, desc = _tg_simple("editMessageReplyMarkup",
+                              {"chat_id": datos["chat_id"], "message_id": mid, "reply_markup": markup})
+        desc = desc.lower()
+        if "not modified" in desc:
+            ULTIMO_ENVIO.clear()
+            ULTIMO_ENVIO.update({"message_id": mid, "foto": foto})
+            ULTIMO_ID["m"] = max(ULTIMO_ID["m"], mid)
+            log("  Telegram tardó en contestar, pero el aviso sí llegó: no se manda otra vez")
+            return True
+        if ok:        # era otro mensaje del bot que no teníamos apuntado: no seguir tocando nada
+            log(f"  Comprobación de envío: el mensaje {mid} era otro del bot; dejo de mirar")
+            return False
+        if "not found" in desc:
+            vacios += 1
+            if vacios >= 3:     # ya no hay más mensajes: no llegó
+                return False
+        elif "sin respuesta" in desc:
+            return False
+        else:
+            vacios = 0          # mensaje de otra persona: seguir mirando
+    return False
+
+
+def _manda(metodo: str, datos: dict, cuerpo: bytes, cabeceras: dict, espera: int,
+           foto: bool) -> tuple[bool, str, dict]:
+    """Manda a Telegram con reintentos. Si la conexión falla ANTES de enviar, se reintenta sin más.
+    Si se envió pero no llegó la respuesta (tiempo agotado, conexión cortada), primero se comprueba
+    si el mensaje llegó, para no repetirlo."""
+    es_envio = metodo in ("sendMessage", "sendPhoto")
     err = "sin respuesta"
     for _ in range(3):
-        req = urllib.request.Request(url, data=json.dumps(datos).encode(),
-                                     headers={"Content-Type": "application/json"})
+        req = urllib.request.Request(_tg_url(metodo), data=cuerpo, headers=cabeceras)
         try:
-            with urllib.request.urlopen(req, timeout=25) as r:
+            with urllib.request.urlopen(req, timeout=espera) as r:
                 resp = json.load(r)
+                _anotar_id(datos, resp)
                 return bool(resp.get("ok")), "", resp
         except urllib.error.HTTPError as ex:
-            cuerpo = ex.read().decode("utf-8", "replace")
-            if ex.code == 429:
+            texto = ex.read().decode("utf-8", "replace")
+            if ex.code == 429:          # demasiados mensajes: Telegram dice cuánto esperar
                 try:
-                    espera = json.loads(cuerpo)["parameters"]["retry_after"]
-                except (KeyError, ValueError):
-                    espera = 10
-                time.sleep(espera + 1)
+                    pausa = json.loads(texto)["parameters"]["retry_after"]
+                except (KeyError, ValueError, TypeError):
+                    pausa = 10
+                time.sleep(pausa + 1)
                 continue
-            return False, f"{ex.code}: {cuerpo[:300]}", {}
-        except (urllib.error.URLError, TimeoutError) as ex:
+            return False, f"{ex.code}: {texto[:300]}", {}
+        except urllib.error.URLError as ex:     # no se llegó a enviar (DNS, conexión rechazada...)
             err = str(ex)
-            time.sleep(5)
+        except Exception as ex:  # noqa: BLE001  # se envió, pero sin respuesta: puede que haya llegado
+            err = f"sin respuesta de Telegram ({ex.__class__.__name__}: {ex})"
+            if es_envio and _ya_llego(datos, foto):
+                return True, "", {"ok": True, "result": {"message_id": ULTIMO_ENVIO["message_id"]}}
+        time.sleep(5)
     return False, err, {}
 
 
+def telegram_api(metodo: str, datos: dict) -> tuple[bool, str, dict]:
+    """Igual que _telegram_llamar, pero devuelve también la respuesta de Telegram."""
+    return _manda(metodo, datos, json.dumps(datos).encode(), {"Content-Type": "application/json"},
+                  TG_ESPERA, metodo == "sendPhoto")
+
+
 def _telegram_llamar(metodo: str, datos: dict) -> tuple[bool, str]:
-    token = os.environ.get("TELEGRAM_TOKEN")
-    base = os.environ.get("TELEGRAM_API", "https://api.telegram.org")
-    url = f"{base}/bot{token}/{metodo}"
-    for _ in range(3):
-        req = urllib.request.Request(url, data=json.dumps(datos).encode(),
-                                     headers={"Content-Type": "application/json"})
-        try:
-            with urllib.request.urlopen(req, timeout=25) as r:
-                resp = json.load(r)
-                if metodo in ("sendMessage", "sendPhoto"):
-                    _apuntar_envio(resp, metodo == "sendPhoto")
-                return bool(resp.get("ok")), ""
-        except urllib.error.HTTPError as ex:
-            cuerpo = ex.read().decode("utf-8", "replace")
-            if ex.code == 429:
-                try:
-                    espera = json.loads(cuerpo)["parameters"]["retry_after"]
-                except (KeyError, ValueError):
-                    espera = 10
-                time.sleep(espera + 1)
-                continue
-            return False, f"{ex.code}: {cuerpo[:300]}"
-        except (urllib.error.URLError, TimeoutError) as ex:
-            err = str(ex)
-            time.sleep(5)
-    return False, locals().get("err", "sin respuesta")
+    ok, err, resp = telegram_api(metodo, datos)
+    if ok and metodo in ("sendMessage", "sendPhoto"):
+        _apuntar_envio(resp, metodo == "sendPhoto")
+    return ok, err
+
+
+def _tipo_imagen(b: bytes) -> str | None:
+    if b[:8] == b"\x89PNG\r\n\x1a\n":
+        return "png"
+    if b[:3] == b"\xff\xd8\xff":
+        return "jpeg"
+    if b[:4] == b"RIFF" and b[8:12] == b"WEBP":
+        return "webp"
+    if b[:6] in (b"GIF87a", b"GIF89a"):
+        return "gif"
+    return None
+
+
+def _bajar_foto(url: str) -> bytes | None:
+    """Descarga la foto del artículo para subirla nosotros: si se le pasa el enlace a Telegram, es Telegram
+    quien la descarga, y si la web de la tienda va lenta se agota el tiempo (y antes eso repetía avisos)."""
+    try:
+        b = descargar(url, intentos=0)
+    except Exception:  # noqa: BLE001
+        return None
+    tipo = _tipo_imagen(b or b"")
+    if not tipo or len(b) > 9_000_000:
+        return None
+    if tipo in ("png", "jpeg"):
+        return b
+    try:                                # WebP/GIF: a JPEG, que es lo que mejor traga sendPhoto
+        from io import BytesIO
+        from PIL import Image
+        im = Image.open(BytesIO(b)).convert("RGB")
+        salida = BytesIO()
+        im.save(salida, "JPEG", quality=90)
+        return salida.getvalue()
+    except Exception:  # noqa: BLE001
+        return None
 
 
 def _telegram_subir_foto(datos: dict, imagen: bytes) -> tuple[bool, str]:
-    token = os.environ.get("TELEGRAM_TOKEN")
-    base = os.environ.get("TELEGRAM_API", "https://api.telegram.org")
     limite = "----radar" + str(int(time.time() * 1000))
+    ext = "jpg" if _tipo_imagen(imagen) == "jpeg" else "png"
     partes = []
     for k, v in datos.items():
         v = json.dumps(v) if isinstance(v, (dict, list, bool)) else str(v)
         partes.append(f'--{limite}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'.encode())
-    partes.append(f'--{limite}\r\nContent-Disposition: form-data; name="photo"; filename="oferta.png"\r\n'
-                  f"Content-Type: image/png\r\n\r\n".encode() + imagen + b"\r\n")
+    partes.append(f'--{limite}\r\nContent-Disposition: form-data; name="photo"; filename="oferta.{ext}"\r\n'
+                  f"Content-Type: image/{'jpeg' if ext == 'jpg' else 'png'}\r\n\r\n".encode() + imagen + b"\r\n")
     partes.append(f"--{limite}--\r\n".encode())
-    cuerpo_envio = b"".join(partes)
-    err = "sin respuesta"
-    for _ in range(3):
-        req = urllib.request.Request(f"{base}/bot{token}/sendPhoto", data=cuerpo_envio,
-                                     headers={"Content-Type": f"multipart/form-data; boundary={limite}"})
-        try:
-            with urllib.request.urlopen(req, timeout=40) as r:
-                resp = json.load(r)
-                _apuntar_envio(resp, True)
-                return bool(resp.get("ok")), ""
-        except urllib.error.HTTPError as ex:
-            cuerpo = ex.read().decode("utf-8", "replace")
-            if ex.code == 429:          # demasiados mensajes: Telegram dice cuánto esperar
-                try:
-                    espera = json.loads(cuerpo)["parameters"]["retry_after"]
-                except (KeyError, ValueError):
-                    espera = 10
-                time.sleep(espera + 1)
-                continue
-            return False, f"{ex.code}: {cuerpo[:200]}"
-        except (urllib.error.URLError, TimeoutError) as ex:
-            err = str(ex)
-            time.sleep(5)
-    return False, err
+    ok, err, resp = _manda("sendPhoto", datos, b"".join(partes),
+                           {"Content-Type": f"multipart/form-data; boundary={limite}"}, TG_ESPERA_SUBIDA, True)
+    if ok:
+        _apuntar_envio(resp, True)
+    return ok, err
 
 
 def telegram(texto: str, silencioso: bool = False, foto: str | bytes | list | None = None,
@@ -1468,7 +1543,12 @@ def telegram(texto: str, silencioso: bool = False, foto: str | bytes | list | No
         if isinstance(f, bytes):
             ok, err = _telegram_subir_foto({**base, "caption": texto}, f)
         elif f.startswith("http"):
-            ok, err = _telegram_llamar("sendPhoto", {**base, "photo": f, "caption": texto})
+            bajada = _bajar_foto(f)
+            ok, err = _telegram_subir_foto({**base, "caption": texto}, bajada) if bajada else (False, "")
+            if not ok:
+                if bajada:
+                    log(f"  No se pudo subir la foto ({err[:120]}); pruebo con el enlace")
+                ok, err = _telegram_llamar("sendPhoto", {**base, "photo": f, "caption": texto})
         else:
             continue
         if ok:
@@ -1572,6 +1652,8 @@ def cargar_json(ruta: Path, defecto):
 
 
 def guardar_json(ruta: Path, datos):
+    if ruta == RUTA_ESTADO and isinstance(datos, dict) and ULTIMO_ID["m"]:
+        datos["ultimo_msg_id"] = max(datos.get("ultimo_msg_id") or 0, ULTIMO_ID["m"])
     ruta.parent.mkdir(parents=True, exist_ok=True)
     tmp = ruta.with_suffix(".tmp")
     tmp.write_text(json.dumps(datos, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
@@ -2223,6 +2305,8 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
 
     primera = not RUTA_ESTADO.exists()
     estado = cargar_json(RUTA_ESTADO, {})
+    ULTIMO_ID["m"] = max([estado.get("ultimo_msg_id") or 0] +
+                         [m.get("m") or 0 for m in (estado.get("mensajes") or {}).values()])
     seguimiento: dict = estado.setdefault("seguimiento", {})
     avisados: dict = estado.setdefault("avisados", {})
     salud: dict = estado.setdefault("salud", {"rondas_sin_grados": 0, "aviso_salud": 0})
