@@ -1992,38 +1992,9 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Oculto: prueba de fuentes nuevas (¿se pueden leer desde GitHub?)."""
-    urls = ["https://t.me/s/erroresde_precio", "https://t.me/s/precioconerrores", "https://t.me/s/errores_de_precio",
-            "https://t.me/s/GangasOfertasChollos", "https://gangasofertas.com/", "https://gangasofertas.com/feed/",
-            "https://rampricehistory.com/ssd/es", "https://rampricehistory.com/ssd/es/2tb-nvme",
-            "https://storagediskprices.com/es", "https://diskprices.com/?locale=es",
-            "https://www.michollo.com/", "https://www.michollo.com/feed/", "https://www.compradiccion.com/index.xml",
-            "https://www.xataka.com/tag/cazando-gangas/feed", "https://www.chollometro.com/search?q=error+de+precio"]
-    for u in urls:
-        try:
-            req = urllib.request.Request(u, headers={"User-Agent": UA, "Accept-Language": "es-ES,es;q=0.9"})
-            with urllib.request.urlopen(req, timeout=25) as r:
-                b = r.read(3_000_000).decode("utf-8", "replace")
-                ct = r.headers.get("Content-Type", "")
-            tit = re.search(r"<title[^>]*>(.*?)</title>", b, re.S)
-            log(f"FUENTE {u} → {r.status} · {len(b)//1024} KB · {ct[:30]} · rss={'<rss' in b or '<feed' in b} · "
-                f"amazon={b.count('amazon.es')} · tg_msgs={b.count('tgme_widget_message_text')} · "
-                f"json_ld={b.count('application/ld+json')} · next={'__NEXT_DATA__' in b} · "
-                f"título={(tit.group(1).strip()[:70] if tit else '')!r}")
-            if "tgme_widget_message_text" in b:
-                for m in list(re.finditer(r'tgme_widget_message_text[^>]*>(.*?)</div>', b, re.S))[-3:]:
-                    log("   MSG " + re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(1)))[:230])
-                for m in list(re.finditer(r'<time datetime="([^"]+)"', b))[-2:]:
-                    log("   HORA " + m.group(1))
-            elif "rampricehistory" in u or "diskprices" in u:
-                txt = re.sub(r"\s+", " ", re.sub(r"<script.*?</script>|<style.*?</style>|<[^>]+>", " ", b, flags=re.S))
-                log("   TXT " + txt[:700])
-        except Exception as ex:  # noqa: BLE001
-            log(f"FUENTE {u} → ERROR {ex}")
-        time.sleep(1)
-    hilos = hilos_en_html(descargar("https://www.chollometro.com/search?q=error+de+precio").decode("utf-8", "replace"))
-    for hid, h in list(hilos.items())[:15]:
-        log(f"   ERR {hid} {h.get('grados')}° · {h.get('tienda')} · {h.get('titulo','')[:70]}")
+    """Oculto: manda solo el aviso de ejemplo (para revisar cómo se ve)."""
+    cats_txt, _, _ = leer_palabras()
+    ejemplo_amazon(cfg, compilar_categorias(cats_txt) + [dict(CATEGORIA_JUEGOS_GRATIS)])
 
 
 def main() -> int:
