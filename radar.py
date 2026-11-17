@@ -2192,9 +2192,10 @@ def ronda(cfg, cats, excluir_global, diagnostico=False) -> int:
 
     def umbral_de(s: dict) -> float:
         """Mínimo de grados de la oferta. Vía rápida: los errores de precio de tus categorías (no los gratis)
-        avisan antes, porque suelen durar minutos."""
+        avisan antes, porque suelen durar minutos. Las categorías con un mínimo propio más alto que el
+        general (p. ej. portátiles a 500°) no tienen vía rápida: esperan a su mínimo aunque sea un error."""
         u = umbral(s, cats_por_id, minimo)
-        if cfg_err.get("via_rapida") and error_en_titulo(s) and \
+        if u <= minimo and cfg_err.get("via_rapida") and error_en_titulo(s) and \
                 any(c != "juegos_gratis" for c in s.get("categorias", [])):
             u = min(u, float(cfg_err.get("grados_minimos", 100)))
         return u

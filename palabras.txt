@@ -101,8 +101,9 @@ re:(ssd|nvme|pcie|sata|\d+\s?(tb|gb)).*(?<![a-z0-9/])m2(?![a-z0-9])
 # Los SSD portátiles/externos entran aunque digan "portátil"
 +ssd portatil, +disco duro portatil, +disco portatil, +ssd externo, +disco externo
 # Que no salten los portátiles y ordenadores que traen SSD
-# (se reconocen porque el título empieza por "Portátil", "Ordenador"... o porque lleva la RAM)
--re:^(portatil|ordenador|laptop|mini ?pc|pc gaming|sobremesa|torre)
+# (se reconocen porque el título empieza por "Portátil", "Ordenador"..., aunque antes ponga
+# "¡ERROR DE PRECIO!", o porque lleva la RAM)
+-re:^(?:[^a-z0-9]*(?:errore?s? (?:de |en el )?precio|posible error|fallo de precio|precio erroneo)[^a-z0-9]*)?(portatil|ordenador|laptop|mini ?pc|pc gaming|sobremesa|torre)
 -re:\d+\s*gb\s*(de\s*)?(ram|ddr\d)
 # Portátiles, tablets... solo si son el producto (van antes de «para» / «compatible»):
 # «Tablet de 128GB» fuera, «Disco duro externo para PC, Mac, iPad» dentro

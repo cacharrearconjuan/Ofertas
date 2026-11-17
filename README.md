@@ -80,7 +80,7 @@ Al minuto estará en **https://cacharrearconjuan.github.io/Ofertas/**. En el mó
 
 ## Añadir o quitar palabras
 
-> **Mínimo de grados por categoría:** `💻 Portátiles` tiene `grados: 500`, así que solo avisa de portátiles con 500° o más. Los PC de sobremesa y mini PC van aparte, en `🖥️ PC de sobremesa y mini PC`, con el mínimo general (200°). Si una oferta entra en dos categorías y una tiene un mínimo más alto que el general, manda ese (un «portátil + auriculares de regalo» también espera a 500°).
+> **Mínimo de grados por categoría:** `💻 Portátiles` tiene `grados: 500`, así que solo avisa de portátiles con 500° o más. Los PC de sobremesa y mini PC van aparte, en `🖥️ PC de sobremesa y mini PC`, con el mínimo general (200°). Si una oferta entra en dos categorías y una tiene un mínimo más alto que el general, manda ese (un «portátil + auriculares de regalo» también espera a 500°). Y los portátiles esperan a 500° **aunque sean un error de precio**: la vía rápida no les afecta.
 
 Abre **`palabras.txt`** en GitHub → **lápiz** → cambia → **Commit changes**. Se aplica en la siguiente ronda.
 
@@ -230,7 +230,7 @@ Se ajusta en `config.json` → `radar_eurtb`: `bajada_minima`, `dias_minimos`, `
 ## ⚠️ Errores de precio
 
 - **La marca.** Un aviso lleva **⚠️ ¿ERROR DE PRECIO?** si el título lo dice («error de precio», «posible error»…) o si el precio es la mitad, o menos, del mejor chollo anterior del producto (según PrecioReal).
-- **Vía rápida.** Los errores de precio de tus categorías avisan desde **100°** en vez de 200°, porque suelen durar minutos. Los gratis no entran en la vía rápida.
+- **Vía rápida.** Los errores de precio de tus categorías avisan desde **100°** en vez de 200°, porque suelen durar minutos. Los gratis no entran en la vía rápida, ni las categorías con un mínimo propio más alto que el general (los portátiles esperan a sus 500°).
   - Para quitarla: `config.json` → `errores_de_precio` → `via_rapida: false`.
   - Para cambiar el mínimo: `grados_minimos`.
 - **Búsqueda propia.** El radar busca también «error de precio» en Chollometro.
