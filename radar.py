@@ -839,12 +839,33 @@ def capacidad_tb(titulo: str) -> float | None:
     return caps.pop() if len(caps) == 1 else None
 
 
+# El €/TB solo tiene sentido en discos sueltos: si el disco va dentro de un portátil, un ordenador o una
+# consola, no se calcula. Consola = su nombre sale ANTES que «para»/«compatible», que la capacidad y que
+# cualquier palabra o marca de disco («ROG Ally 512GB SSD» sí; «microSD 1TB para Steam Deck», «NVMe para PS5»
+# o «FireCuda 530 2TB PS5» no).
+RE_CONSOLA_CON_DISCO = re.compile(
+    r"^(?:(?!para |compatible|for |ssd|nvme|hdd|disco|m\.?2|micro ?sd|sdxc|sdhc|tarjeta|game drive|expansion|"
+    r"\d+\s?[tg]b\b|seagate|firecuda|western digital|wd_black|wd black|crucial|kingston|lexar|sandisk|corsair|"
+    r"solidigm|pny|hikvision|fikwot|sabrent|fanxiang|ediloca|kingspec|netac|orico|lacie|toshiba|hynix|samsung|"
+    r"teamgroup|team group|adata|xpg|patriot|transcend|silicon power|nextorage|aorus|spatium).)*"
+    r"(?<![a-z0-9])(consola|steam deck|rog ally|legion go|msi claw|ayaneo|ps5|ps4|playstation|xbox)(?![a-z0-9])")
+RE_DISCO_DE_CONSOLA = re.compile(r"game drive|expansion card|tarjeta de expansion|tarjeta de almacenamiento|"
+                                 r"micro ?sd|sdxc|sdhc")
+
+
+def es_ordenador(o: dict) -> bool:
+    return any(c.startswith("portatil") or "sobremesa" in c or "mini_pc" in c for c in o.get("categorias", []))
+
+
 def es_de_discos(o: dict) -> bool:
-    return any("ssd" in c or "disco" in c for c in o.get("categorias", []))
+    if not any("ssd" in c or "disco" in c for c in o.get("categorias", [])) or es_ordenador(o):
+        return False
+    t = normalizar(o.get("titulo"))
+    return not (RE_CONSOLA_CON_DISCO.search(t) and not RE_DISCO_DE_CONSOLA.search(t))
 
 
 def euros_por_tb(o: dict) -> float | None:
-    if o.get("eur_tb"):
+    if o.get("eur_tb") and not es_ordenador(o):
         return o["eur_tb"]
     if not es_de_discos(o) or not o.get("precio"):
         return None

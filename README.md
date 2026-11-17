@@ -223,7 +223,9 @@ Una vez por hora el radar lee storagediskprices.com/es: todos los discos duros, 
 - **Arranque:** necesita **3 días** de historial antes de avisar. Así no confunde una subida pasajera con una bajada.
 - **Sin repetidos:** no repite el mismo disco si ya se avisó hace poco, venga de donde venga.
 
-Todos los avisos de discos llevan ahora el **precio por TB** (💾 49,50 €/TB), también los de Chollometro.
+Todos los avisos de discos llevan ahora el **precio por TB** (💾 49,50 €/TB), también los de Chollometro. Solo sale en **discos sueltos**: si el disco va dentro de un portátil, un ordenador o una consola («ROG Ally 512GB SSD», «PS5 Slim 1TB»), no se calcula. Los discos *para* consola («NVMe para PS5», «Game Drive para Xbox», las tarjetas de expansión de Xbox) sí lo llevan.
+
+Las categorías de portátiles y de PC de sobremesa no admiten títulos con palabras de disco suelto (disco duro, externo, interno, SATA, PCIe, 2280, «7400 MB/s»…). Así un «WD Elements Disco Duro Externo **Portátil**» es solo un disco y avisa a 200°, no a los 500° de los portátiles.
 
 Se ajusta en `config.json` → `radar_eurtb`: `bajada_minima`, `dias_minimos`, `precio_minimo`, `max_avisos_por_ronda` y `activo: false` para apagarlo.
 

@@ -84,9 +84,12 @@ necesita: controller, gamepad, 8bitdo, gamesir, scuf, elite, steam, android, iph
 [💾 SSD, M.2 y discos]
 # Todos los SSD: M.2 NVMe, M.2 SATA, 2,5", externos, portátiles, mSATA
 ssd, ssds, nvme, m.2, msata, estado solido, unidad de estado solido
-disco duro, discos duros, hdd, disco externo, ssd externo
+disco duro, discos duros, hdd, disco externo, ssd externo, duro externo
 microsd, micro sd, microsdxc, microsdhc, micro sdxc, micro sdhc, microsd express, sdxc, sdhc
 tarjeta sd, tarjeta de memoria, pendrive, memoria usb, game drive
+# Tarjetas de expansión de almacenamiento de Xbox (Seagate, WD_BLACK C50)
+re:(tarjeta de expansion|expansion card|tarjeta de almacenamiento).{0,60}(xbox|\d+\s?tb)
+re:xbox.{0,60}(tarjeta de expansion|expansion card|tarjeta de almacenamiento)
 samsung t7, samsung t9, sandisk extreme, crucial x9, crucial x10, wd black
 # Modelos que muchas veces no dicen "SSD" ni "disco" en el título
 990 pro, 990 evo, 980 pro, 980 evo, 970 evo, 870 evo, 870 qvo, 9100 pro, samsung pro plus, samsung evo plus, samsung evo select
@@ -154,6 +157,11 @@ necesita: re:\d{1,2}([.,]\d)?\s*("|”|pulg)
 -altavoz portatil, -bateria portatil, -power bank, -aire acondicionado
 -nevera portatil, -proyector portatil, -impresora portatil, -ventilador portatil
 -consola portatil, -monitor portatil, -radio portatil, -barbacoa, -consola, -consolas, -monitor, -monitores
+# Que no se cuelen los discos sueltos («Disco duro externo portátil», «SSD para portátil y sobremesa»,
+# «SSD 2,5 pulgadas SATA», «7400 MB/s»...): ningún ordenador lleva estas palabras en el título
+-disco duro, -disco externo, -disco interno, -disco ssd, -disco solido, -estado solido, -estado solida, -solid state
+-externo, -externa, -interno, -interna, -sata, -pcie, -2280, -2230, -2242, -game drive, -desk drive, -accesorios
+-re:\d\s?mb ?/ ?s
 
 [🖥️ PC de sobremesa y mini PC]
 ordenador, ordenadores, sobremesa, mini pc, minipc, pc gaming, torre gaming, all in one, mac mini, imac
@@ -167,6 +175,11 @@ necesita: re:\bm[1-5]( pro| max| ultra)?\b
 # Accesorios
 -para ordenador, -para pc, -mochila, -funda, -soporte, -alfombrilla, -cargador, -pegatina, -mesa para
 -silla, -escritorio, -consola, -consolas, -monitor, -monitores, -teclado, -raton
+# Que no se cuelen los discos sueltos («Disco duro externo portátil», «SSD para portátil y sobremesa»,
+# «SSD 2,5 pulgadas SATA», «7400 MB/s»...): ningún ordenador lleva estas palabras en el título
+-disco duro, -disco externo, -disco interno, -disco ssd, -disco solido, -estado solido, -estado solida, -solid state
+-externo, -externa, -interno, -interna, -sata, -pcie, -2280, -2230, -2242, -game drive, -desk drive, -accesorios
+-re:\d\s?mb ?/ ?s
 
 
 [📺 Fire TV]
