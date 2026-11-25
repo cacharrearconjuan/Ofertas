@@ -2635,30 +2635,25 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 
 def explorar(cfg):
-    """Oculto y temporal: mira qué trae la página de un chollo (descripción, comentarios). No manda nada."""
-    url = "https://www.chollometro.com/ofertas/sandisk-gameplay-microsd-1-tb-hasta-190-mbs-a2-v30-u3-2089520"
-    hid = "2089520"
-    t = descargar(url).decode("utf-8", "replace")
-    for d in _objetos_sueltos(t):
-        for x in _recorrer(d):
-            if str(x.get("threadId")) == hid and "temperature" in x:
-                log(f"DUMPY hilo claves={sorted(x.keys())}")
-                for k, v in x.items():
-                    if isinstance(v, str) and len(v) > 80:
-                        log(f"DUMPY texto largo {k}: {v[:500]!r}")
-    for pat in ("comments", "/comment", "Comment", "api/", "ajax", "endpoint", "description"):
-        pos = [m.start() for m in re.finditer(re.escape(pat), t)][:4]
-        for q in pos:
-            log(f"DUMPY '{pat}' @{q}: {t[max(0, q - 120): q + 200]!r}")
-    for u in ["https://www.chollometro.com/comments/thread/2089520?page=1",
-              "https://www.chollometro.com/ofertas/2089520/comments"]:
-        try:
-            r = descargar(u, intentos=0)
-            log(f"DUMPY GET {u}: {len(r)} bytes: {r[:300]!r}")
-        except Exception as ex:  # noqa: BLE001
-            log(f"DUMPY GET {u}: {ex}")
-    m = re.search(r'id="thread[^"]*description[^"]*"|class="[^"]*(?:thread--content|threadBody)[^"]*"', t)
-    log(f"DUMPY bloque descripción: {t[m.start(): m.start() + 900]!r}" if m else "DUMPY sin bloque descripción")
+    """Oculto y temporal: prueba a leer los comentarios de un chollo. No manda nada."""
+    consulta = ("query comments($filter: CommentFilter!, $limit: Int, $page: Int) { comments(filter: $filter, "
+                "limit: $limit, page: $page) { items { commentId preparedHtmlContent createdAt "
+                "reactionCounts { type count } } pagination { current last count } } }")
+    for hid in ("2089520", "2089359"):
+        for filtro in ({"threadId": {"eq": hid}, "order": None}, {"threadId": {"eq": int(hid)}}):
+            cuerpo = json.dumps({"query": consulta, "variables": {"filter": filtro, "page": 1, "limit": 10}}).encode()
+            req = urllib.request.Request(f"{WEB}/graphql", data=cuerpo, headers={
+                "User-Agent": UA, "Content-Type": "application/json", "Accept": "application/json",
+                "X-Requested-With": "XMLHttpRequest", "x-pepper-txn": "threads.show.deal",
+                "x-request-type": "application/vnd.pepper.v1+json", "Referer": f"{WEB}/ofertas/x-{hid}"})
+            try:
+                with urllib.request.urlopen(req, timeout=20) as r:
+                    t = r.read().decode("utf-8", "replace")
+                log(f"DUMPZ {hid} {filtro}: {len(t)} bytes: {t[:900]!r}")
+            except urllib.error.HTTPError as ex:
+                log(f"DUMPZ {hid} {filtro}: HTTP {ex.code}: {ex.read()[:400]!r}")
+            except Exception as ex:  # noqa: BLE001
+                log(f"DUMPZ {hid} {filtro}: {ex}")
 
 
 def main() -> int:
