@@ -2636,35 +2636,29 @@ def revisar_palabras(cats_txt, globales, problemas):
 
 def explorar(cfg):
     """Oculto y temporal: mira qué trae la página de un chollo (descripción, comentarios). No manda nada."""
-    for url in ["https://www.chollometro.com/ofertas/sandisk-gameplay-microsd-1-tb-hasta-190-mbs-a2-v30-u3-2089520",
-                "https://www.chollometro.com/ofertas/apple-airpods-pro-3-por-18481-eur-con-envio-a-espana-en-amazon-alemania-antes-24900-eur-28-2089359"]:
-        hid = url.rsplit("-", 1)[1]
-        t = descargar(url).decode("utf-8", "replace")
-        log(f"DUMPX {hid}: {len(t)} caracteres")
-        nombres = re.findall(r'data-vue3=["\']\{&quot;name&quot;:&quot;([A-Za-z0-9]+)', t)
-        log(f"DUMPX componentes vue: {sorted(set(nombres))}")
-        for m in RE_VUE.finditer(t):
-            try:
-                j = json.loads(html.unescape(m.group(2)))
-            except ValueError:
-                continue
-            nombre = j.get("name") if isinstance(j, dict) else None
-            props = (j.get("props") or {}) if isinstance(j, dict) else {}
-            log(f"DUMPX vue {nombre}: props={list(props)[:25]}")
-            for d in _recorrer(j):
-                if str(d.get("threadId")) == hid and "temperature" in d:
-                    log(f"DUMPX hilo claves={sorted(d.keys())}")
-                    for k in ("commentCount", "description", "htmlContent", "content", "descriptionPreview"):
-                        if k in d:
-                            log(f"DUMPX hilo {k} = {str(d[k])[:400]!r}")
-                if isinstance(d.get("comments"), (list, dict)) or "commentId" in d:
-                    log(f"DUMPX comentario/s: {json.dumps(d, ensure_ascii=False)[:600]}")
-        for pat in ("commentCount", "commentId", "graphql", "userHtml", "threadComments", "comment-body", "commentText"):
-            log(f"DUMPX '{pat}': {t.count(pat)} veces; primer contexto: {t[max(0, t.find(pat) - 150): t.find(pat) + 250]!r}"
-                if pat in t else f"DUMPX '{pat}': 0")
-        m = re.search(r'<div[^>]*class="[^"]*userHtml[^"]*"[^>]*>(.*?)</div>', t, re.S)
-        if m:
-            log(f"DUMPX descripción HTML: {re.sub(r'<[^>]+>', ' ', m.group(1))[:600]!r}")
+    url = "https://www.chollometro.com/ofertas/sandisk-gameplay-microsd-1-tb-hasta-190-mbs-a2-v30-u3-2089520"
+    hid = "2089520"
+    t = descargar(url).decode("utf-8", "replace")
+    for d in _objetos_sueltos(t):
+        for x in _recorrer(d):
+            if str(x.get("threadId")) == hid and "temperature" in x:
+                log(f"DUMPY hilo claves={sorted(x.keys())}")
+                for k, v in x.items():
+                    if isinstance(v, str) and len(v) > 80:
+                        log(f"DUMPY texto largo {k}: {v[:500]!r}")
+    for pat in ("comments", "/comment", "Comment", "api/", "ajax", "endpoint", "description"):
+        pos = [m.start() for m in re.finditer(re.escape(pat), t)][:4]
+        for q in pos:
+            log(f"DUMPY '{pat}' @{q}: {t[max(0, q - 120): q + 200]!r}")
+    for u in ["https://www.chollometro.com/comments/thread/2089520?page=1",
+              "https://www.chollometro.com/ofertas/2089520/comments"]:
+        try:
+            r = descargar(u, intentos=0)
+            log(f"DUMPY GET {u}: {len(r)} bytes: {r[:300]!r}")
+        except Exception as ex:  # noqa: BLE001
+            log(f"DUMPY GET {u}: {ex}")
+    m = re.search(r'id="thread[^"]*description[^"]*"|class="[^"]*(?:thread--content|threadBody)[^"]*"', t)
+    log(f"DUMPY bloque descripción: {t[m.start(): m.start() + 900]!r}" if m else "DUMPY sin bloque descripción")
 
 
 def main() -> int:
