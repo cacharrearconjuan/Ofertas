@@ -229,6 +229,8 @@ Las categorías de portátiles y de PC de sobremesa no admiten títulos con pala
 
 Se ajusta en `config.json` → `radar_eurtb`: `bajada_minima`, `dias_minimos`, `precio_minimo`, `max_avisos_por_ronda` y `activo: false` para apagarlo.
 
+**Si la web se queda parada:** el radar cuenta cuántos precios cambian en cada lectura. Si en `dias_sin_cambios_aviso` días (3) no cambia ninguno, avisa una vez por semana en el grupo de que el radar €/TB no puede detectar bajadas. En noviembre de 2026 pasó así: storagediskprices.com/es decía «Actualizado hace 1 hora», pero ninguno de sus discos de Amazon.es cambió de precio en 8 días.
+
 ## ⚠️ Errores de precio
 
 - **La marca.** Un aviso lleva **⚠️ ¿ERROR DE PRECIO?** si el título lo dice («error de precio», «posible error»…) o si el precio es la mitad, o menos, del mejor chollo anterior del producto (según PrecioReal).
@@ -236,6 +238,37 @@ Se ajusta en `config.json` → `radar_eurtb`: `bajada_minima`, `dias_minimos`, `
   - Para quitarla: `config.json` → `errores_de_precio` → `via_rapida: false`.
   - Para cambiar el mínimo: `grados_minimos`.
 - **Búsqueda propia.** El radar busca también «error de precio» en Chollometro.
+
+## 🔎 Mensaje para comprobar (con revisión de IA)
+
+Debajo de cada aviso de Chollometro (o de HardZone y Ofertitas), el bot manda **otro mensaje aparte**, como respuesta al aviso y sin sonido. Lleva:
+
+- **El botón** «🔥 Ver en Chollometro» (o «📰 Ver en HardZone»), los grados, los comentarios y, si lo dice la oferta, desde qué país se envía.
+- **🤖 Revisión con IA**, si hay IA configurada:
+  - 📝 qué es, con sus datos clave;
+  - ✅ las condiciones para tener ese precio (cupón, Prime, recogida…);
+  - ⚠️ las pegas (envío desde otro país, vendedor externo, reacondicionado, versión importada…);
+  - 💡 si el precio es bueno;
+  - 🤔 si el producto no parece de su categoría.
+
+  La IA solo usa los datos de la oferta y la descripción de quien la subió, y puede equivocarse. Es para comprobar antes de compartir.
+
+**Al reenviar el aviso, este mensaje no va**, así que en tu grupo no aparece Chollometro. El aviso sale primero y nunca espera a la IA. Si la IA falla o tarda, el mensaje sale igual, sin la revisión.
+
+**IA que usa** (`config.json` → `ia`, la misma de radar-scene):
+
+1. **Groq**, `openai/gpt-oss-20b`. Tiene su propio cupo, distinto del modelo 120b que usa radar-scene, así que no se quitan cupo entre los dos bots. Si se queda sin cupo, prueba `openai/gpt-oss-120b`.
+2. **OpenRouter**, si existe el secreto `OPENROUTER_API_KEY`.
+3. **La pasarela super-ia**, si existen `SUPER_IA_URL` y `SUPER_IA_KEY`.
+
+**Límites:**
+- Como mucho 4 llamadas y 75 s por ronda.
+- Tras 3 fallos seguidos descansa 30 minutos.
+- Si un servicio tarda o no conecta, en esa ronda no se le vuelve a esperar.
+
+**Para activarla** hace falta el secreto **`GROQ_API_KEY`** en este repositorio: GitHub → Ofertas → *Settings* → *Secrets and variables* → *Actions* → *New repository secret*. Puedes usar la misma clave que en radar-scene. Sin secretos, el mensaje sale con el botón y sin IA.
+
+**Para apagar el mensaje:** `config.json` → `comprobar` → `activo: false`. **Para apagar solo la IA:** `ia` → `activa: false`.
 
 ## Sin avisos repetidos por culpa de Telegram
 

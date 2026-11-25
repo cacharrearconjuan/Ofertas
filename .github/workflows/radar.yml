@@ -72,6 +72,10 @@ jobs:
           TELEGRAM_THREAD_ID: ${{ secrets.TELEGRAM_THREAD_ID }}
           KEEPA_API_KEY: ${{ secrets.KEEPA_API_KEY }}
           KEEPA_RSS: ${{ secrets.KEEPA_RSS }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          SUPER_IA_URL: ${{ secrets.SUPER_IA_URL }}
+          SUPER_IA_KEY: ${{ secrets.SUPER_IA_KEY }}
           MODO: ${{ inputs.modo || 'ronda' }}
         run: |
           case "$MODO" in

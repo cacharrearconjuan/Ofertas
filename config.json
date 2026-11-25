@@ -71,7 +71,8 @@
     "bajada_minima": 15,
     "dias_minimos": 3,
     "precio_minimo": 15,
-    "max_avisos_por_ronda": 3
+    "max_avisos_por_ronda": 3,
+    "dias_sin_cambios_aviso": 3
   },
   "resumen_semanal": {
     "_ayuda": "Resumen de la semana el domingo (dia 6) a las 20:00 (hora de Madrid).",
@@ -94,5 +95,57 @@
   "vigilar": {
     "_ayuda": "Productos de vigilar.txt: cada cuántos minutos se mira su precio (leído de la gráfica de Keepa).",
     "cada_min": 30
+  },
+  "comprobar": {
+    "activo": true,
+    "silencioso": true,
+    "_nota": "Mensaje aparte debajo de cada aviso con el botón de Chollometro (o de la fuente) y la revisión con IA. Al reenviar el aviso, este no va."
+  },
+  "ia": {
+    "activa": true,
+    "max_llamadas_ronda": 4,
+    "segundos_ronda": 75,
+    "_nota": "Necesita el secreto GROQ_API_KEY (u OPENROUTER_API_KEY, o SUPER_IA_URL + SUPER_IA_KEY). Sin ninguno, el mensaje de comprobar sale sin IA.",
+    "proveedores": [
+      {
+        "nombre": "groq",
+        "url": "https://api.groq.com/openai/v1",
+        "key_env": "GROQ_API_KEY",
+        "modelo": "openai/gpt-oss-20b",
+        "timeout": 30,
+        "max_tokens": 1200,
+        "parametros": {
+          "reasoning_effort": "low"
+        }
+      },
+      {
+        "nombre": "groq-120b",
+        "url": "https://api.groq.com/openai/v1",
+        "key_env": "GROQ_API_KEY",
+        "modelo": "openai/gpt-oss-120b",
+        "timeout": 30,
+        "max_tokens": 1200,
+        "parametros": {
+          "reasoning_effort": "low"
+        }
+      },
+      {
+        "nombre": "openrouter",
+        "url": "https://openrouter.ai/api/v1",
+        "key_env": "OPENROUTER_API_KEY",
+        "modelo": "openrouter/free",
+        "timeout": 45,
+        "max_tokens": 2000
+      },
+      {
+        "nombre": "super-ia",
+        "url_env": "SUPER_IA_URL",
+        "key_env": "SUPER_IA_KEY",
+        "pasarela": true,
+        "modelo": "auto",
+        "timeout": 60,
+        "max_tokens": 4000
+      }
+    ]
   }
 }
